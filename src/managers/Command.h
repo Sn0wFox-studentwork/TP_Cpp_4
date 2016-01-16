@@ -10,8 +10,9 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 #define COMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <list>
+#include <vector>
 #include <string>
+#include <iostream>
 
 //------------------------------------------------------------- Constantes 
 
@@ -22,7 +23,7 @@ typedef enum CommandCode
 	UNSAVEABLE, S, R, PC, OR, OI, HIT, DELETE, CLEAR, MOVE
 } CommandCode;
 
-typedef std::list<std::string> StringList;
+typedef std::vector<std::string> StringList;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Command>
@@ -37,69 +38,67 @@ class Command
 public:
 	//----------------------------------------------------- Méthodes publiques
 	Command GetInversedCommand( ) const;
-	// Mode d'emploi : retourne la commande annulant la commande courante.
-	//
-	// Contrat :
-	//
+	// Mode d'emploi :	Retourne la commande annulant la commande courante.
+	//					Retourne une commande de code UNSAVEABLE avec une liste de parametres
+	//					vide de le cas d'une commande non-annulable.
 
-	CommandCode GetCmdCode( ) const
+	inline CommandCode GetCmdCode( ) const
+	// Mode d'emploi :	Retourne le code de la commande courante.
 	{
 		return cmdCode;
 	}
 
-	StringList GetParams( ) const
+	inline StringList GetParams( ) const
+	// Mode d'emploi :	Retourne la liste des parametres de la commande courante.
 	{
 		return params;
 	}
 
 	//------------------------------------------------- Surcharge d'opérateurs
-	Command & operator = ( const Command & unCommand );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	Command & operator = ( const Command & aCommand );
+	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point semblable a aCommand.
+	//					Retourne l'objet modifie par reference.
 
+	friend ostream& operator<<( ostream& s, Command c );
+	// Mode d'emploi :	Insere une representation de l'objet courant sous forme de chaine de caracteres
+	//					dans le flux de sortie s.
+	//					Retourne le fux ainsi modifie par reference.
 
 	//-------------------------------------------- Constructeurs - destructeur
-	Command( const Command & unCommand );
-	// Mode d'emploi (constructeur de copie) :
-	//
-	// Contrat :
-	//
+	Command( const Command & aCommand );
+	// Mode d'emploi (constructeur de copie) :	Construit un objet en tout points similaire a aCommand.
 
 	Command( const CommandCode& cmdCode, const StringList& params );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Mode d'emploi :	Construit une instance de Command.
+	//					La commande cree aura pour code de commande cmdCode et comme liste de parametres params (copies).
+	// Contrat :	La liste de parametres doit etre complete, car elle ne sera pas modifiable par la suite.
+	//				Le code de commande cmdCode doit etre un membre de l'enumeration CommandCode.
 
-	virtual ~Command();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	virtual ~Command( );
+	// Mode d'emploi :	Detruit l'objet courant et libere la memoire associee.
+	//					Appele automatiquement.
 
-	//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE 
 
 protected:
-	//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Méthodes protégées
 
 private:
-	//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- Méthodes privées
 
 protected:
-	//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protégés
 	CommandCode cmdCode;
 	StringList params;
 
 private:
-	//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privés
 
-	//---------------------------------------------------------- Classes amies
+//---------------------------------------------------------- Classes amies
 
-	//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privées
 
-	//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privés
 
 };
 
