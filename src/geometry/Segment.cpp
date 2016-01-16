@@ -1,15 +1,15 @@
 /*************************************************************************
                            Segment  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <Segment> (fichier Segment.cpp) --
+//---------- RÃ©alisation de la classe <Segment> (fichier Segment.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,19 +20,19 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 bool Segment::Contains( Point point )
 // Algorithme :
 //
 {
 	return false;
-}	//----- Fin de Méthode
+}	//----- Fin de MÃ©thode
 
 int Segment::Move( int dx, int dy )
 // Algorithme :
@@ -41,7 +41,7 @@ int Segment::Move( int dx, int dy )
 }	//----- Fin de Move
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 Segment & Segment::operator = ( const Segment & unSegment )
 // Algorithme :	Si on n'est pas en train de faire unSegment = unSegment, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unSegment
@@ -86,6 +86,6 @@ Segment::~Segment ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

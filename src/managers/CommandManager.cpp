@@ -1,15 +1,15 @@
 /*************************************************************************
                            CommandManager  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <CommandManager> (fichier CommandManager.cpp) --
+//---------- RÃ©alisation de la classe <CommandManager> (fichier CommandManager.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,13 +20,13 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 
 void CommandManager::Do ( const Command& cmd )
 // Algorithme :	On vide la pile des commandes annulees si elle n'est pas vide,
@@ -74,7 +74,7 @@ bool CommandManager::Redoable ( ) const
 }	//----- Fin de Redoable
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 CommandManager & CommandManager::operator = ( const CommandManager & aCommandManager )
 // Algorithme :	Si on n'est pas en train de faire aCommandManager = aCommandManager, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aCommandManager.
@@ -120,11 +120,11 @@ CommandManager::~CommandManager ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 void CommandManager::clearRedoStack( )
 // Algorithme :	Vidage de la pile des actions a refaire par reaffectation d'une pile vide.
 {
 	redoStack = CommandStack( );
 }	//----- Fin de clearRedoStack
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

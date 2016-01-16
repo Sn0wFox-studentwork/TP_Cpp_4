@@ -1,15 +1,15 @@
 /*************************************************************************
                            Application  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <Application> (fichier Application.cpp) --
+//---------- RÃ©alisation de la classe <Application> (fichier Application.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 #include <sstream>
@@ -23,13 +23,13 @@ const string OK_STRING = "OK";
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 
 int Application::Run( )
 // Algorithme :
@@ -132,6 +132,15 @@ int Application::Run( )
 			// Appelle methode adequate
 			delete cmd;
 		}
+		else if ( stringCode == "LOAD" )
+		{
+			code = CommandCode::LOAD;
+			takeParams( paramsList, params );
+			cmd = new Command( code, paramsList );
+			commandManager.Do(*cmd);
+			// Appelle methode adequate
+			delete cmd;
+		}
 		else if ( stringCode == "LIST" )
 		{
 			code = CommandCode::UNSAVEABLE;
@@ -179,7 +188,7 @@ int Application::Run( )
 	return 0;
 }	//----- Fin de Run
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 Application & Application::operator = ( const Application & uneApplication )
 // Algorithme :	Si on n'est pas en train de faire uneApplication = uneApplication, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de uneApplication
@@ -223,7 +232,7 @@ Application::~Application ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 void Application::takeParams( StringList & params, std::string & stringParams ) const
 {
 	getline( cin, stringParams );
@@ -248,4 +257,4 @@ void Application::list( ) const
 }
 
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

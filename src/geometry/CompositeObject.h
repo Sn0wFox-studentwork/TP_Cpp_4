@@ -1,7 +1,7 @@
 /*************************************************************************
                            CompositeObject  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( COMPOSITE_OBJECT_H )
 #define COMPOSITE_OBJECT_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 #include <list>
 
 #include "Object.h"
@@ -19,7 +19,7 @@
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <CompositeObject>
+// RÃ´le de la classe <CompositeObject>
 //
 //
 //------------------------------------------------------------------------ 
@@ -29,7 +29,7 @@ class CompositeObject : public Object
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 	virtual bool Contains( Point point ) = 0;
     // Mode d'emploi :
     //
@@ -43,7 +43,7 @@ public:
 	//
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
     CompositeObject & operator = ( const CompositeObject & unCompositeObject );
     // Mode d'emploi :
     //
@@ -73,27 +73,27 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 	std::list<Object*> components;		// Object etant une classe virtuelle,
 										// nous somme obliges de passer par une liste de pointeurs
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <CompositeObject>
+//----------------------------------------- Types dÃ©pendants de <CompositeObject>
 
 #endif // COMPOSITE_OBJECT_H

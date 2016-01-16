@@ -1,15 +1,15 @@
 /*************************************************************************
                            InterObject  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <InterObject> (fichier InterObject.cpp) --
+//---------- RÃ©alisation de la classe <InterObject> (fichier InterObject.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,22 +20,22 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 bool InterObject::Contains(Point point)
 // Algorithme :
 //
 {
 	return false;
-} //----- Fin de Méthode
+} //----- Fin de MÃ©thode
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 InterObject & InterObject::operator = ( const InterObject & unInterObject )
 // Algorithme :	Si on n'est pas en train de faire unInterObject = unInterObject, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unInterObject
@@ -80,6 +80,6 @@ InterObject::~InterObject ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

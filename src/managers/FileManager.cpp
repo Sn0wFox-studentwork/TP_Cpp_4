@@ -1,15 +1,15 @@
 /*************************************************************************
                            FileManager  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <FileManager> (fichier FileManager.cpp) --
+//---------- RÃ©alisation de la classe <FileManager> (fichier FileManager.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,18 +20,18 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
-// type FileManager::Méthode ( liste de paramètres )
+//----------------------------------------------------- MÃ©thodes publiques
+// type FileManager::MÃ©thode ( liste de paramÃ¨tres )
 // Algorithme :
 //
 //{
-//} //----- Fin de Méthode
+//} //----- Fin de MÃ©thode
 
 
 
@@ -45,7 +45,7 @@ int FileManager::Save( string fileName, Figure figure )
 	return 0;
 }
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 FileManager & FileManager::operator = ( const FileManager & unFileManager )
 // Algorithme :	Si on n'est pas en train de faire unFileManager = unFileManager, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unFileManager
@@ -90,6 +90,6 @@ FileManager::~FileManager ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

@@ -1,15 +1,15 @@
 /*************************************************************************
                            Command  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <Command> (fichier Command.cpp) --
+//---------- RÃ©alisation de la classe <Command> (fichier Command.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,13 +20,13 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 Command Command::GetInversedCommand( ) const
 // Algorithme :	switch sut le code de la commande courante cmdCode.
 //				Retourne l'a commande qui aura l'effet oppose de la commande courante.
@@ -45,13 +45,12 @@ Command Command::GetInversedCommand( ) const
 		return Command( CommandCode::DELETE, sl );
 	// Cas du deplacement
 	case MOVE:
-		sl.push_back(params[0]);	// Push du nom de l'objet
+		sl.push_back( params[0] );	// Push du nom de l'objet
 		for ( unsigned int i = 1; i < params.size( ); i++ )
 		{
-			if ( params[i].substr(0, 1) == "-" )
+			if ( params[i].substr( 0, 1 ) == "-" )
 			{
-				string s = params[i].substr( 1, params[i].size( ) -1 );
-				sl.push_back( s );
+				sl.push_back( params[i].substr( 1, params[i].size( ) -1 ) );
 			}
 			else
 			{
@@ -59,6 +58,9 @@ Command Command::GetInversedCommand( ) const
 			}
 		}
 		return Command( CommandCode::MOVE, sl );
+	// Cas du load
+	case LOAD:
+		break;
 	// Cas des commandes dont l'inverse sera geree via la pile des commandes annulees
 	case DELETE:
 	case HIT:
@@ -72,7 +74,7 @@ Command Command::GetInversedCommand( ) const
 }	//----- Fin de GetInversedCommand
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 Command & Command::operator = ( const Command & aCommand )
 // Algorithme :	Si on n'est pas en train de faire aCommand = aCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aCommand
@@ -166,6 +168,6 @@ Command::~Command ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

@@ -1,7 +1,7 @@
 /*************************************************************************
 Command  -  description
 -------------------
-début                : 11/01/2016
+dÃ©but                : 11/01/2016
 copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 #if ! defined ( COMMAND_H )
 #define COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 #include <vector>
 #include <string>
 #include <iostream>
@@ -20,13 +20,13 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 typedef enum CommandCode
 // Cette enumeration liste toutes les commandes inversibles possibles
 {
-	UNSAVEABLE, S, R, PC, OR, OI, HIT, DELETE, CLEAR, MOVE
+	UNSAVEABLE, S, R, PC, OR, OI, HIT, DELETE, CLEAR, LOAD, MOVE
 } CommandCode;
 
 typedef std::vector<std::string> StringList;
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <Command>
+// RÃ´le de la classe <Command>
 //
 //
 //------------------------------------------------------------------------ 
@@ -36,7 +36,7 @@ class Command
 	//----------------------------------------------------------------- PUBLIC
 
 public:
-	//----------------------------------------------------- Méthodes publiques
+	//----------------------------------------------------- MÃ©thodes publiques
 	Command GetInversedCommand( ) const;
 	// Mode d'emploi :	Retourne la commande annulant la commande courante.
 	//					Retourne une commande de code UNSAVEABLE avec une liste de parametres
@@ -54,7 +54,7 @@ public:
 		return params;
 	}
 
-	//------------------------------------------------- Surcharge d'opérateurs
+	//------------------------------------------------- Surcharge d'opÃ©rateurs
 	Command & operator = ( const Command & aCommand );
 	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point semblable a aCommand.
 	//					Retourne l'objet modifie par reference.
@@ -81,27 +81,27 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 	CommandCode cmdCode;
 	StringList params;
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <Command>
+//----------------------------------------- Types dÃ©pendants de <Command>
 
 #endif // COMMAND_H

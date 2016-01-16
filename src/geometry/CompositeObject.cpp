@@ -1,15 +1,15 @@
 /*************************************************************************
                            CompositeObject  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <CompositeObject> (fichier CompositeObject.cpp) --
+//---------- RÃ©alisation de la classe <CompositeObject> (fichier CompositeObject.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,13 +20,13 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 int CompositeObject::Move( int dx, int dy )
 // Algorithme :
 {
@@ -34,7 +34,7 @@ int CompositeObject::Move( int dx, int dy )
 }	//----- Fin de Move
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 CompositeObject & CompositeObject::operator = ( const CompositeObject & unCompositeObject )
 // Algorithme :	Si on n'est pas en train de faire unCompositeObject = unCompositeObject, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unCompositeObject
@@ -79,6 +79,6 @@ CompositeObject::~CompositeObject ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

@@ -1,7 +1,7 @@
 /*************************************************************************
                            CommandManager  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( COMMAND_MANAGER_H )
 #define COMMAND_MANAGER_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 #include <stack>
 
 #include "Command.h"
@@ -20,7 +20,7 @@
 typedef std::stack<Command> CommandStack;
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <CommandManager>
+// RÃ´le de la classe <CommandManager>
 //
 //
 //------------------------------------------------------------------------ 
@@ -30,7 +30,7 @@ class CommandManager
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 	void Do ( const Command& cmd );
 	// Mode d'emploi :	Empile la commande cmd sur undoStack.
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
@@ -51,7 +51,7 @@ public:
 	bool Redoable ( ) const;
 	// Mode d'emploi :	Renvoie false si et seulement si la pile redoStack est vide, true sinon.
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
     CommandManager & operator = ( const CommandManager & aCommandManager );
     // Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point similaire a aCommandManager.
 
@@ -70,29 +70,29 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 	void clearRedoStack();
 	// Mode d'emploi :	Vide la pile des commandes annulees redoStack.
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 	CommandStack undoStack;		// La pile des commandes effectuees et annulables
 	CommandStack redoStack;		// La pile des commandes annulees (et donc refaisables)
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <CommandManager>
+//----------------------------------------- Types dÃ©pendants de <CommandManager>
 
 #endif // COMMAND_MANAGER_H

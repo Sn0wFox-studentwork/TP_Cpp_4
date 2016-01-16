@@ -1,15 +1,15 @@
 /*************************************************************************
                            Point  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <Point> (fichier Point.cpp) --
+//---------- RÃ©alisation de la classe <Point> (fichier Point.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,21 +20,21 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
-// type Point::Méthode ( liste de paramètres )
+//----------------------------------------------------- MÃ©thodes publiques
+// type Point::MÃ©thode ( liste de paramÃ¨tres )
 // Algorithme :
 //
 //{
-//} //----- Fin de Méthode
+//} //----- Fin de MÃ©thode
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 Point & Point::operator = ( const Point & unPoint )
 // Algorithme :	Si on n'est pas en train de faire unPoint = unPoint, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unPoint
@@ -79,6 +79,6 @@ Point::~Point ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

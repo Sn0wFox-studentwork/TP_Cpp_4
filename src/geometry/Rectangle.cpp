@@ -1,15 +1,15 @@
 /*************************************************************************
                            Rectangle  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <Rectangle> (fichier Rectangle.cpp) --
+//---------- RÃ©alisation de la classe <Rectangle> (fichier Rectangle.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,13 +20,13 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 bool Rectangle::Contains( Point point )
 // Algorithme :
 //
@@ -34,7 +34,7 @@ bool Rectangle::Contains( Point point )
 	return false;
 }	//----- Fin de Contains
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 Rectangle & Rectangle::operator = ( const Rectangle & unRectangle )
 // Algorithme :	Si on n'est pas en train de faire unRectangle = unRectangle, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unRectangle
@@ -79,6 +79,6 @@ Rectangle::~Rectangle ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

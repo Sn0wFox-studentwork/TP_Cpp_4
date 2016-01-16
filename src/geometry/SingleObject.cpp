@@ -1,15 +1,15 @@
 /*************************************************************************
                            SingleObject  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <SingleObject> (fichier SingleObject.cpp) --
+//---------- RÃ©alisation de la classe <SingleObject> (fichier SingleObject.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 
@@ -20,21 +20,21 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 int SingleObject::Move( int dx, int dy )
 // Algorithme :
 {
 	return 0;
-}	//----- Fin de Méthode
+}	//----- Fin de MÃ©thode
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 SingleObject & SingleObject::operator = ( const SingleObject & unSingleObject )
 // Algorithme :	Si on n'est pas en train de faire unSingleObject = unSingleObject, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unSingleObject
@@ -79,6 +79,6 @@ SingleObject::~SingleObject ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

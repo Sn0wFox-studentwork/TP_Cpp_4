@@ -1,7 +1,7 @@
 /*************************************************************************
                            Application  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( APPLICATION_H )
 #define APPLICATION_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 #include <map>
 #include <string>
 
@@ -22,7 +22,7 @@
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <Application>
+// RÃ´le de la classe <Application>
 //
 //
 //------------------------------------------------------------------------ 
@@ -32,7 +32,7 @@ class Application
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 
 	int Run( );
 	// Mode d'emploi :
@@ -40,7 +40,7 @@ public:
 	// Contrat :
 	//
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
     Application & operator = ( const Application & unApplication );
     // Mode d'emploi :
     //
@@ -70,31 +70,31 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 	void takeParams( StringList& params, std::string& stringParams ) const;
 	void execute( const Command& cmd ) const;
 	void list( ) const;
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 	Figure figure;
 	FileManager fileManager;
 	CommandManager commandManager;
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <Application>
+//----------------------------------------- Types dÃ©pendants de <Application>
 
 #endif // APPLICATION_H
