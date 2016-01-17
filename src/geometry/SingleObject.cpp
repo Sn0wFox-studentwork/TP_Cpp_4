@@ -28,7 +28,6 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-<<<<<<< HEAD
 void SingleObject::Move( int dx, int dy )
 // Algorithme :
 {
@@ -37,18 +36,6 @@ void SingleObject::Move( int dx, int dy )
 		p.Move( dx, dy );
 	}
 }	//----- Fin de Méthode
-=======
-int SingleObject::Move ( int dx, int dy )
-// Algorithme :
-{
-    for ( auto p = points.begin( ) ; p != points.end( ) ; ++p )
-    {
-        p->Move( dx, dy );
-    }
-    return 1;
-}    //----- Fin de Méthode
->>>>>>> origin/master
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 SingleObject & SingleObject::operator= ( const SingleObject & unSingleObject )
@@ -57,13 +44,14 @@ SingleObject & SingleObject::operator= ( const SingleObject & unSingleObject )
 {
     if ( this != &unSingleObject )
     {
+		points = unSingleObject.points;
     }
     return *this;
 } //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-SingleObject::SingleObject ( const SingleObject & unSingleObject )
+SingleObject::SingleObject(const SingleObject & unSingleObject): points( unSingleObject.points )
 // Algorithme :
 //
 {
@@ -72,12 +60,7 @@ SingleObject::SingleObject ( const SingleObject & unSingleObject )
 #endif
 } //----- Fin de SingleObject (constructeur de copie)
 
-<<<<<<< HEAD
-
 SingleObject::SingleObject ( ) : Object( ), points( )
-=======
-SingleObject::SingleObject ( )
->>>>>>> origin/master
 // Algorithme :
 //
 {
@@ -86,14 +69,14 @@ SingleObject::SingleObject ( )
 #endif
 } //----- Fin de SingleObject
 
-SingleObject::SingleObject ( const std::vector<Point> & _points )
+SingleObject::SingleObject ( const std::vector<Point> & pts )
 // Algorithme :
 //
 {
     // L'affectation n'est pas suffisante car elle ne transfère pas la taille (et capacité) du vecteur
     points.clear( );
-    points.resize( _points.size( ));
-    points = _points;
+    points.resize( pts.size( ));
+    points = pts;
 #ifdef MAP
     cout << "Appel au constructeur de <SingleObject>" << endl;
 #endif

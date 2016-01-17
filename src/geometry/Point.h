@@ -31,7 +31,6 @@ class Point
 public:
 //----------------------------------------------------- Méthodes publiques
 
-<<<<<<< HEAD
 	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
@@ -51,9 +50,6 @@ public:
 
 //------------------------------------------------- Surcharge d'opérateurs
     Point & operator = ( const Point & unPoint );
-=======
-    int Move ( int dx, int dy );
->>>>>>> origin/master
     // Mode d'emploi :
     //
     // Contrat :
@@ -79,17 +75,13 @@ public:
     // Contrat :
     //
 
-<<<<<<< HEAD
-    Point ( int ax, int ay );
-=======
-    Point ( int _x, int _y );
+    Point ( int ax, int ay );	// Notes Mehdi : les noms commencant par "_" sont generalement reserves system ;)
     // Mode d'emploi :
     //
     // Contrat :
     //
 
     Point ( );
->>>>>>> origin/master
     // Mode d'emploi :
     //
     // Contrat :

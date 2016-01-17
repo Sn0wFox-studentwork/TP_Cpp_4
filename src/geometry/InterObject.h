@@ -39,6 +39,11 @@ public:
         return LABEL;
     }
 
+	void Print() const
+	{
+		CompositeObject::Print();
+	}
+
 //------------------------------------------------- Surcharge d'opérateurs
     InterObject & operator= ( const InterObject & unInterObject );
     // Mode d'emploi :

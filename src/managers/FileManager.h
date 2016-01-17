@@ -18,13 +18,9 @@
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types
-<<<<<<< HEAD
 typedef std::map<string, Object*> Figure;
 typedef Figure::iterator FigureIterator;
 typedef Figure::const_iterator ConstFigureIterator;
-=======
-typedef std::map<string, Object *> Figure;
->>>>>>> origin/master
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <FileManager>

@@ -36,21 +36,13 @@ public:
     // Contrat :
     //
 
-<<<<<<< HEAD
 	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
-=======
-    int Move ( int dx, int dy );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
->>>>>>> origin/master
 
-	void Print() const
+	virtual void Print() const
 	{
 		for (Object* o : components)
 		{
@@ -74,7 +66,7 @@ public:
     // Contrat :
     //
 
-    CompositeObject ( const std::vector<Object *> & _components );
+    CompositeObject ( const std::vector<Object *> & components );
     // Mode d'emploi :
     //
     // Contrat :
@@ -102,8 +94,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-    std::vector<Object *> components;        // Object etant une classe virtuelle,
-    // nous somme obliges de passer par une liste de pointeurs
+    std::vector<Object *> components;       // Object etant une classe virtuelle,
+											// nous somme obliges de passer par une liste de pointeurs
 
 private:
 //------------------------------------------------------- Attributs privés

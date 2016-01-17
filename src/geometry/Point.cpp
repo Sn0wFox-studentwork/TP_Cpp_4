@@ -31,8 +31,6 @@
 //{
 //} //----- Fin de Méthode
 
-<<<<<<< HEAD
-
 void Point::Move( int dx, int dy )
 {
 	x += dx;
@@ -43,22 +41,20 @@ void Point::Move( int dx, int dy )
 Point & Point::operator = ( const Point & unPoint )
 // Algorithme :	Si on n'est pas en train de faire unPoint = unPoint, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unPoint
-=======
-int Point::Move ( int dx, int dy )
-// Algorithme :
->>>>>>> origin/master
 {
-    x += dx;
-    y += dy;
-
-    return 1;
+	if (this != &unPoint)
+	{
+		x = unPoint.x;
+		y = unPoint.y;
+	}
+	return *this;
 }
 
 
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-Point::Point ( const Point & unPoint )
+Point::Point ( const Point & unPoint ) : x(unPoint.x), y(unPoint.y)
 // Algorithme :
 //
 {
@@ -68,11 +64,7 @@ Point::Point ( const Point & unPoint )
 } //----- Fin de Point (constructeur de copie)
 
 
-<<<<<<< HEAD
 Point::Point ( int ax, int ay ) : x(ax), y(ay)
-=======
-Point::Point ( int _x, int _y ) : x( _x ), y( _y )
->>>>>>> origin/master
 // Algorithme :
 //
 {

@@ -35,7 +35,6 @@ public:
     // Contrat :
     //
 
-<<<<<<< HEAD
 	virtual void Move(int dx, int dy) = 0;
 	// Mode d'emploi :
 	//
@@ -43,25 +42,16 @@ public:
 	//
 
 	virtual void Print() const = 0;
-=======
-    virtual int Move ( int dx, int dy ) = 0;
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
 
-    virtual std::string getLabel ( ) = 0;
+	virtual std::string getLabel ( ) = 0;
     // Mode d'emploi :
     //
     // Contrat :
     //
-
-    virtual void Print ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
->>>>>>> origin/master
 
 //------------------------------------------------- Surcharge d'opérateurs
     Object & operator= ( const Object & unObject );
@@ -100,7 +90,6 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-    std::vector<Point> points;
     const static std::string LABEL;
 
 private:

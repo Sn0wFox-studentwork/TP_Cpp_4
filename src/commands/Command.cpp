@@ -28,62 +28,12 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-<<<<<<< HEAD:src/commands/Command.cpp
-=======
-Command Command::GetInversedCommand ( ) const
-// Algorithme :	switch sut le code de la commande courante cmdCode.
-//				Retourne l'a commande qui aura l'effet oppose de la commande courante.
-{
-    StringList sl;
-
-    switch ( cmdCode )
-    {
-        // Cas de la creation d'un objet : commande inverse = delete
-        case S:
-        case R:
-        case PC:
-        case OR:
-        case OI:
-            sl.push_back( params[0] );
-            return Command( CommandCode::DELETE, sl );
-            // Cas du deplacement
-        case MOVE:
-            sl.push_back( params[0] );    // Push du nom de l'objet
-            for ( unsigned int i = 1 ; i < params.size( ) ; i++ )
-            {
-                if ( params[i].substr( 0, 1 ) == "-" )
-                {
-                    sl.push_back( params[i].substr( 1, params[i].size( ) - 1 ));
-                }
-                else
-                {
-                    sl.push_back( "-" + params[i] );
-                }
-            }
-            return Command( CommandCode::MOVE, sl );
-            // Cas du load
-        case LOAD:
-            break;
-            // Cas des commandes dont l'inverse sera geree via la pile des commandes annulees
-        case DELETE:
-        case HIT:
-        case CLEAR:
-        case UNSAVEABLE:
-            break;
-        default:
-            break;
-    }
-    return Command( CommandCode::UNSAVEABLE, StringList( ));
-}    //----- Fin de GetInversedCommand
->>>>>>> origin/master:src/managers/Command.cpp
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 Command & Command::operator= ( const Command & aCommand )
 // Algorithme :	Si on n'est pas en train de faire aCommand = aCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aCommand
 {
-<<<<<<< HEAD:src/commands/Command.cpp
 	if ( this != &aCommand )
 	{
 		params = aCommand.params;
@@ -91,65 +41,6 @@ Command & Command::operator= ( const Command & aCommand )
 	return *this;
 }	//----- Fin de operator =
 
-=======
-    if ( this != &aCommand )
-    {
-        cmdCode = aCommand.cmdCode;
-        params = aCommand.params;
-    }
-    return *this;
-}    //----- Fin de operator =
-
-
-ostream & operator<< ( ostream & s, Command c )
-// Algorithme :	On insere dans le flux de sortie s la representation du code de la commande c
-//				sous forme de string, suivie d'un espace.
-//				On insere ensuite la liste des parametres de c (qui sont deja des strings)
-//				en separant les parametres par un espace.
-//				On retourne le flux s ainsi modifie par reference.
-{
-    switch ( c.cmdCode )
-    {
-        case S:
-            s << "S ";
-            break;
-        case R:
-            s << "R ";
-            break;
-        case PC:
-            s << "PC ";
-            break;
-        case OR:
-            s << "OR ";
-            break;
-        case OI:
-            s << "OI ";
-            break;
-        case HIT:
-            s << "HIT ";
-            break;
-        case DELETE:
-            s << "DELETE ";
-            break;
-        case CLEAR:
-            s << "CLEAR ";
-            break;
-        case MOVE:
-            s << "MOVE ";
-            break;
-        default:
-            break;
-    }
-
-    for ( unsigned int i = 0 ; i < c.params.size( ) ; i++ )
-    {
-        s << c.params[i] << " ";
-    }
-    return s;
-
-}    //----- Fin de operator<<
-
->>>>>>> origin/master:src/managers/Command.cpp
 //-------------------------------------------- Constructeurs - destructeur
 Command::Command ( const Command & aCommand ) : params( aCommand.params )
 // Algorithme : utilisation des constructeurs de copie de CommandCode (int) et StringList (std::vector<string>).
@@ -159,12 +50,7 @@ Command::Command ( const Command & aCommand ) : params( aCommand.params )
 #endif
 } //----- Fin de Command (constructeur de copie)
 
-
-<<<<<<< HEAD:src/commands/Command.cpp
 Command::Command ( const StringList& p ) : params( p )
-=======
-Command::Command ( const CommandCode & c, const StringList & p ) : cmdCode( c ), params( p )
->>>>>>> origin/master:src/managers/Command.cpp
 // Algorithme :	Utilisation des constructeurs de copie de CommandCode (int) et StringList (std::vector<string>).
 {
 #ifdef MAP

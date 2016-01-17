@@ -36,27 +36,18 @@ public:
     // Contrat :
     //
 
-<<<<<<< HEAD
 	virtual void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
-=======
-    virtual int Move ( int dx, int dy );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
->>>>>>> origin/master
 
-	void Print() const
+	virtual void Print() const
 	{
 		for (Point p : points)
 		{
 			std::cout << p.GetX() << " " << p.GetY() << " ";
 		}
-		std::cout << std::endl;
 	}
 
 
@@ -103,12 +94,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-<<<<<<< HEAD
 	std::vector<Point> points;
-=======
-    const static std::string LABEL;
-    std::vector<Point> points;
->>>>>>> origin/master
 
 private:
 //------------------------------------------------------- Attributs privés

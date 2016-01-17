@@ -34,19 +34,17 @@ public:
     // Contrat :
     //
 
-<<<<<<< HEAD
 	void Print() const
 	{
-		std::cout << "S ";
+		std::cout << "S ( " << std::flush;
 		SingleObject::Print();
+		std::cout << ")" << endl;
 	}
 
-=======
-    std::string getLabel ( )
+    inline std::string getLabel ( )
     {
         return LABEL;
     }
->>>>>>> origin/master
 
 //------------------------------------------------- Surcharge d'opérateurs
     Segment & operator= ( const Segment & unSegment );
@@ -63,11 +61,7 @@ public:
     // Contrat :
     //
 
-<<<<<<< HEAD
     Segment ( Point p1, Point p2 );
-=======
-    Segment ( const std::vector<Point> & _points );
->>>>>>> origin/master
     // Mode d'emploi :
     //
     // Contrat :
@@ -90,7 +84,7 @@ private:
 protected:
 //----------------------------------------------------- Attributs protégés
     const static std::string LABEL;
-    const static int POINTS_MAX = 2;
+    const static int POINTS_MAX = 2;	// constante != attribut => a mettre ailleurs ?
 
 private:
 //------------------------------------------------------- Attributs privés

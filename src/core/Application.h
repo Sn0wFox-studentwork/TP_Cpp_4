@@ -75,7 +75,6 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-<<<<<<< HEAD
 //-------- Execution générale
 	void takeParams( StringList& params ) const;
 	// Mode d'emploi :	Ajoute les parametres rentres sur l'entree standard dans la liste
@@ -86,29 +85,15 @@ protected:
 
 	void list( ) const;
 	// Mode d'emploi :	Affiche toutes les formes géometrique de la Figure figure.
-=======
-    void takeParams ( StringList & params, std::string & stringParams ) const;
-
-    void execute ( const Command & cmd ) const;
-
-    void list ( ) const;
->>>>>>> origin/master
-
 private:
 //------------------------------------------------------- Méthodes privées
 
 protected:
 //----------------------------------------------------- Attributs protégés
-<<<<<<< HEAD
 	Figure figure;					// L'ensemble des formes geometriques
 	FileManager fileManager;		// Permet de sauvegarder/charger une figure
 	CommandManager commandManager;	// Permet la mise en place de annuler/repeter
 	ListCommand history;			// L'historique des commandes utilisees
-=======
-    Figure figure;
-    FileManager fileManager;
-    CommandManager commandManager;
->>>>>>> origin/master
 
 private:
 //------------------------------------------------------- Attributs privés

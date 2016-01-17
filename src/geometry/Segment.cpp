@@ -29,14 +29,6 @@ const std::string Segment::LABEL = "S";
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-<<<<<<< HEAD
-bool Segment::Contains( Point point )
-// Algorithme :
-//
-{
-	return false;
-}	//----- Fin de Méthode
-=======
 bool Segment::Contains ( const Point & point )
 // Algorithme : Trouver si C se situe sur le segment [AB]
 // AVEC --> A = a, B = b, C = point <--
@@ -72,8 +64,6 @@ bool Segment::Contains ( const Point & point )
         return false;
     }
 }   //----- Fin de Méthode
->>>>>>> origin/master
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 Segment & Segment::operator= ( const Segment & unSegment )
@@ -82,13 +72,14 @@ Segment & Segment::operator= ( const Segment & unSegment )
 {
     if ( this != &unSegment )
     {
+		points = unSegment.points;
     }
     return *this;
 } //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Segment::Segment ( const Segment & unSegment )
+Segment::Segment ( const Segment & unSegment ) : SingleObject( unSegment )
 // Algorithme :
 //
 {
@@ -97,12 +88,7 @@ Segment::Segment ( const Segment & unSegment )
 #endif
 } //----- Fin de Segment (constructeur de copie)
 
-
-<<<<<<< HEAD
 Segment::Segment ( Point p1, Point p2 ) : SingleObject( )
-=======
-Segment::Segment ( const std::vector<Point> & _points ) : SingleObject( _points )
->>>>>>> origin/master
 // Algorithme :
 //
 {

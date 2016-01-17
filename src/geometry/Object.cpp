@@ -25,12 +25,6 @@
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Object::Print ( )
-// Algorithme :
-{
-
-}
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 Object & Object::operator= ( const Object & unObject )

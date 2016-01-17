@@ -26,7 +26,6 @@
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-<<<<<<< HEAD
 void CompositeObject::Move( int dx, int dy )
 // Algorithme :
 {
@@ -35,17 +34,6 @@ void CompositeObject::Move( int dx, int dy )
 		o->Move(dx, dy);
 	}
 }	//----- Fin de Move
-=======
-int CompositeObject::Move ( int dx, int dy )
-// Algorithme :
-{
-    for ( auto obj = components.begin( ) ; obj != components.end( ) ; ++obj )
-    {
-        ( *obj )->Move( dx, dy );
-    }
-    return 1;
-}    //----- Fin de Move
->>>>>>> origin/master
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -55,13 +43,15 @@ CompositeObject & CompositeObject::operator= ( const CompositeObject & unComposi
 {
     if ( this != &unCompositeObject )
     {
+		components = unCompositeObject.components;
     }
     return *this;
 } //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-CompositeObject::CompositeObject ( const CompositeObject & unCompositeObject )
+CompositeObject::CompositeObject ( const CompositeObject & unCompositeObject ) :
+	components(unCompositeObject.components)
 // Algorithme :
 //
 {
@@ -71,16 +61,15 @@ CompositeObject::CompositeObject ( const CompositeObject & unCompositeObject )
 } //----- Fin de CompositeObject (constructeur de copie)
 
 
-CompositeObject::CompositeObject ( const std::vector<Object *> & _components ) : components( _components )
+CompositeObject::CompositeObject ( const std::vector<Object *> & c ) : components( c )
 // Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au constructeur de <CompositeObject>" << endl;
 #endif
 } //----- Fin de CompositeObject
 
-CompositeObject::CompositeObject ( )
+CompositeObject::CompositeObject ( ) : Object( ), components( )
 // Algorithme :
 //
 {
