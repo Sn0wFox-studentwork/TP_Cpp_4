@@ -6,7 +6,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Application> (fichier Application.h) ------
-#if ! defined ( APPLICATION_H )
+#if !defined ( APPLICATION_H )
 #define APPLICATION_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -34,14 +34,14 @@ class Application
 public:
 //----------------------------------------------------- Méthodes publiques
 
-	int Run( );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    int Run ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Application & operator = ( const Application & unApplication );
+    Application & operator= ( const Application & unApplication );
     // Mode d'emploi :
     //
     // Contrat :
@@ -71,18 +71,20 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-	void takeParams( StringList& params, std::string& stringParams ) const;
-	void execute( const Command& cmd ) const;
-	void list( ) const;
+    void takeParams ( StringList & params, std::string & stringParams ) const;
+
+    void execute ( const Command & cmd ) const;
+
+    void list ( ) const;
 
 private:
 //------------------------------------------------------- Méthodes privées
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	Figure figure;
-	FileManager fileManager;
-	CommandManager commandManager;
+    Figure figure;
+    FileManager fileManager;
+    CommandManager commandManager;
 
 private:
 //------------------------------------------------------- Attributs privés
