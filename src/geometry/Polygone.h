@@ -6,7 +6,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Polygone> (fichier Polygone.h) ------
-#if ! defined ( POLYGONE_H )
+#if !defined ( POLYGONE_H )
 #define POLYGONE_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -28,15 +28,19 @@ class Polygone : public SingleObject
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	virtual bool Contains( Point point );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    virtual bool Contains ( const Point & point );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
+    std::string getLabel ( )
+    {
+        return LABEL;
+    }
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Polygone & operator = ( const Polygone & unPolygone );
+    Polygone & operator= ( const Polygone & unPolygone );
     // Mode d'emploi :
     //
     // Contrat :
@@ -46,6 +50,12 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     Polygone ( const Polygone & unPolygone );
     // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
+    Polygone ( const std::vector<Point> & _points );
+    // Mode d'emploi :
     //
     // Contrat :
     //
@@ -72,6 +82,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+    const static std::string LABEL;
+    const static int POINTS_MIN = 3;
 
 private:
 //------------------------------------------------------- Attributs privés

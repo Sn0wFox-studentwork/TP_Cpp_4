@@ -10,13 +10,13 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "InterObject.h"
 
 //------------------------------------------------------------- Constantes
+const std::string InterObject::LABEL = "IO";
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,23 +27,23 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-bool InterObject::Contains(Point point)
+bool InterObject::Contains ( const Point & point )
 // Algorithme :
 //
 {
-	return false;
+    return false;
 } //----- Fin de Méthode
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-InterObject & InterObject::operator = ( const InterObject & unInterObject )
+InterObject & InterObject::operator= ( const InterObject & unInterObject )
 // Algorithme :	Si on n'est pas en train de faire unInterObject = unInterObject, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unInterObject
 {
-	if (this != &unInterObject)
-	{
-	}
-	return *this;
+    if ( this != &unInterObject )
+    {
+    }
+    return *this;
 } //----- Fin de operator =
 
 
@@ -57,6 +57,14 @@ InterObject::InterObject ( const InterObject & unInterObject )
 #endif
 } //----- Fin de InterObject (constructeur de copie)
 
+InterObject::InterObject ( const std::vector<Object *> & _components ) : CompositeObject::CompositeObject( _components )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <CompositeObject>" << endl;
+#endif
+}
 
 InterObject::InterObject ( )
 // Algorithme :

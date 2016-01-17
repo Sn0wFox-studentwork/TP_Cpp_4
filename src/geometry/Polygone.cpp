@@ -10,13 +10,13 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "Polygone.h"
 
 //------------------------------------------------------------- Constantes
+const std::string Polygone::LABEL = "PC";
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,22 +27,22 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-bool Polygone::Contains( Point point )
+bool Polygone::Contains ( const Point & point )
 // Algorithme :
 //
 {
-	return false;
-}	//----- Fin de Contains
+    return false;
+}    //----- Fin de Contains
 
 //------------------------------------------------- Surcharge d'opérateurs
-Polygone & Polygone::operator = ( const Polygone & unPolygone )
+Polygone & Polygone::operator= ( const Polygone & unPolygone )
 // Algorithme :	Si on n'est pas en train de faire unPolygone = unPolygone, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unPolygone
 {
-	if (this != &unPolygone)
-	{
-	}
-	return *this;
+    if ( this != &unPolygone )
+    {
+    }
+    return *this;
 } //----- Fin de operator =
 
 
@@ -56,16 +56,23 @@ Polygone::Polygone ( const Polygone & unPolygone )
 #endif
 } //----- Fin de Polygone (constructeur de copie)
 
+Polygone::Polygone ( const std::vector<Point> & _points ) : SingleObject( _points )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <SingleObject>" << endl;
+#endif
+} //----- Fin de Polygone
 
 Polygone::Polygone ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Polygone>" << endl;
+    cout << "Appel au constructeur de <SingleObject>" << endl;
 #endif
 } //----- Fin de Polygone
-
 
 Polygone::~Polygone ( )
 // Algorithme :

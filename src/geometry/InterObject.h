@@ -6,7 +6,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <InterObject> (fichier InterObject.h) ------
-#if ! defined ( INTER_OBJECT_H )
+#if !defined ( INTER_OBJECT_H )
 #define INTER_OBJECT_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -28,15 +28,19 @@ class InterObject : public CompositeObject
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	bool Contains( Point point );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    bool Contains ( const Point & point );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
+    std::string getLabel ( )
+    {
+        return LABEL;
+    }
 
 //------------------------------------------------- Surcharge d'opérateurs
-    InterObject & operator = ( const InterObject & unInterObject );
+    InterObject & operator= ( const InterObject & unInterObject );
     // Mode d'emploi :
     //
     // Contrat :
@@ -46,6 +50,12 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     InterObject ( const InterObject & unInterObject );
     // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
+    InterObject ( const std::vector<Object *> & _components );
+    // Mode d'emploi :
     //
     // Contrat :
     //
@@ -72,6 +82,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+    const static std::string LABEL;
 
 private:
 //------------------------------------------------------- Attributs privés

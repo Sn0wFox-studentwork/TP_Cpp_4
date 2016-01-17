@@ -6,7 +6,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Segment> (fichier Segment.h) ------
-#if ! defined ( SEGMENT_H )
+#if !defined ( SEGMENT_H )
 #define SEGMENT_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -28,21 +28,19 @@ class Segment : public SingleObject
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    bool Contains( Point point );
+    bool Contains ( const Point & point );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-	int Move( int dx, int dy );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-
+    std::string getLabel ( )
+    {
+        return LABEL;
+    }
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Segment & operator = ( const Segment & unSegment );
+    Segment & operator= ( const Segment & unSegment );
     // Mode d'emploi :
     //
     // Contrat :
@@ -56,7 +54,7 @@ public:
     // Contrat :
     //
 
-    Segment ( );
+    Segment ( const std::vector<Point> & _points );
     // Mode d'emploi :
     //
     // Contrat :
@@ -78,6 +76,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+    const static std::string LABEL;
+    const static int POINTS_MAX = 2;
 
 private:
 //------------------------------------------------------- Attributs privés

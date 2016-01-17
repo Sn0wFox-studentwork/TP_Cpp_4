@@ -6,11 +6,11 @@
 *************************************************************************/
 
 //---------- Interface de la classe <SingleObject> (fichier SingleObject.h) ------
-#if ! defined ( SINGLE_OBJECT_H )
+#if !defined ( SINGLE_OBJECT_H )
 #define SINGLE_OBJECT_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <list>
+#include <vector>
 
 #include "Object.h"
 
@@ -30,21 +30,21 @@ class SingleObject : public Object
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	virtual bool Contains( Point p ) = 0;
+    virtual bool Contains ( const Point & p ) = 0;
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-	virtual int Move( int dx, int dy );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    virtual int Move ( int dx, int dy );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    SingleObject & operator = ( const SingleObject & unSingleObject );
+    SingleObject & operator= ( const SingleObject & unSingleObject );
     // Mode d'emploi :
     //
     // Contrat :
@@ -54,6 +54,12 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     SingleObject ( const SingleObject & unSingleObject );
     // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
+    SingleObject ( const std::vector<Point> & _points );
+    // Mode d'emploi :
     //
     // Contrat :
     //
@@ -80,7 +86,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	std::list<Point> points;
+    const static std::string LABEL;
+    std::vector<Point> points;
 
 private:
 //------------------------------------------------------- Attributs privés
