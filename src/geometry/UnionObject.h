@@ -6,7 +6,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <UnionObject> (fichier UnionObject.h) ------
-#if ! defined ( UNION_OBJECT_H )
+#if !defined ( UNION_OBJECT_H )
 #define UNION_OBJECT_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -28,15 +28,19 @@ class UnionObject : public CompositeObject
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    bool Contains( Point point );
+    bool Contains ( const Point & point );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    std::string getLabel ( )
+    {
+        return LABEL;
+    }
 
 //------------------------------------------------- Surcharge d'opérateurs
-    UnionObject & operator = ( const UnionObject & unUnionObject );
+    UnionObject & operator= ( const UnionObject & unUnionObject );
     // Mode d'emploi :
     //
     // Contrat :
@@ -46,6 +50,12 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     UnionObject ( const UnionObject & unUnionObject );
     // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
+    UnionObject ( const std::vector<Object *> & _components );
+    // Mode d'emploi :
     //
     // Contrat :
     //
@@ -72,6 +82,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+    const static std::string LABEL;
 
 private:
 //------------------------------------------------------- Attributs privés

@@ -6,10 +6,13 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Point> (fichier Point.h) ------
-#if ! defined ( POINT_H )
+#if !defined ( POINT_H )
 #define POINT_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <iostream>
+
+using namespace std;
 
 //------------------------------------------------------------- Constantes 
 
@@ -28,6 +31,7 @@ class Point
 public:
 //----------------------------------------------------- Méthodes publiques
 
+<<<<<<< HEAD
 	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
@@ -47,11 +51,26 @@ public:
 
 //------------------------------------------------- Surcharge d'opérateurs
     Point & operator = ( const Point & unPoint );
+=======
+    int Move ( int dx, int dy );
+>>>>>>> origin/master
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    int GetX ( ) const
+    {
+        return x;
+    }
+
+    int GetY ( ) const
+    {
+        return y;
+    }
+
+
+//------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
     Point ( const Point & unPoint );
@@ -60,7 +79,17 @@ public:
     // Contrat :
     //
 
+<<<<<<< HEAD
     Point ( int ax, int ay );
+=======
+    Point ( int _x, int _y );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    Point ( );
+>>>>>>> origin/master
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,8 +111,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	int x;
-	int y;
+    int x;
+    int y;
 
 private:
 //------------------------------------------------------- Attributs privés

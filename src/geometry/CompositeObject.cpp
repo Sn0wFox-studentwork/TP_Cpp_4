@@ -10,7 +10,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
@@ -27,6 +26,7 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+<<<<<<< HEAD
 void CompositeObject::Move( int dx, int dy )
 // Algorithme :
 {
@@ -35,17 +35,28 @@ void CompositeObject::Move( int dx, int dy )
 		o->Move(dx, dy);
 	}
 }	//----- Fin de Move
+=======
+int CompositeObject::Move ( int dx, int dy )
+// Algorithme :
+{
+    for ( auto obj = components.begin( ) ; obj != components.end( ) ; ++obj )
+    {
+        ( *obj )->Move( dx, dy );
+    }
+    return 1;
+}    //----- Fin de Move
+>>>>>>> origin/master
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-CompositeObject & CompositeObject::operator = ( const CompositeObject & unCompositeObject )
+CompositeObject & CompositeObject::operator= ( const CompositeObject & unCompositeObject )
 // Algorithme :	Si on n'est pas en train de faire unCompositeObject = unCompositeObject, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unCompositeObject
 {
-	if ( this != &unCompositeObject )
-	{
-	}
-	return *this;
+    if ( this != &unCompositeObject )
+    {
+    }
+    return *this;
 } //----- Fin de operator =
 
 
@@ -59,6 +70,15 @@ CompositeObject::CompositeObject ( const CompositeObject & unCompositeObject )
 #endif
 } //----- Fin de CompositeObject (constructeur de copie)
 
+
+CompositeObject::CompositeObject ( const std::vector<Object *> & _components ) : components( _components )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <CompositeObject>" << endl;
+#endif
+} //----- Fin de CompositeObject
 
 CompositeObject::CompositeObject ( )
 // Algorithme :

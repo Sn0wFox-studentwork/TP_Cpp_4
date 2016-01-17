@@ -10,8 +10,9 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
+
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "FileManager.h"
@@ -35,25 +36,25 @@ using namespace std;
 
 
 
-Figure FileManager::Load( string fileName )
+Figure FileManager::Load ( string fileName )
 {
-	return Figure( );
+    return Figure( );
 }
 
-int FileManager::Save( string fileName, Figure figure )
+int FileManager::Save ( string fileName, Figure figure )
 {
-	return 0;
+    return 0;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
-FileManager & FileManager::operator = ( const FileManager & unFileManager )
+FileManager & FileManager::operator= ( const FileManager & unFileManager )
 // Algorithme :	Si on n'est pas en train de faire unFileManager = unFileManager, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unFileManager
 {
-	if (this != &unFileManager)
-	{
-	}
-	return *this;
+    if ( this != &unFileManager )
+    {
+    }
+    return *this;
 } //----- Fin de operator =
 
 

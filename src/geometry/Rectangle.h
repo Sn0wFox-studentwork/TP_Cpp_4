@@ -6,13 +6,13 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Rectangle> (fichier Rectangle.h) ------
-#if ! defined ( RECTANGLE_H )
+#if !defined ( RECTANGLE_H )
 #define RECTANGLE_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Polygone.h"
 
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types 
 
@@ -28,15 +28,19 @@ class Rectangle : public Polygone
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    bool Contains( Point point );
+    bool Contains ( const Point & point );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    std::string getLabel ( )
+    {
+        return LABEL;
+    }
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Rectangle & operator = ( const Rectangle & unRectangle );
+    Rectangle & operator= ( const Rectangle & unRectangle );
     // Mode d'emploi :
     //
     // Contrat :
@@ -46,6 +50,12 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     Rectangle ( const Rectangle & unRectangle );
     // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
+    Rectangle ( const std::vector<Point> & _points );
+    // Mode d'emploi :
     //
     // Contrat :
     //
@@ -72,6 +82,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+    const static std::string LABEL;
 
 private:
 //------------------------------------------------------- Attributs privés

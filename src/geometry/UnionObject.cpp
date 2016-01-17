@@ -10,13 +10,13 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "UnionObject.h"
 
 //------------------------------------------------------------- Constantes
+const std::string UnionObject::LABEL = "UO";
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,23 +27,23 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-bool UnionObject::Contains(Point point)
+bool UnionObject::Contains ( const Point & point )
 // Algorithme :
 //
 {
-	return false;
+    return false;
 } //----- Fin de Méthode
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-UnionObject & UnionObject::operator = ( const UnionObject & unUnionObject )
+UnionObject & UnionObject::operator= ( const UnionObject & unUnionObject )
 // Algorithme :	Si on n'est pas en train de faire unUnionObject = unUnionObject, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unUnionObject
 {
-	if (this != &unUnionObject)
-	{
-	}
-	return *this;
+    if ( this != &unUnionObject )
+    {
+    }
+    return *this;
 } //----- Fin de operator =
 
 
@@ -57,6 +57,14 @@ UnionObject::UnionObject ( const UnionObject & unUnionObject )
 #endif
 } //----- Fin de UnionObject (constructeur de copie)
 
+UnionObject::UnionObject ( const std::vector<Object *> & _components ) : CompositeObject( _components )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <CompositeObject>" << endl;
+#endif
+}
 
 UnionObject::UnionObject ( )
 // Algorithme :

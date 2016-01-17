@@ -10,8 +10,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
-#include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "Point.h"
@@ -33,6 +31,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
+<<<<<<< HEAD
 
 void Point::Move( int dx, int dy )
 {
@@ -44,13 +43,19 @@ void Point::Move( int dx, int dy )
 Point & Point::operator = ( const Point & unPoint )
 // Algorithme :	Si on n'est pas en train de faire unPoint = unPoint, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unPoint
+=======
+int Point::Move ( int dx, int dy )
+// Algorithme :
+>>>>>>> origin/master
 {
-	if (this != &unPoint)
-	{
-	}
-	return *this;
-} //----- Fin de operator =
+    x += dx;
+    y += dy;
 
+    return 1;
+}
+
+
+//------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
 Point::Point ( const Point & unPoint )
@@ -63,7 +68,11 @@ Point::Point ( const Point & unPoint )
 } //----- Fin de Point (constructeur de copie)
 
 
+<<<<<<< HEAD
 Point::Point ( int ax, int ay ) : x(ax), y(ay)
+=======
+Point::Point ( int _x, int _y ) : x( _x ), y( _y )
+>>>>>>> origin/master
 // Algorithme :
 //
 {
@@ -72,6 +81,14 @@ Point::Point ( int ax, int ay ) : x(ax), y(ay)
 #endif
 } //----- Fin de Point
 
+Point::Point ( ) : x( 0 ), y( 0 )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <Point>" << endl;
+#endif
+} //----- Fin de Point
 
 Point::~Point ( )
 // Algorithme :

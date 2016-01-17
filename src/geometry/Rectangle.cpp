@@ -10,13 +10,13 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "Rectangle.h"
 
 //------------------------------------------------------------- Constantes
+const std::string Rectangle::LABEL = "R";
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,22 +27,22 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-bool Rectangle::Contains( Point point )
+bool Rectangle::Contains ( const Point & point )
 // Algorithme :
 //
 {
-	return false;
-}	//----- Fin de Contains
+    return false;
+}    //----- Fin de Contains
 
 //------------------------------------------------- Surcharge d'opérateurs
-Rectangle & Rectangle::operator = ( const Rectangle & unRectangle )
+Rectangle & Rectangle::operator= ( const Rectangle & unRectangle )
 // Algorithme :	Si on n'est pas en train de faire unRectangle = unRectangle, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unRectangle
 {
-	if (this != &unRectangle)
-	{
-	}
-	return *this;
+    if ( this != &unRectangle )
+    {
+    }
+    return *this;
 } //----- Fin de operator =
 
 
@@ -57,12 +57,21 @@ Rectangle::Rectangle ( const Rectangle & unRectangle )
 } //----- Fin de Rectangle (constructeur de copie)
 
 
+Rectangle::Rectangle ( const std::vector<Point> & _points ) : Polygone( _points )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <SingleObject>" << endl;
+#endif
+} //----- Fin de Rectangle
+
 Rectangle::Rectangle ( )
 // Algorithme :
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Rectangle>" << endl;
+    cout << "Appel au constructeur de <SingleObject>" << endl;
 #endif
 } //----- Fin de Rectangle
 

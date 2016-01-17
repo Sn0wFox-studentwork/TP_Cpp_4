@@ -6,11 +6,11 @@
 *************************************************************************/
 
 //---------- Interface de la classe <CompositeObject> (fichier CompositeObject.h) ------
-#if ! defined ( COMPOSITE_OBJECT_H )
+#if !defined ( COMPOSITE_OBJECT_H )
 #define COMPOSITE_OBJECT_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <list>
+#include <vector>
 
 #include "Object.h"
 
@@ -30,17 +30,25 @@ class CompositeObject : public Object
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	virtual bool Contains( Point point ) = 0;
+    virtual bool Contains ( const Point & point ) = 0;
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+<<<<<<< HEAD
 	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
+=======
+    int Move ( int dx, int dy );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+>>>>>>> origin/master
 
 	void Print() const
 	{
@@ -52,7 +60,7 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    CompositeObject & operator = ( const CompositeObject & unCompositeObject );
+    CompositeObject & operator= ( const CompositeObject & unCompositeObject );
     // Mode d'emploi :
     //
     // Contrat :
@@ -62,6 +70,12 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     CompositeObject ( const CompositeObject & unCompositeObject );
     // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
+    CompositeObject ( const std::vector<Object *> & _components );
+    // Mode d'emploi :
     //
     // Contrat :
     //
@@ -88,8 +102,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	std::list<Object*> components;		// Object etant une classe virtuelle,
-										// nous somme obliges de passer par une liste de pointeurs
+    std::vector<Object *> components;        // Object etant une classe virtuelle,
+    // nous somme obliges de passer par une liste de pointeurs
 
 private:
 //------------------------------------------------------- Attributs privés

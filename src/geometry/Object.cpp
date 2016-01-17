@@ -10,8 +10,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
-#include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "Object.h"
@@ -27,16 +25,22 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void Object::Print ( )
+// Algorithme :
+{
+
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
-Object & Object::operator = ( const Object & unObject )
+Object & Object::operator= ( const Object & unObject )
 // Algorithme :	Si on n'est pas en train de faire unObject = unObject, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unObject
 {
-	if (this != &unObject)
-	{
-	}
-	return *this;
+    if ( this != &unObject )
+    {
+    }
+    return *this;
 } //----- Fin de operator =
 
 

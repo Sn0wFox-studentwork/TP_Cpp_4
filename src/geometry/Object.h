@@ -6,10 +6,11 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Object> (fichier Object.h) ------
-#if ! defined ( OBJECT_H )
+#if !defined ( OBJECT_H )
 #define OBJECT_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <vector>
 #include "Point.h"
 
 //------------------------------------------------------------- Constantes 
@@ -28,12 +29,13 @@ class Object
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	virtual bool Contains( Point point ) = 0;
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    virtual bool Contains ( const Point & point ) = 0;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
+<<<<<<< HEAD
 	virtual void Move(int dx, int dy) = 0;
 	// Mode d'emploi :
 	//
@@ -41,9 +43,28 @@ public:
 	//
 
 	virtual void Print() const = 0;
+=======
+    virtual int Move ( int dx, int dy ) = 0;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    virtual std::string getLabel ( ) = 0;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    virtual void Print ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+>>>>>>> origin/master
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Object & operator = ( const Object & unObject );
+    Object & operator= ( const Object & unObject );
     // Mode d'emploi :
     //
     // Contrat :
@@ -79,6 +100,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+    std::vector<Point> points;
+    const static std::string LABEL;
 
 private:
 //------------------------------------------------------- Attributs privés

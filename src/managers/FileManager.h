@@ -6,7 +6,7 @@
 *************************************************************************/
 
 //---------- Interface de la classe <FileManager> (fichier FileManager.h) ------
-#if ! defined ( FILE_MANAGER_H )
+#if !defined ( FILE_MANAGER_H )
 #define FILE_MANAGER_H
 
 //--------------------------------------------------- Interfaces utilisées
@@ -18,9 +18,13 @@
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types
+<<<<<<< HEAD
 typedef std::map<string, Object*> Figure;
 typedef Figure::iterator FigureIterator;
 typedef Figure::const_iterator ConstFigureIterator;
+=======
+typedef std::map<string, Object *> Figure;
+>>>>>>> origin/master
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <FileManager>
@@ -34,23 +38,23 @@ class FileManager
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	Figure Load(string fileName);
+    Figure Load ( string fileName );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-	int Save(string fileName, Figure figure);
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+    int Save ( string fileName, Figure figure );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    FileManager & operator = ( const FileManager & unFileManager );
+    FileManager & operator= ( const FileManager & unFileManager );
     // Mode d'emploi :
     //
     // Contrat :
