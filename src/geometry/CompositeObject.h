@@ -36,11 +36,19 @@ public:
     // Contrat :
     //
 
-	int Move( int dx, int dy );
+	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
+
+	void Print() const
+	{
+		for (Object* o : components)
+		{
+			o->Print();
+		}
+	}
 
 
 //------------------------------------------------- Surcharge d'opérateurs

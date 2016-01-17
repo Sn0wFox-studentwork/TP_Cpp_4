@@ -27,10 +27,13 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-int CompositeObject::Move( int dx, int dy )
+void CompositeObject::Move( int dx, int dy )
 // Algorithme :
 {
-	return 0;
+	for (Object* o : components)
+	{
+		o->Move(dx, dy);
+	}
 }	//----- Fin de Move
 
 

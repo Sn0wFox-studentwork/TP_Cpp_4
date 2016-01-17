@@ -10,7 +10,7 @@
 #define SINGLE_OBJECT_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <list>
+#include <vector>
 
 #include "Object.h"
 
@@ -36,11 +36,20 @@ public:
     // Contrat :
     //
 
-	virtual int Move( int dx, int dy );
+	virtual void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
+
+	void Print() const
+	{
+		for (Point p : points)
+		{
+			std::cout << p.GetX() << " " << p.GetY() << " ";
+		}
+		std::cout << std::endl;
+	}
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -80,7 +89,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	std::list<Point> points;
+	std::vector<Point> points;
 
 private:
 //------------------------------------------------------- Attributs privés

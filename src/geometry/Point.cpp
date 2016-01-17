@@ -34,6 +34,12 @@ using namespace std;
 //} //----- Fin de Méthode
 
 
+void Point::Move( int dx, int dy )
+{
+	x += dx;
+	y += dy;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 Point & Point::operator = ( const Point & unPoint )
 // Algorithme :	Si on n'est pas en train de faire unPoint = unPoint, on "copie" tout les champs :
@@ -57,7 +63,7 @@ Point::Point ( const Point & unPoint )
 } //----- Fin de Point (constructeur de copie)
 
 
-Point::Point ( )
+Point::Point ( int ax, int ay ) : x(ax), y(ay)
 // Algorithme :
 //
 {

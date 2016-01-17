@@ -28,18 +28,18 @@ class Point
 public:
 //----------------------------------------------------- Méthodes publiques
 
-	int Move(int dx, int dy);
+	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
-	int GetX()
+	int GetX( )
 	{
 		return x;
 	}
 
-	int GetY()
+	int GetY( )
 	{
 		return y;
 	}
@@ -60,7 +60,7 @@ public:
     // Contrat :
     //
 
-    Point ( );
+    Point ( int ax, int ay );
     // Mode d'emploi :
     //
     // Contrat :

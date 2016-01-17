@@ -16,6 +16,8 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Application.h"
+#include "../commands/MoveCommand.h"
+#include "../commands/AddSegmentCommand.h"
 
 //------------------------------------------------------------- Constantes
 const string ERR_STRING = "ERR";
@@ -41,7 +43,7 @@ int Application::Run( )
 	CommandCode code;
 	string params;
 	StringList paramsList;
-	Command* cmd = nullptr;
+	ReversableCommand* cmd = nullptr;
 
 	// Prise du premier code commande
 	cin >> stringCode;
@@ -49,18 +51,32 @@ int Application::Run( )
 	// Prise des parametres, traitement et attente du prochain code commande
 	while ( stringCode != "EXIT" )
 	{
+		paramsList = StringList();
 		params = "";
 		// Traitement du code de commande (NB : switch impossible avec std::string)
 		if ( stringCode == "S" )
 		{
-			code = CommandCode::S;
+			cout << "Tentative ajout segment" << endl;
 			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do(*cmd);
-			// Appelle methode adequate
-			delete cmd;
+			cout << "params pris :";
+			for (int i = 0; i < paramsList.size(); i++)
+			{
+				cout << " " << paramsList[i];
+			}
+			cout << endl;
+			cmd = new AddSegmentCommand( paramsList, &figure );
+			for (int i = 0; i < cmd->GetParams().size(); i++)
+			{
+				cout << " " << cmd->GetParams()[i];
+			}
+			cout << "commande cree" << endl;
+			commandManager.Do(cmd);
+			cout << "commande executee" << endl;
+			history.push_back(cmd);
+			cout << "commande stockee" << endl;
+			
 		}
-		else if ( stringCode == "R" )
+		/*else if ( stringCode == "R" )
 		{
 			code = CommandCode::R;
 			takeParams( paramsList );
@@ -105,17 +121,15 @@ int Application::Run( )
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
 			delete cmd;
-		}
+		}*/
 		else if ( stringCode == "MOVE" )
 		{
-			code = CommandCode::MOVE;
 			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do(*cmd);
-			// Appelle methode adequate
-			delete cmd;
+			cmd = new MoveCommand( paramsList, &figure );
+			commandManager.Do(cmd);
+			history.push_back(cmd);
 		}
-		else if ( stringCode == "DELETE" )
+		/*else if ( stringCode == "DELETE" )
 		{
 			code = CommandCode::DELETE;
 			takeParams( paramsList );
@@ -141,13 +155,12 @@ int Application::Run( )
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
 			delete cmd;
-		}
+		}*/
 		else if ( stringCode == "LIST" )
 		{
-			code = CommandCode::LIST;
 			list();
 		}
-		else if ( stringCode == "UNDO" )
+		/*else if ( stringCode == "UNDO" )
 		{
 			code = CommandCode::UNDO;
 			cmd = new Command( commandManager.Undo( ) );
@@ -173,7 +186,7 @@ int Application::Run( )
 			code = CommandCode::SAVE;
 			cin >> params;
 			fileManager.Save( params, figure );
-		}
+		}*/
 		else
 		{
 			cout << ERR_STRING << endl << "#Unknown command" << endl;
@@ -182,15 +195,16 @@ int Application::Run( )
 
 
 		// Attente du prochain code de commande
+		cout << "Attente new commande" << endl;
 		cin >> stringCode;
-
+	
 	}	//----- Fin de while(stringCode != "EXIT")
-
+	
 	return 0;
 }	//----- Fin de Run
 
 //------------------------------------------------- Surcharge d'opérateurs
-Application & Application::operator = ( const Application & uneApplication )
+Application & Application::operator= ( const Application & uneApplication )
 // Algorithme :	Si on n'est pas en train de faire uneApplication = uneApplication, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de uneApplication
 {
@@ -229,6 +243,10 @@ Application::~Application ( )
 #ifdef MAP
     cout << "Appel au destructeur de <Application>" << endl;
 #endif
+	for (ConstListCmdIterator cli = history.begin(); cli != history.end(); cli++)
+	{
+		delete *cli;
+	}
 } //----- Fin de ~Application
 
 //------------------------------------------------------------------ PRIVE
@@ -238,14 +256,30 @@ void Application::takeParams( StringList & params ) const
 {
 	string stringParams;
 	getline( cin, stringParams );
+	stringParams = stringParams.substr(1, stringParams.size());
 	while ( !stringParams.empty( ) )
 	{
 		// TODO : pas tout a fait non, mais l'idee est la
 		size_t lim = stringParams.find( " " );
-		if ( lim == string::npos ) lim = 0;
+		if ( lim == string::npos )
+		{
+			cout << "pas trouve" << endl;
+			params.push_back(stringParams);
+			break;
+		}
+		cout << "lim : " << lim << ends;
+		cout << "on va push : " << "--" << stringParams.substr(0, lim) << "--" << endl;
 		params.push_back( stringParams.substr( 0, lim ) );
-		stringParams = stringParams.substr( lim, stringParams.size( ) - lim );
+		cout << "la string va valoir : " << stringParams.substr(lim+1, stringParams.size() - lim-1) << endl;
+		stringParams = stringParams.substr( lim + 1, stringParams.size( ) - lim - 1 );
 	}
+	cout << "TOTAL PARAMS :";
+	for (int i = 0; i < params.size(); i++)
+	{
+		cout << " " << params[i];
+	}
+	cout << endl;
+
 }
 
 void Application::execute( const Command & cmd ) const
@@ -255,7 +289,11 @@ void Application::execute( const Command & cmd ) const
 
 void Application::list( ) const
 {
-	// TODO : implementer cette methode
+	for (ConstFigureIterator fi = figure.begin(); fi != figure.end(); fi++)
+	{
+		cout << fi->first;
+		fi->second->Print( );
+	}
 }
 
 

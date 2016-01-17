@@ -15,6 +15,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Application.h"
+#include "../commands/MoveCommand.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -25,22 +26,18 @@ int main( int arcg, char** argv )
 {
 	cout << "Hello world !" << endl;
 	StringList sl;
+	Figure f;
 	sl.push_back("name");
 	sl.push_back("5");
 	sl.push_back("-3");
-	Command c( CommandCode::MOVE, sl );
-	cout << c << endl;
-	cout << c.GetInversedCommand() << endl;
+	MoveCommand c( sl, &f );
+	CommandManager cm;
+	MoveCommand* c2 = c.GetInversedCommand( );
+	c.print();
+	c2->print();
 
-	StringList sl2;
-	sl2.push_back("name");
-	sl2.push_back("5");
-	sl2.push_back("5");
-	sl2.push_back("0");
-	sl2.push_back("-3");
-	Command c2(CommandCode::S, sl2);
-	cout << c2 << endl;
-	cout << c2.GetInversedCommand() << endl;
 
-	return 0;
+	Application app;
+
+	return app.Run( );
 }

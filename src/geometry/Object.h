@@ -34,12 +34,13 @@ public:
 	// Contrat :
 	//
 
-	virtual int Move(int dx, int dy) = 0;
+	virtual void Move(int dx, int dy) = 0;
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
+	virtual void Print() const = 0;
 
 //------------------------------------------------- Surcharge d'opérateurs
     Object & operator = ( const Object & unObject );

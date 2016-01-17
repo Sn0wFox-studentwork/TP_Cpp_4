@@ -12,12 +12,13 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <stack>
 
-#include "Command.h"
+#include "../commands/Command.h"
+#include "../commands/ReversableCommand.h"
 
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types
-typedef std::stack<Command> CommandStack;
+typedef std::stack<ReversableCommand*> CommandStack;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <CommandManager>
@@ -31,16 +32,16 @@ class CommandManager
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	void Do ( const Command& cmd );
+	int Do ( ReversableCommand* const cmd );
 	// Mode d'emploi :	Empile la commande cmd sur undoStack.
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
 
-	Command Undo ( );
+	int Undo ( );
 	// Mode d'emploi :	Depile undoStack et empile la commande sur redoStack.
 	//					Retourne l'inverse de la commande depilee.
 	// Contrat :		La pile undoStack ne doit pas etre vide.
 
-	Command Redo ( );
+	int Redo ( );
 	// Mode d'emploi :	Depile redoStack et empile la commande sur undoStack.
 	//					Retourne la commande depilee.
 	// Contrat :		La pile redoStack ne doit pas etre vide.
@@ -71,7 +72,7 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-	void clearRedoStack();
+	void clearRedoStack( );
 	// Mode d'emploi :	Vide la pile des commandes annulees redoStack.
 
 private:

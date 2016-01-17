@@ -19,6 +19,8 @@
 
 //------------------------------------------------------------------ Types
 typedef std::map<string, Object*> Figure;
+typedef Figure::iterator FigureIterator;
+typedef Figure::const_iterator ConstFigureIterator;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <FileManager>

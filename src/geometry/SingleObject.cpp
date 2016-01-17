@@ -27,10 +27,13 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-int SingleObject::Move( int dx, int dy )
+void SingleObject::Move( int dx, int dy )
 // Algorithme :
 {
-	return 0;
+	for ( Point p : points )
+	{
+		p.Move( dx, dy );
+	}
 }	//----- Fin de Méthode
 
 
@@ -57,7 +60,7 @@ SingleObject::SingleObject ( const SingleObject & unSingleObject )
 } //----- Fin de SingleObject (constructeur de copie)
 
 
-SingleObject::SingleObject ( )
+SingleObject::SingleObject ( ) : Object( ), points( )
 // Algorithme :
 //
 {

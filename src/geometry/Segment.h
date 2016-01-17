@@ -34,11 +34,11 @@ public:
     // Contrat :
     //
 
-	int Move( int dx, int dy );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	void Print() const
+	{
+		std::cout << "S ";
+		SingleObject::Print();
+	}
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -56,7 +56,7 @@ public:
     // Contrat :
     //
 
-    Segment ( );
+    Segment ( Point p1, Point p2 );
     // Mode d'emploi :
     //
     // Contrat :

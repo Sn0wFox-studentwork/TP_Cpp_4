@@ -12,6 +12,7 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
 #include <string>
+#include <list>
 
 #include "../geometry/Object.h"
 #include "../managers/FileManager.h"
@@ -20,6 +21,9 @@
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types
+typedef std::list<ReversableCommand*> ListCommand;
+typedef ListCommand::iterator ListCmdIterator;
+typedef ListCommand::const_iterator ConstListCmdIterator;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Application>
@@ -82,24 +86,15 @@ protected:
 	void list( ) const;
 	// Mode d'emploi :	Affiche toutes les formes géometrique de la Figure figure.
 
-//-------- Actions spécifiques
-	void addSegment( std::string name, Point p1, Point p2 );
-	void addRectangle( std::string name, Point p1, Point p2 );
-	void addPolygone( std::string name, StringList points );
-	void addUnion( std::string name, StringList componentsNames );
-	void addIntersection( std::string name, StringList componentsNames );
-	void hit( std::string name, Point p );
-	void move( std::string name, Point p );
-	void deleteObjects( StringList componentsNames );
-
 private:
 //------------------------------------------------------- Méthodes privées
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	Figure figure;
-	FileManager fileManager;
-	CommandManager commandManager;
+	Figure figure;					// L'ensemble des formes geometriques
+	FileManager fileManager;		// Permet de sauvegarder/charger une figure
+	CommandManager commandManager;	// Permet la mise en place de annuler/repeter
+	ListCommand history;			// L'historique des commandes utilisees
 
 private:
 //------------------------------------------------------- Attributs privés

@@ -34,12 +34,6 @@ bool Segment::Contains( Point point )
 	return false;
 }	//----- Fin de Méthode
 
-int Segment::Move( int dx, int dy )
-// Algorithme :
-{
-	return 0;
-}	//----- Fin de Move
-
 
 //------------------------------------------------- Surcharge d'opérateurs
 Segment & Segment::operator = ( const Segment & unSegment )
@@ -64,10 +58,14 @@ Segment::Segment ( const Segment & unSegment )
 } //----- Fin de Segment (constructeur de copie)
 
 
-Segment::Segment ( )
+Segment::Segment ( Point p1, Point p2 ) : SingleObject( )
 // Algorithme :
 //
 {
+	cout << p1.GetX() << endl;
+	points.push_back( p1 );
+	points.push_back( p2 );
+	cout << points[0].GetX() << endl;
 #ifdef MAP
     cout << "Appel au constructeur de <Segment>" << endl;
 #endif

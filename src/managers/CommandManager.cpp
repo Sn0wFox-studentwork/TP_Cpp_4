@@ -28,7 +28,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void CommandManager::Do ( const Command& cmd )
+int CommandManager::Do ( ReversableCommand* const cmd )
 // Algorithme :	On vide la pile des commandes annulees si elle n'est pas vide,
 //				puis on empile la commande cmd sur la pile des actions effectuees.
 {
@@ -37,28 +37,35 @@ void CommandManager::Do ( const Command& cmd )
 		clearRedoStack( );
 	}
 	undoStack.push( cmd );
+	cout << "in Do :";
+	for (int i = 0; i < cmd->GetParams().size(); i++)
+	{
+		cout << " " << cmd->GetParams()[i];
+	}
+	cout << endl;
+	return cmd->Execute( );
 }	//----- Fin de Do
 
-Command CommandManager::Undo ( )
+int CommandManager::Undo ( )
 // Algorithme :	On depile la commande au sommet de la pile des commandes effectuees (= derniere en date)
 //				et on l'empile sur la pile des commandes annulees.
 //				Retourne l'inverse de la commande depilee.
 {
-	Command c = undoStack.top( );	// Acces au premier element
-	undoStack.pop( );				// Suppression du premier element
+	ReversableCommand* c = undoStack.top( );	// Acces au premier element
+	undoStack.pop( );							// Suppression du premier element
 	redoStack.push( c );
-	return c.GetInversedCommand( );
+	return c->GetInversedCommand( )->Execute( );
 }	//----- Fin de Undo
 
-Command CommandManager::Redo ( )
+int CommandManager::Redo ( )
 // Algorithme :	On depile la commande au sommet de la pile des commandes annulees (= derniere annulee en date)
 //				et on l'empile sur la pile des commandes effectuees.
 //				Retour de cette meme commande.
 {
-	Command c = redoStack.top( );	// Acces au premier element
-	undoStack.pop( );				// Suppression du premier element
+	ReversableCommand* c = redoStack.top( );	// Acces au premier element
+	undoStack.pop( );							// Suppression du premier element
 	undoStack.push( c );
-	return c;
+	return c->Execute( );
 }	//----- Fin de Redo
 
 bool CommandManager::Undoable ( ) const
@@ -99,7 +106,7 @@ CommandManager::CommandManager ( const CommandManager & aCommandManager ) :
 }	//----- Fin de CommandManager (constructeur de copie)
 
 
-CommandManager::CommandManager ( ) : undoStack(), redoStack()
+CommandManager::CommandManager ( ) : undoStack( ), redoStack( )
 // Algorithme :	Instanciation d'un objet par instanciation de deux piles de commandes vides.
 {
 #ifdef MAP
@@ -122,9 +129,9 @@ CommandManager::~CommandManager ( )
 
 //----------------------------------------------------- Méthodes protégées
 void CommandManager::clearRedoStack( )
-// Algorithme :	Vidage de la pile des actions a refaire par reaffectation d'une pile vide.
+// Algorithme :	Nettoyage de la pile redoStack par reaffectation d'une pile vide.
 {
-	redoStack = CommandStack( );
+	redoStack = CommandStack();
 }	//----- Fin de clearRedoStack
 
 //------------------------------------------------------- Méthodes privées

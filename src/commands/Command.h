@@ -1,8 +1,8 @@
 /*************************************************************************
-Command  -  description
--------------------
-début                : 11/01/2016
-copyright            : (C) 2016 par Baha & Pericas-Moya
+						Command  -  description
+						   -------------------
+	début                : 11/01/2016
+	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
 //---------- Interface de la classe <Command> (fichier Command.h) ------
@@ -37,16 +37,10 @@ class Command
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-	Command GetInversedCommand( ) const;
-	// Mode d'emploi :	Retourne la commande annulant la commande courante.
-	//					Retourne une commande de code UNSAVEABLE avec une liste de parametres
-	//					vide de le cas d'une commande non-annulable.
-
-	inline CommandCode GetCmdCode( ) const
-	// Mode d'emploi :	Retourne le code de la commande courante.
-	{
-		return cmdCode;
-	}
+	virtual int Execute( ) const = 0;
+	// Mode d'emploi :	Execute la commande courante.
+	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
+	//					Ces autres valeurs seront a preciser dans les surcharges de cette methode.
 
 	inline StringList GetParams( ) const
 	// Mode d'emploi :	Retourne la liste des parametres de la commande courante.
@@ -59,20 +53,14 @@ public:
 	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point semblable a aCommand.
 	//					Retourne l'objet modifie par reference.
 
-	friend ostream& operator<<( ostream& s, Command c );
-	// Mode d'emploi :	Insere une representation de l'objet courant sous forme de chaine de caracteres
-	//					dans le flux de sortie s.
-	//					Retourne le fux ainsi modifie par reference.
-
 	//-------------------------------------------- Constructeurs - destructeur
 	Command( const Command & aCommand );
 	// Mode d'emploi (constructeur de copie) :	Construit un objet en tout points similaire a aCommand.
 
-	Command( const CommandCode& cmdCode, const StringList& params );
+	Command( const StringList& params );
 	// Mode d'emploi :	Construit une instance de Command.
-	//					La commande cree aura pour code de commande cmdCode et comme liste de parametres params (copies).
+	//					La commande cree aura comme liste de parametres params (copie).
 	// Contrat :	La liste de parametres doit etre complete, car elle ne sera pas modifiable par la suite.
-	//				Le code de commande cmdCode doit etre un membre de l'enumeration CommandCode.
 
 	virtual ~Command( );
 	// Mode d'emploi :	Detruit l'objet courant et libere la memoire associee.
@@ -88,7 +76,6 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-	CommandCode cmdCode;
 	StringList params;
 
 private:
