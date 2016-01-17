@@ -65,12 +65,11 @@ Command Command::GetInversedCommand( ) const
 	case DELETE:
 	case HIT:
 	case CLEAR:
-	case UNSAVEABLE:
 		break;
 	default:
 		break;
 	}
-	return Command( CommandCode::UNSAVEABLE, StringList( ) );
+	return Command( CommandCode::NULLCMD, StringList( ) );
 }	//----- Fin de GetInversedCommand
 
 

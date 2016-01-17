@@ -54,7 +54,7 @@ int Application::Run( )
 		if ( stringCode == "S" )
 		{
 			code = CommandCode::S;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
@@ -63,7 +63,7 @@ int Application::Run( )
 		else if ( stringCode == "R" )
 		{
 			code = CommandCode::R;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do( *cmd );
 			// Appelle methode adequate
@@ -72,7 +72,7 @@ int Application::Run( )
 		else if ( stringCode == "PC" )
 		{
 			code = CommandCode::PC;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do( *cmd );
 			// Appelle methode adequate
@@ -81,7 +81,7 @@ int Application::Run( )
 		else if ( stringCode == "OR" )
 		{
 			code = CommandCode::OR;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do( *cmd );
 			// Appelle methode adequate
@@ -90,8 +90,9 @@ int Application::Run( )
 		else if ( stringCode == "OI" )
 		{
 			code = CommandCode::OI;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
+			takeParams( paramsList );
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
 			delete cmd;
@@ -99,7 +100,7 @@ int Application::Run( )
 		else if ( stringCode == "HIT" )
 		{
 			code = CommandCode::HIT;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
@@ -108,7 +109,7 @@ int Application::Run( )
 		else if ( stringCode == "MOVE" )
 		{
 			code = CommandCode::MOVE;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
@@ -117,7 +118,7 @@ int Application::Run( )
 		else if ( stringCode == "DELETE" )
 		{
 			code = CommandCode::DELETE;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
@@ -126,7 +127,7 @@ int Application::Run( )
 		else if ( stringCode == "CLEAR" )
 		{
 			code = CommandCode::CLEAR;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
@@ -135,7 +136,7 @@ int Application::Run( )
 		else if ( stringCode == "LOAD" )
 		{
 			code = CommandCode::LOAD;
-			takeParams( paramsList, params );
+			takeParams( paramsList );
 			cmd = new Command( code, paramsList );
 			commandManager.Do(*cmd);
 			// Appelle methode adequate
@@ -143,33 +144,33 @@ int Application::Run( )
 		}
 		else if ( stringCode == "LIST" )
 		{
-			code = CommandCode::UNSAVEABLE;
+			code = CommandCode::LIST;
 			list();
 		}
 		else if ( stringCode == "UNDO" )
 		{
-			code = CommandCode::UNSAVEABLE;
+			code = CommandCode::UNDO;
 			cmd = new Command( commandManager.Undo( ) );
 			execute( *cmd );
 			delete cmd;
 		}
 		else if ( stringCode == "REDO" )
 		{
-			code = CommandCode::UNSAVEABLE;
+			code = CommandCode::REDO;
 			cmd = new Command( commandManager.Redo( ) );
 			execute( *cmd );
 			delete cmd;
 		}
 		else if ( stringCode == "LOAD" )
 		{
-			code = CommandCode::UNSAVEABLE;
+			code = CommandCode::LOAD;
 			cin >> params;
 			fileManager.Load( params );
 			// TODO : que fait-on si on charge un modele en plein millieu de l'edition d'un autre ?
 		}
 		else if ( stringCode == "SAVE" )
 		{
-			code = CommandCode::UNSAVEABLE;
+			code = CommandCode::SAVE;
 			cin >> params;
 			fileManager.Save( params, figure );
 		}
@@ -233,8 +234,9 @@ Application::~Application ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-void Application::takeParams( StringList & params, std::string & stringParams ) const
+void Application::takeParams( StringList & params ) const
 {
+	string stringParams;
 	getline( cin, stringParams );
 	while ( !stringParams.empty( ) )
 	{

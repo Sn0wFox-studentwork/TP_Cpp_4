@@ -20,7 +20,7 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 typedef enum CommandCode
 // Cette enumeration liste toutes les commandes inversibles possibles
 {
-	UNSAVEABLE, S, R, PC, OR, OI, HIT, DELETE, CLEAR, LOAD, MOVE
+	NULLCMD, S, R, PC, OR, OI, HIT, DELETE, MOVE, LIST, UNDO, REDO, LOAD, SAVE, CLEAR
 } CommandCode;
 
 typedef std::vector<std::string> StringList;

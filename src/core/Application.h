@@ -71,9 +71,26 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-	void takeParams( StringList& params, std::string& stringParams ) const;
+//-------- Execution générale
+	void takeParams( StringList& params ) const;
+	// Mode d'emploi :	Ajoute les parametres rentres sur l'entree standard dans la liste
+	//					de parametres params (ajout par la fin).
+
 	void execute( const Command& cmd ) const;
+	// Mode d'emploi :	Execute la commande cmd.
+
 	void list( ) const;
+	// Mode d'emploi :	Affiche toutes les formes géometrique de la Figure figure.
+
+//-------- Actions spécifiques
+	void addSegment( std::string name, Point p1, Point p2 );
+	void addRectangle( std::string name, Point p1, Point p2 );
+	void addPolygone( std::string name, StringList points );
+	void addUnion( std::string name, StringList componentsNames );
+	void addIntersection( std::string name, StringList componentsNames );
+	void hit( std::string name, Point p );
+	void move( std::string name, Point p );
+	void deleteObjects( StringList componentsNames );
 
 private:
 //------------------------------------------------------- Méthodes privées
