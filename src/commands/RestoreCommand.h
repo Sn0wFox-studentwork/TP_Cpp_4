@@ -1,40 +1,50 @@
 /*************************************************************************
-                           AddSegmentCommand  -  description
+                           RestoreCommand  -  description
                              -------------------
     début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Interface de la classe <AddSegmentCommand> (fichier AddSegmentCommand.h) ------
-#if ! defined ( ADD_SEGMENT_COMMAND_H )
-#define ADD_SEGMENT_COMMAND_H
+//---------- Interface de la classe <RestoreCommand> (fichier RestoreCommand.h) ------
+#if ! defined ( RESTORE_COMMAND_H )
+#define RESTORE_COMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "AddObjectCommand.h"
+#include <map>
+
+#include "ReversableCommand.h"
+#include "../geometry/Object.h"
 
 //------------------------------------------------------------- Constantes 
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <AddSegmentCommand>
+// Rôle de la classe <RestoreCommand>
 //
 //
 //------------------------------------------------------------------------ 
 
-class AddSegmentCommand : public AddObjectCommand
+class RestoreCommand : public ReversableCommand
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    virtual int Execute( ) const;
+	virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
-	// TODO :	Ces autres valeurs seront a preciser dans les surcharges de cette methode.
+	//					Ces autres valeurs seront a preciser dans les surcharges de cette methode.
+
+    virtual ReversableCommand* GetInversedCommand( ) const;
+	// Mode d'emploi :	Retourne un pointeur sur la commande annulant la commande courante.
+	// A noter :	Les classes heritant de RestoreCommand pourront utiliser une surcharge par
+	//				type de retour covariant : on remplacera RestoreCommand* par HeritedRestoreCommand*.
+	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
+
 
 //------------------------------------------------- Surcharge d'opérateurs
-    AddSegmentCommand & operator = ( const AddSegmentCommand & unAddSegmentCommand );
+    RestoreCommand & operator = ( const RestoreCommand & unRestoreCommand );
     // Mode d'emploi :
     //
     // Contrat :
@@ -42,19 +52,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    AddSegmentCommand ( const AddSegmentCommand & unAddSegmentCommand );
+    RestoreCommand ( const RestoreCommand & unRestoreCommand );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    AddSegmentCommand ( const StringList& params, Figure* const f );
+    RestoreCommand ( const StringList& params, Figure* const f, Object* const delObject );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~AddSegmentCommand ( );
+    virtual ~RestoreCommand ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -70,6 +80,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+	Object* deletedObject;
 
 private:
 //------------------------------------------------------- Attributs privés
@@ -82,6 +93,6 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <AddSegmentCommand>
+//----------------------------------------- Types dépendants de <RestoreCommand>
 
-#endif // ADD_SEGMENT_COMMAND_H
+#endif // RESTORE_COMMAND_H

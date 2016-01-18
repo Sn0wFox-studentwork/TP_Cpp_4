@@ -38,24 +38,44 @@ int CommandManager::Do ( ReversableCommand* const cmd )
 		clearRedoStack( );
 	}
 	undoStack.push( cmd );
-	cout << "in Do :";
-	for (int i = 0; i < cmd->GetParams().size(); i++)
-	{
-		cout << " " << cmd->GetParams()[i];
-	}
-	cout << endl;
+	numberToUndo.push_front(1);
 	return cmd->Execute( );
 }	//----- Fin de Do
+
+int CommandManager::Do( const vector<ReversableCommand*>& cmds )
+// Algorithme :
+// TODO :	Se servir de la methode au dessus !
+{
+	int ret = 0;
+	if ( Redoable() )
+	{
+		clearRedoStack();
+	}
+	for ( int i = 0; i < cmds.size( ); i++ )
+	{
+		undoStack.push( cmds[i] );
+		ret += cmds[i]->Execute( );
+	}
+	if( cmds.size( ) != 0 )
+	{
+		numberToUndo.push_front( cmds.size( ) );
+	}
+	return ret;
+}
 
 int CommandManager::Undo ( )
 // Algorithme :	On depile la commande au sommet de la pile des commandes effectuees (= derniere en date)
 //				et on l'empile sur la pile des commandes annulees.
 //				Retourne l'inverse de la commande depilee.
 {
-	ReversableCommand* c = undoStack.top( );	// Acces au premier element
-	undoStack.pop( );							// Suppression du premier element
-	redoStack.push( c );
-	return c->GetInversedCommand( )->Execute( );
+	for ( int i = 0; i < *numberToUndo.begin( ); i++ )
+	{
+		ReversableCommand* c = undoStack.top( );	// Acces au premier element
+		undoStack.pop( );							// Suppression du premier element
+		redoStack.push( c );
+		return c->GetInversedCommand( )->Execute( );
+	}
+	numberToUndo.pop_front( );
 }	//----- Fin de Undo
 
 int CommandManager::Redo ( )
@@ -91,6 +111,7 @@ CommandManager & CommandManager::operator= ( const CommandManager & aCommandMana
     {
         undoStack = aCommandManager.undoStack;
         redoStack = aCommandManager.redoStack;
+		numberToUndo = aCommandManager.numberToUndo;	// TODO : suffisant ?
     }
     return *this;
 }    //----- Fin de operator =
@@ -98,7 +119,8 @@ CommandManager & CommandManager::operator= ( const CommandManager & aCommandMana
 
 //-------------------------------------------- Constructeurs - destructeur
 CommandManager::CommandManager ( const CommandManager & aCommandManager ) :
-        undoStack( aCommandManager.undoStack ), redoStack( aCommandManager.redoStack )
+        undoStack( aCommandManager.undoStack ), redoStack( aCommandManager.redoStack ),
+		numberToUndo( aCommandManager.numberToUndo )
 // Algorithme :	Utilisation du constructeurs de copie de CommandStack (std::stack<Command>).
 {
 #ifdef MAP
@@ -107,7 +129,7 @@ CommandManager::CommandManager ( const CommandManager & aCommandManager ) :
 }    //----- Fin de CommandManager (constructeur de copie)
 
 
-CommandManager::CommandManager ( ) : undoStack( ), redoStack( )
+CommandManager::CommandManager ( ) : undoStack( ), redoStack( ), numberToUndo( )
 // Algorithme :	Instanciation d'un objet par instanciation de deux piles de commandes vides.
 {
 #ifdef MAP

@@ -1,13 +1,13 @@
 /*************************************************************************
-                           AddSegmentCommand  -  description
+                           AddUnionCommand  -  description
                              -------------------
     début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Interface de la classe <AddSegmentCommand> (fichier AddSegmentCommand.h) ------
-#if ! defined ( ADD_SEGMENT_COMMAND_H )
-#define ADD_SEGMENT_COMMAND_H
+//---------- Interface de la classe <AddUnionCommand> (fichier AddUnionCommand.h) ------
+#if ! defined ( ADD_UNION_COMMAND_H )
+#define ADD_UNION_COMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include "AddObjectCommand.h"
@@ -17,12 +17,12 @@
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <AddSegmentCommand>
+// Rôle de la classe <AddUnionCommand>
 //
 //
 //------------------------------------------------------------------------ 
 
-class AddSegmentCommand : public AddObjectCommand
+class AddUnionCommand : public AddObjectCommand
 {
 //----------------------------------------------------------------- PUBLIC
 
@@ -34,7 +34,7 @@ public:
 	// TODO :	Ces autres valeurs seront a preciser dans les surcharges de cette methode.
 
 //------------------------------------------------- Surcharge d'opérateurs
-    AddSegmentCommand & operator = ( const AddSegmentCommand & unAddSegmentCommand );
+    AddUnionCommand & operator = ( const AddUnionCommand & unAddUnionCommand );
     // Mode d'emploi :
     //
     // Contrat :
@@ -42,19 +42,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    AddSegmentCommand ( const AddSegmentCommand & unAddSegmentCommand );
+    AddUnionCommand ( const AddUnionCommand & unAddUnionCommand );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    AddSegmentCommand ( const StringList& params, Figure* const f );
+    AddUnionCommand ( const StringList& params, Figure* const f );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~AddSegmentCommand ( );
+    virtual ~AddUnionCommand ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,6 +82,6 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <AddSegmentCommand>
+//----------------------------------------- Types dépendants de <AddUnionCommand>
 
-#endif // ADD_SEGMENT_COMMAND_H
+#endif // ADD_UNION_COMMAND_H

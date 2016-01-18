@@ -31,7 +31,7 @@ using namespace std;
 void SingleObject::Move( int dx, int dy )
 // Algorithme :
 {
-	for ( Point p : points )
+	for ( Point& p : points )
 	{
 		p.Move( dx, dy );
 	}

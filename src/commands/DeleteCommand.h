@@ -1,40 +1,51 @@
 /*************************************************************************
-                           AddSegmentCommand  -  description
+                           DeleteCommand  -  description
                              -------------------
     début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Interface de la classe <AddSegmentCommand> (fichier AddSegmentCommand.h) ------
-#if ! defined ( ADD_SEGMENT_COMMAND_H )
-#define ADD_SEGMENT_COMMAND_H
+//---------- Interface de la classe <DeleteCommand> (fichier DeleteCommand.h) ------
+#if ! defined ( DELETE_COMMAND_H )
+#define DELETE_COMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "AddObjectCommand.h"
+#include <map>
+
+#include "ReversableCommand.h"
+#include "DeleteCommand.h"
+#include "../geometry/Object.h"
 
 //------------------------------------------------------------- Constantes 
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <AddSegmentCommand>
+// Rôle de la classe <DeleteCommand>
 //
 //
 //------------------------------------------------------------------------ 
 
-class AddSegmentCommand : public AddObjectCommand
+class DeleteCommand : public ReversableCommand
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    virtual int Execute( ) const;
+	virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
-	// TODO :	Ces autres valeurs seront a preciser dans les surcharges de cette methode.
+	//					Ces autres valeurs seront a preciser dans les surcharges de cette methode.
+
+    virtual ReversableCommand* GetInversedCommand( ) const;
+	// Mode d'emploi :	Retourne un pointeur sur la commande annulant la commande courante.
+	// A noter :	Les classes heritant de DeleteCommand pourront utiliser une surcharge par
+	//				type de retour covariant : on remplacera DeleteCommand* par HeritedDeleteCommand*.
+	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
+
 
 //------------------------------------------------- Surcharge d'opérateurs
-    AddSegmentCommand & operator = ( const AddSegmentCommand & unAddSegmentCommand );
+    DeleteCommand & operator = ( const DeleteCommand & unDeleteCommand );
     // Mode d'emploi :
     //
     // Contrat :
@@ -42,19 +53,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    AddSegmentCommand ( const AddSegmentCommand & unAddSegmentCommand );
+    DeleteCommand ( const DeleteCommand & unDeleteCommand );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    AddSegmentCommand ( const StringList& params, Figure* const f );
+    DeleteCommand ( const StringList& params, Figure* const f );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~AddSegmentCommand ( );
+    virtual ~DeleteCommand ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -70,6 +81,8 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
+	bool isComplete;
+	Object* deletedObject;
 
 private:
 //------------------------------------------------------- Attributs privés
@@ -82,6 +95,6 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <AddSegmentCommand>
+//----------------------------------------- Types dépendants de <DeleteCommand>
 
-#endif // ADD_SEGMENT_COMMAND_H
+#endif // DELETE_COMMAND_H

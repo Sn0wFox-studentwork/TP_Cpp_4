@@ -38,12 +38,6 @@ using namespace std;
 
 int AddSegmentCommand::Execute( ) const
 {
-	cout << "In Execute :";
-	for (int i = 0; i < this->GetParams().size(); i++)
-	{
-		cout << " " << this->GetParams()[i];
-	}
-	cout << endl;
 	try
 	{
 		Object* o = figure->at( params[0] );
@@ -51,31 +45,10 @@ int AddSegmentCommand::Execute( ) const
 	}
 	catch ( const out_of_range& e )
 	{
-		cout << stoi(params[1]) << endl;
 		(*figure)[params[0]] = new Segment(	Point(stoi(params[1]), stoi(params[2])),
 											Point(stoi(params[3]), stoi(params[4])) );
-		(*figure)[params[0]]->Print();
 	}
 	return 0;
-}
-
-AddSegmentCommand * AddSegmentCommand::GetInversedCommand( ) const
-{
-	StringList sl;
-	sl.push_back( params[0] );	// Push du nom de l'objet
-	for ( unsigned int i = 1; i < params.size( ); i++ )
-	{
-		if ( params[i].substr( 0, 1 ) == "-" )
-		{
-			sl.push_back( params[i].substr( 1, params[i].size( ) -1 ) );
-		}
-		else
-		{
-			sl.push_back( "-" + params[i] );
-		}
-	}
-	AddSegmentCommand* moveCmd = new AddSegmentCommand( sl, this->figure );
-	return moveCmd;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -93,7 +66,8 @@ AddSegmentCommand & AddSegmentCommand::operator = ( const AddSegmentCommand & aA
 
 
 //-------------------------------------------- Constructeurs - destructeur
-AddSegmentCommand::AddSegmentCommand ( const AddSegmentCommand & aAddSegmentCommand ) : ReversableCommand ( aAddSegmentCommand )
+AddSegmentCommand::AddSegmentCommand ( const AddSegmentCommand & aAddSegmentCommand ) :
+	AddObjectCommand ( aAddSegmentCommand )
 // Algorithme :
 {
 #ifdef MAP
@@ -102,7 +76,8 @@ AddSegmentCommand::AddSegmentCommand ( const AddSegmentCommand & aAddSegmentComm
 } //----- Fin de AddSegmentCommand (constructeur de copie)
 
 
-AddSegmentCommand::AddSegmentCommand ( const StringList& params, Figure* const f ) : ReversableCommand( params, f )
+AddSegmentCommand::AddSegmentCommand ( const StringList& params, Figure* const f ) :
+	AddObjectCommand( params, f )
 // Algorithme :
 //
 {

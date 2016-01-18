@@ -11,6 +11,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <stack>
+#include <list>
 
 #include "../commands/Command.h"
 #include "../commands/ReversableCommand.h"
@@ -35,6 +36,12 @@ public:
 	int Do ( ReversableCommand* const cmd );
 	// Mode d'emploi :	Empile la commande cmd sur undoStack.
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
+
+	int Do ( const vector<ReversableCommand*>& cmds );
+	// Mode d'emploi :	Empile le vecteur de commandes cmds sur undoStack, en commencant par celle d'indice 0.
+	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
+	//					Si cmds est vide, ne fait rien.
+	//					Si cmds ne contient qu'une commande, est equivalent a l'appel de Do(ReversableCommand*).
 
 	int Undo ( );
 	// Mode d'emploi :	Depile undoStack et empile la commande sur redoStack.
@@ -82,6 +89,7 @@ protected:
 //----------------------------------------------------- Attributs protégés
     CommandStack undoStack;        // La pile des commandes effectuees et annulables
     CommandStack redoStack;        // La pile des commandes annulees (et donc refaisables)
+	list<int> numberToUndo;
 
 private:
 //------------------------------------------------------- Attributs privés

@@ -1,40 +1,50 @@
 /*************************************************************************
-                           AddSegmentCommand  -  description
+                           AddObjectCommand  -  description
                              -------------------
     début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Interface de la classe <AddSegmentCommand> (fichier AddSegmentCommand.h) ------
-#if ! defined ( ADD_SEGMENT_COMMAND_H )
-#define ADD_SEGMENT_COMMAND_H
+//---------- Interface de la classe <AddObjectCommand> (fichier AddObjectCommand.h) ------
+#if ! defined ( ADD_OBJECT_COMMAND_H )
+#define ADD_OBJECT_COMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "AddObjectCommand.h"
+#include <map>
+
+#include "ReversableCommand.h"
+#include "DeleteCommand.h"
 
 //------------------------------------------------------------- Constantes 
 
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <AddSegmentCommand>
+// Rôle de la classe <AddObjectCommand>
 //
 //
 //------------------------------------------------------------------------ 
 
-class AddSegmentCommand : public AddObjectCommand
+class AddObjectCommand : public ReversableCommand
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    virtual int Execute( ) const;
+	virtual int Execute( ) const = 0;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
-	// TODO :	Ces autres valeurs seront a preciser dans les surcharges de cette methode.
+	//					Ces autres valeurs seront a preciser dans les surcharges de cette methode.
+
+    virtual DeleteCommand* GetInversedCommand( ) const;
+	// Mode d'emploi :	Retourne un pointeur sur la commande annulant la commande courante.
+	// A noter :	Les classes heritant de AddObjectCommand pourront utiliser une surcharge par
+	//				type de retour covariant : on remplacera AddObjectCommand* par HeritedAddObjectCommand*.
+	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
+
 
 //------------------------------------------------- Surcharge d'opérateurs
-    AddSegmentCommand & operator = ( const AddSegmentCommand & unAddSegmentCommand );
+    AddObjectCommand & operator = ( const AddObjectCommand & unAddObjectCommand );
     // Mode d'emploi :
     //
     // Contrat :
@@ -42,19 +52,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    AddSegmentCommand ( const AddSegmentCommand & unAddSegmentCommand );
+    AddObjectCommand ( const AddObjectCommand & unAddObjectCommand );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    AddSegmentCommand ( const StringList& params, Figure* const f );
+    AddObjectCommand ( const StringList& params, Figure* const f );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~AddSegmentCommand ( );
+    virtual ~AddObjectCommand ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,6 +92,6 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <AddSegmentCommand>
+//----------------------------------------- Types dépendants de <AddObjectCommand>
 
-#endif // ADD_SEGMENT_COMMAND_H
+#endif // ADD_OBJECT_COMMAND_H
