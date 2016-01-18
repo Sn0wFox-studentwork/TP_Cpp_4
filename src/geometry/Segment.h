@@ -72,6 +72,12 @@ public:
     // Contrat :
     //
 
+    Segment ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
     virtual ~Segment ( );
     // Mode d'emploi :
     //

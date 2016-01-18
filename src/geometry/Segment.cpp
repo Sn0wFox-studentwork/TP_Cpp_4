@@ -99,6 +99,14 @@ Segment::Segment ( Point p1, Point p2 ) : SingleObject( )
 #endif
 } //----- Fin de Segment
 
+Segment::Segment ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <Segment>" << endl;
+#endif
+} //----- Fin de Segment
 
 Segment::~Segment ( )
 // Algorithme :
