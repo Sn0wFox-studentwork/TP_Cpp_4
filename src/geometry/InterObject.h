@@ -39,6 +39,11 @@ public:
         return LABEL;
     }
 
+	InterObject* Clone() const
+	{
+		return new InterObject(*this);
+	}
+
 	void Print() const
 	{
 		CompositeObject::Print();

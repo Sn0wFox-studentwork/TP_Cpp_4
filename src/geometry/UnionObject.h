@@ -39,6 +39,11 @@ public:
         return LABEL;
     }
 
+	UnionObject* Clone() const
+	{
+		return new UnionObject(*this);
+	}
+
 //------------------------------------------------- Surcharge d'opérateurs
     UnionObject & operator= ( const UnionObject & unUnionObject );
     // Mode d'emploi :

@@ -34,6 +34,11 @@ public:
     // Contrat :
     //
 
+	Polygone* Clone() const
+	{
+		return new Polygone(*this);
+	}
+
     std::string getLabel ( )
     {
         return LABEL;

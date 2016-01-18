@@ -42,6 +42,8 @@ public:
 	// Contrat :
 	//
 
+	virtual SingleObject* Clone() const = 0;
+
 	virtual void Print() const
 	{
 		for (Point p : points)

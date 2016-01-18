@@ -34,6 +34,11 @@ public:
     // Contrat :
     //
 
+	Rectangle* Clone() const
+	{
+		return new Rectangle(*this);
+	}
+
     std::string getLabel ( )
     {
         return LABEL;

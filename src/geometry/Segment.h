@@ -34,6 +34,11 @@ public:
     // Contrat :
     //
 
+	Segment* Clone() const
+	{
+		return new Segment(*this);
+	}
+
 	void Print() const
 	{
 		std::cout << "S ( " << std::flush;

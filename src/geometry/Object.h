@@ -47,6 +47,12 @@ public:
 	// Contrat :
 	//
 
+	virtual Object* Clone() const = 0;
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
+
 	virtual std::string getLabel ( ) = 0;
     // Mode d'emploi :
     //

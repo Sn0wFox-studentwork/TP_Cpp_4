@@ -36,6 +36,8 @@ public:
     // Contrat :
     //
 
+	virtual CompositeObject* Clone( ) const = 0;
+
 	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
