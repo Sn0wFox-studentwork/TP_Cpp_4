@@ -92,10 +92,8 @@ Segment::Segment ( Point p1, Point p2 ) : SingleObject( )
 // Algorithme :
 //
 {
-	cout << p1.GetX() << endl;
 	points.push_back( p1 );
 	points.push_back( p2 );
-	cout << points[0].GetX() << endl;
 #ifdef MAP
     cout << "Appel au constructeur de <SingleObject>" << endl;
 #endif

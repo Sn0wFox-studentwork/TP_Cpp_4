@@ -23,6 +23,7 @@ using namespace std;
 #include "../commands/AddPolygonCommand.h"
 #include "../commands/AddIntersectionCommand.h"
 #include "../commands/AddUnionCommand.h"
+#include "../commands/DeleteCommand.h"
 
 //------------------------------------------------------------- Constantes
 const string ERR_STRING = "ERR";
@@ -63,33 +64,33 @@ int Application::Run ( )
 		{
 			takeParams( paramsList );
 			cmd = new AddSegmentCommand( paramsList, &figure );
-			returnCode = commandManager.Do(cmd);
-			history.push_back(cmd);			
+			returnCode = commandManager.Do( cmd );
+			history.push_back( cmd );			
 		}
 		else if ( stringCode == "R" )
 		{
-			takeParams(paramsList);
+			takeParams( paramsList );
 			cmd = new AddRectangleCommand( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
 			history.push_back( cmd );
 		}
 		else if ( stringCode == "PC" )
 		{
-			takeParams(paramsList);
+			takeParams( paramsList );
 			cmd = new AddPolygonCommand( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
 			history.push_back( cmd );
 		}
 		else if ( stringCode == "OR" )
 		{
-			takeParams(paramsList);
+			takeParams( paramsList );
 			cmd = new AddUnionCommand( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
 			history.push_back( cmd );
 		}
 		else if ( stringCode == "OI" )
 		{
-			takeParams(paramsList);
+			takeParams( paramsList );
 			cmd = new AddIntersectionCommand( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
 			history.push_back( cmd );
@@ -107,19 +108,37 @@ int Application::Run ( )
 		{
 			takeParams( paramsList );
 			cmd = new MoveCommand( paramsList, &figure );
-			returnCode = commandManager.Do(cmd);
-			history.push_back(cmd);
+			returnCode = commandManager.Do( cmd );
+			history.push_back( cmd );
 		}
-		/*else if ( stringCode == "DELETE" )
+		else if ( stringCode == "DELETE" )
 		{
-			code = CommandCode::DELETE;
 			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do(*cmd);
-			// Appelle methode adequate
-			delete cmd;
+			int i = 0;						// Nombre de commandes delete qui se sont correctement deroulees
+			for ( string& s : paramsList )
+			{
+				StringList sl;
+				sl.push_back(s);
+				cmd = new DeleteCommand( sl, &figure );
+				returnCode = commandManager.Do( cmd );
+				history.push_back( cmd );
+				if ( returnCode )
+				{
+					break;	// Si une seul des commandes de supression se passe mal, on arrete
+				}
+				i++;
+			}
+			// Si une seule des commande de supression s'est mal passe, on annule la supression
+			if ( returnCode )
+			{
+				for ( int j = 0; j < i; j++ )
+				{
+					commandManager.Undo( );
+				}
+				cout << ERR_STRING << endl << "#Parameter " << paramsList[i] << " doesn't exist as Object" << endl;
+			}
 		}
-		else if ( stringCode == "CLEAR" )
+		/*else if ( stringCode == "CLEAR" )
 		{
 			code = CommandCode::CLEAR;
 			takeParams( paramsList );
@@ -172,17 +191,14 @@ int Application::Run ( )
 		else
 		{
 			cout << ERR_STRING << endl << "#Unknown command" << endl;
+			returnCode = -1;
 		}
 		// NB : cas du "EXIT" traite par le while
 
 		// TODO : afficher les bons messages
-		if (!returnCode)
+		if ( !returnCode && returnCode != -1 )
 		{
 			cout << OK_STRING << endl;
-		}
-		else
-		{
-			cout << ERR_STRING << " : probleme while executing the command" << endl;
 		}
 
 		// Attente du prochain code de commande
@@ -244,42 +260,28 @@ Application::~Application ( )
 
 //----------------------------------------------------- Méthodes protégées
 void Application::takeParams( StringList & params ) const
+// Algorithme :
 {
 	string stringParams;
 	getline( cin, stringParams );
 	stringParams = stringParams.substr(1, stringParams.size());
 	while ( !stringParams.empty( ) )
 	{
-		// TODO : pas tout a fait non, mais l'idee est la
 		size_t lim = stringParams.find( " " );
 		if ( lim == string::npos )
 		{
-			cout << "pas trouve" << endl;
 			params.push_back(stringParams);
 			break;
 		}
-		cout << "lim : " << lim << ends;
-		cout << "on va push : " << "--" << stringParams.substr(0, lim) << "--" << endl;
 		params.push_back( stringParams.substr( 0, lim ) );
-		cout << "la string va valoir : " << stringParams.substr(lim+1, stringParams.size() - lim-1) << endl;
 		stringParams = stringParams.substr( lim + 1, stringParams.size( ) - lim - 1 );
 	}
-	cout << "TOTAL PARAMS :";
-	for (int i = 0; i < params.size(); i++)
-	{
-		cout << " " << params[i];
-	}
-	cout << endl;
-}
-
-void Application::execute ( const Command & cmd ) const
-{
-    // TODO : implementer cette methode (switch + appelle bonne fonction)
 }
 
 void Application::list ( ) const
+// Algorithme :
 {
-	for (ConstFigureIterator fi = figure.begin(); fi != figure.end(); fi++)
+	for ( ConstFigureIterator fi = figure.begin(); fi != figure.end(); fi++ )
 	{
 		cout << fi->first << " : ";
 		fi->second->Print( );

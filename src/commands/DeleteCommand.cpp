@@ -62,6 +62,15 @@ DeleteCommand & DeleteCommand::operator = ( const DeleteCommand & aDeleteCommand
 	{
 		params = aDeleteCommand.params;
 		figure = aDeleteCommand.figure;
+		isComplete = aDeleteCommand.isComplete;
+		if (aDeleteCommand.deletedObject )
+		{
+			deletedObject = aDeleteCommand.deletedObject->Clone();
+		}
+		else
+		{
+			deletedObject = nullptr;
+		}
 	}
 	return *this;
 } //----- Fin de operator =

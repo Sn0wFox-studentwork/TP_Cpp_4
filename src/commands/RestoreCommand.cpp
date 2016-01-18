@@ -64,6 +64,15 @@ RestoreCommand & RestoreCommand::operator = ( const RestoreCommand & aRestoreCom
 	{
 		params = aRestoreCommand.params;
 		figure = aRestoreCommand.figure;
+		if ( aRestoreCommand.deletedObject )
+		{
+			deletedObject = aRestoreCommand.deletedObject->Clone();
+		}
+		else
+		{
+			deletedObject = nullptr;
+		}
+		
 	}
 	return *this;
 } //----- Fin de operator =
@@ -87,12 +96,12 @@ RestoreCommand::RestoreCommand ( const RestoreCommand & aRestoreCommand ) :
 
 RestoreCommand::RestoreCommand( const StringList& params, Figure* const f, Object* const delObject ) :
 	ReversableCommand( params, f ), deletedObject( nullptr )
-// Algorithme :
-//
+	// Algorithme :
+	//
 {
-	if ( figure->count( params[0] ) == 1 )
+	if ( delObject )
 	{
-		deletedObject = (*figure)[params[0]]->Clone();
+		deletedObject = delObject->Clone( );
 	}
 #ifdef MAP
     cout << "Appel au constructeur de <RestoreCommand>" << endl;

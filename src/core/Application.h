@@ -80,9 +80,6 @@ protected:
 	// Mode d'emploi :	Ajoute les parametres rentres sur l'entree standard dans la liste
 	//					de parametres params (ajout par la fin).
 
-	void execute( const Command& cmd ) const;
-	// Mode d'emploi :	Execute la commande cmd.
-
 	void list( ) const;
 	// Mode d'emploi :	Affiche toutes les formes géometrique de la Figure figure.
 private:

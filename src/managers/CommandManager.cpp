@@ -37,14 +37,19 @@ int CommandManager::Do ( ReversableCommand* const cmd )
 	{
 		clearRedoStack( );
 	}
-	undoStack.push( cmd );
-	numberToUndo.push_front(1);
-	return cmd->Execute( );
+	if ( !cmd->Execute( ) )		// On ne push sur la pile que si la commande s'est deroulee normalement
+	{
+		undoStack.push(cmd);
+		numberToUndo.push_front(1);
+		return 0;
+	}
+	return -1;
 }	//----- Fin de Do
 
 int CommandManager::Do( const vector<ReversableCommand*>& cmds )
 // Algorithme :
 // TODO :	Se servir de la methode au dessus !
+// TODO :	A modifier ou a supprimer
 {
 	int ret = 0;
 	if ( Redoable() )
@@ -67,13 +72,17 @@ int CommandManager::Undo ( )
 // Algorithme :	On depile la commande au sommet de la pile des commandes effectuees (= derniere en date)
 //				et on l'empile sur la pile des commandes annulees.
 //				Retourne l'inverse de la commande depilee.
+// TODO :	Et si la commande inverse se passe mal ?
 {
 	for ( int i = 0; i < *numberToUndo.begin( ); i++ )
 	{
 		ReversableCommand* c = undoStack.top( );	// Acces au premier element
 		undoStack.pop( );							// Suppression du premier element
 		redoStack.push( c );
-		return c->GetInversedCommand( )->Execute( );
+		ReversableCommand* cReverse = c->GetInversedCommand( );
+		int returnCode = cReverse->Execute( );
+		delete cReverse;							// On doit desallouer la commande inverse !
+		return returnCode;
 	}
 	numberToUndo.pop_front( );
 }	//----- Fin de Undo
@@ -82,6 +91,7 @@ int CommandManager::Redo ( )
 // Algorithme :	On depile la commande au sommet de la pile des commandes annulees (= derniere annulee en date)
 //				et on l'empile sur la pile des commandes effectuees.
 //				Retour de cette meme commande.
+// TODO :	Et si la commande se passe mal ?
 {
 	ReversableCommand* c = redoStack.top( );	// Acces au premier element
 	undoStack.pop( );							// Suppression du premier element
@@ -154,7 +164,8 @@ CommandManager::~CommandManager ( )
 void CommandManager::clearRedoStack( )
 // Algorithme :	Nettoyage de la pile redoStack par reaffectation d'une pile vide.
 {
-	redoStack = CommandStack();
+	redoStack = CommandStack();		// Pour le moment, l'application conserve les pointeurs des commandes crees,
+									// et les detruit avec elle ; il n'y a donc pas de probleme.
 }	//----- Fin de clearRedoStack
 
 //------------------------------------------------------- Méthodes privées
