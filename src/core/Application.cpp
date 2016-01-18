@@ -19,6 +19,10 @@ using namespace std;
 #include "Application.h"
 #include "../commands/MoveCommand.h"
 #include "../commands/AddSegmentCommand.h"
+#include "../commands/AddRectangleCommand.h"
+#include "../commands/AddPolygonCommand.h"
+#include "../commands/AddIntersectionCommand.h"
+#include "../commands/AddUnionCommand.h"
 
 //------------------------------------------------------------- Constantes
 const string ERR_STRING = "ERR";
@@ -41,7 +45,7 @@ int Application::Run ( )
 {
 	// Variables de traitement des commandes
 	string stringCode;
-	CommandCode code;
+	int returnCode;
 	string params;
 	StringList paramsList;
 	ReversableCommand* cmd = nullptr;
@@ -57,64 +61,40 @@ int Application::Run ( )
 		// Traitement du code de commande (NB : switch impossible avec std::string)
 		if ( stringCode == "S" )
 		{
-			cout << "Tentative ajout segment" << endl;
 			takeParams( paramsList );
-			cout << "params pris :";
-			for (int i = 0; i < paramsList.size(); i++)
-			{
-				cout << " " << paramsList[i];
-			}
-			cout << endl;
 			cmd = new AddSegmentCommand( paramsList, &figure );
-			for (int i = 0; i < cmd->GetParams().size(); i++)
-			{
-				cout << " " << cmd->GetParams()[i];
-			}
-			cout << "commande cree" << endl;
-			commandManager.Do(cmd);
-			cout << "commande executee" << endl;
-			history.push_back(cmd);
-			cout << "commande stockee" << endl;
-			
+			returnCode = commandManager.Do(cmd);
+			history.push_back(cmd);			
 		}
-		/*else if ( stringCode == "R" )
+		else if ( stringCode == "R" )
 		{
-			code = CommandCode::R;
-			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do( *cmd );
-			// Appelle methode adequate
-			delete cmd;
+			takeParams(paramsList);
+			cmd = new AddRectangleCommand( paramsList, &figure );
+			returnCode = commandManager.Do( cmd );
+			history.push_back( cmd );
 		}
 		else if ( stringCode == "PC" )
 		{
-			code = CommandCode::PC;
-			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do( *cmd );
-			// Appelle methode adequate
-			delete cmd;
+			takeParams(paramsList);
+			cmd = new AddPolygonCommand( paramsList, &figure );
+			returnCode = commandManager.Do( cmd );
+			history.push_back( cmd );
 		}
 		else if ( stringCode == "OR" )
 		{
-			code = CommandCode::OR;
-			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do( *cmd );
-			// Appelle methode adequate
-			delete cmd;
+			takeParams(paramsList);
+			cmd = new AddUnionCommand( paramsList, &figure );
+			returnCode = commandManager.Do( cmd );
+			history.push_back( cmd );
 		}
 		else if ( stringCode == "OI" )
 		{
-			code = CommandCode::OI;
-			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			takeParams( paramsList );
-			commandManager.Do(*cmd);
-			// Appelle methode adequate
-			delete cmd;
+			takeParams(paramsList);
+			cmd = new AddIntersectionCommand( paramsList, &figure );
+			returnCode = commandManager.Do( cmd );
+			history.push_back( cmd );
 		}
-		else if ( stringCode == "HIT" )
+		/*else if ( stringCode == "HIT" )
 		{
 			code = CommandCode::HIT;
 			takeParams( paramsList );
@@ -127,7 +107,7 @@ int Application::Run ( )
 		{
 			takeParams( paramsList );
 			cmd = new MoveCommand( paramsList, &figure );
-			commandManager.Do(cmd);
+			returnCode = commandManager.Do(cmd);
 			history.push_back(cmd);
 		}
 		/*else if ( stringCode == "DELETE" )
@@ -160,6 +140,7 @@ int Application::Run ( )
 		else if ( stringCode == "LIST" )
 		{
 			list();
+			returnCode = 0;
 		}
 		/*else if ( stringCode == "UNDO" )
 		{
@@ -194,6 +175,15 @@ int Application::Run ( )
 		}
 		// NB : cas du "EXIT" traite par le while
 
+		// TODO : afficher les bons messages
+		if (!returnCode)
+		{
+			cout << OK_STRING << endl;
+		}
+		else
+		{
+			cout << ERR_STRING << " : probleme while executing the command" << endl;
+		}
 
 		// Attente du prochain code de commande
 		cout << "Attente new commande" << endl;
