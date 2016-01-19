@@ -39,7 +39,7 @@ int CommandManager::Do ( ReversableCommand* const cmd )
 	}
 	if ( !cmd->Execute( ) )		// On ne push sur la pile que si la commande s'est deroulee normalement
 	{
-		undoStack.push(cmd);
+		undoStack.push( cmd );
 		numberToUndo.push_front(1);
 		return 0;
 	}
@@ -49,10 +49,9 @@ int CommandManager::Do ( ReversableCommand* const cmd )
 int CommandManager::Do( const vector<ReversableCommand*>& cmds )
 // Algorithme :
 // TODO :	Se servir de la methode au dessus !
-// TODO :	A modifier ou a supprimer
 {
 	int ret = 0;
-	if ( Redoable() )
+	if ( Redoable( ) )
 	{
 		clearRedoStack();
 	}
@@ -74,17 +73,19 @@ int CommandManager::Undo ( )
 //				Retourne l'inverse de la commande depilee.
 // TODO :	Et si la commande inverse se passe mal ?
 {
+	int returnCode = 0;
 	for ( int i = 0; i < *numberToUndo.begin( ); i++ )
 	{
 		ReversableCommand* c = undoStack.top( );	// Acces au premier element
 		undoStack.pop( );							// Suppression du premier element
 		redoStack.push( c );
 		ReversableCommand* cReverse = c->GetInversedCommand( );
-		int returnCode = cReverse->Execute( );
+		returnCode += cReverse->Execute( );
 		delete cReverse;							// On doit desallouer la commande inverse !
-		return returnCode;
 	}
+	numberToRedo.push_front( *numberToUndo.begin( ) );
 	numberToUndo.pop_front( );
+	return returnCode;
 }	//----- Fin de Undo
 
 int CommandManager::Redo ( )
@@ -93,22 +94,34 @@ int CommandManager::Redo ( )
 //				Retour de cette meme commande.
 // TODO :	Et si la commande se passe mal ?
 {
-	ReversableCommand* c = redoStack.top( );	// Acces au premier element
-	undoStack.pop( );							// Suppression du premier element
-	undoStack.push( c );
-	return c->Execute( );
+	int nbToRedo = 0;
+	int returnCode = 0;
+	if ( !numberToRedo.empty( ) )
+	{
+		nbToRedo = *numberToRedo.begin( );
+	}
+	for ( int i = 0; i < nbToRedo; i++ )
+	{
+		ReversableCommand* c = redoStack.top( );	// Acces au premier element
+		redoStack.pop( );							// Suppression du premier element
+		undoStack.push( c );
+		returnCode += c->Execute( );
+	}
+	numberToUndo.push_front( *numberToRedo.begin( ) );
+	numberToRedo.pop_front( );
+	return returnCode;
 }	//----- Fin de Redo
 
 bool CommandManager::Undoable ( ) const
-// Algorithme :	Retourne vrai si la pile des commandes effectuees est vide, faux sinon.
+// Algorithme :	Retourne vrai si la pile des commandes effectuees n'est pas vide, faux sinon.
 {
-    return undoStack.empty( );
+    return !undoStack.empty( );
 }    //----- Fin de Undoable
 
 bool CommandManager::Redoable ( ) const
-// Algorithme :	Retourne vrai si la pile des commandes annulees est vide, faux sinon.
+// Algorithme :	Retourne vrai si la pile des commandes annulees n'est pas vide, faux sinon.
 {
-    return redoStack.empty( );
+    return !redoStack.empty( );
 }    //----- Fin de Redoable
 
 
@@ -166,6 +179,7 @@ void CommandManager::clearRedoStack( )
 {
 	redoStack = CommandStack();		// Pour le moment, l'application conserve les pointeurs des commandes crees,
 									// et les detruit avec elle ; il n'y a donc pas de probleme.
+	numberToRedo.clear( );
 }	//----- Fin de clearRedoStack
 
 //------------------------------------------------------- Méthodes privées

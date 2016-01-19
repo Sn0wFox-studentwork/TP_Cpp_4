@@ -90,6 +90,7 @@ protected:
     CommandStack undoStack;        // La pile des commandes effectuees et annulables
     CommandStack redoStack;        // La pile des commandes annulees (et donc refaisables)
 	list<int> numberToUndo;
+	list<int> numberToRedo;
 
 private:
 //------------------------------------------------------- Attributs privés

@@ -40,15 +40,11 @@ int MoveCommand::Execute( ) const
 {
 	try
 	{
-		cout << "In MoveCommand::Execute :" << endl;
-		cout << "Params : " << params[0] << " " << params[1] << " " << params[2] << endl;
 		Object* o = figure->at( params[0] );
 		(*figure)[params[0]]->Move( stoi( params[1] ), stoi( params[2] ) );
-		cout << "Objet deplace !" << endl;
 	}
 	catch ( const out_of_range& e )
 	{
-		cout << "Oups, l'object " << params[0] << " n'existait pas dans map" << endl;
 		return -1;
 	}
 	return 0;

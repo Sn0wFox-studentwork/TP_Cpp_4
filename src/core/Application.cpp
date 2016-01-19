@@ -113,41 +113,39 @@ int Application::Run ( )
 		}
 		else if ( stringCode == "DELETE" )
 		{
+			// TODO : optimiser ca
 			takeParams( paramsList );
-			int i = 0;						// Nombre de commandes delete qui se sont correctement deroulees
+			vector<ReversableCommand*> vec;
 			for ( string& s : paramsList )
 			{
 				StringList sl;
 				sl.push_back(s);
 				cmd = new DeleteCommand( sl, &figure );
-				returnCode = commandManager.Do( cmd );
+				vec.push_back( cmd );
 				history.push_back( cmd );
-				if ( returnCode )
-				{
-					break;	// Si une seul des commandes de supression se passe mal, on arrete
-				}
-				i++;
 			}
-			// Si une seule des commande de supression s'est mal passe, on annule la supression
+			returnCode = commandManager.Do( vec );
+			// Si une seule des commandes de supression s'est mal passe, on annule la supression
 			if ( returnCode )
 			{
-				for ( int j = 0; j < i; j++ )
-				{
-					commandManager.Undo( );
-				}
-				cout << ERR_STRING << endl << "#Parameter " << paramsList[i] << " doesn't exist as Object" << endl;
+				commandManager.Undo( );
+				cout << ERR_STRING << endl << "#A parameter doesn't exist as Object" << endl;
 			}
 		}
-		/*else if ( stringCode == "CLEAR" )
+		else if ( stringCode == "CLEAR" )
 		{
-			code = CommandCode::CLEAR;
-			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do(*cmd);
-			// Appelle methode adequate
-			delete cmd;
+			vector<ReversableCommand*> vec;
+			for ( ConstFigureIterator cfi = figure.begin( ); cfi != figure.end( ); cfi++ )
+			{
+				StringList sl;
+				sl.push_back( cfi->first );
+				cmd = new DeleteCommand( sl, &figure );
+				vec.push_back( cmd );
+				history.push_back( cmd );
+			}
+			returnCode = commandManager.Do( vec );
 		}
-		else if ( stringCode == "LOAD" )
+		/*else if ( stringCode == "LOAD" )
 		{
 			code = CommandCode::LOAD;
 			takeParams( paramsList );
@@ -161,21 +159,31 @@ int Application::Run ( )
 			list();
 			returnCode = 0;
 		}
-		/*else if ( stringCode == "UNDO" )
+		else if ( stringCode == "UNDO" )
 		{
-			code = CommandCode::UNDO;
-			cmd = new Command( commandManager.Undo( ) );
-			execute( *cmd );
-			delete cmd;
+			if ( commandManager.Undoable( ) )
+			{
+				commandManager.Undo( );
+			}
+			else
+			{
+				cout << ERR_STRING << endl << "#No action to UNDundo" << endl;
+				returnCode = -1;
+			}
 		}
 		else if ( stringCode == "REDO" )
 		{
-			code = CommandCode::REDO;
-			cmd = new Command( commandManager.Redo( ) );
-			execute( *cmd );
-			delete cmd;
+			if ( commandManager.Redoable( ) )
+			{
+				commandManager.Redo( );
+			}
+			else
+			{
+				cout << ERR_STRING << endl << "#No action to redo" << endl;
+				returnCode = -1;
+			}
 		}
-		else if ( stringCode == "LOAD" )
+		/*else if ( stringCode == "LOAD" )
 		{
 			code = CommandCode::LOAD;
 			cin >> params;
