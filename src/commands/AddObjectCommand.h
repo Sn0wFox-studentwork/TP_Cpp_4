@@ -1,7 +1,7 @@
 /*************************************************************************
                            AddObjectCommand  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( ADD_OBJECT_COMMAND_H )
 #define ADD_OBJECT_COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 #include <map>
 
 #include "ReversableCommand.h"
@@ -20,7 +20,7 @@
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <AddObjectCommand>
+// RÃ´le de la classe <AddObjectCommand>
 //
 //
 //------------------------------------------------------------------------ 
@@ -30,7 +30,7 @@ class AddObjectCommand : public ReversableCommand
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 	virtual int Execute( ) const = 0;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
@@ -42,8 +42,11 @@ public:
 	//				type de retour covariant : on remplacera AddObjectCommand* par HeritedAddObjectCommand*.
 	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
 
+	virtual AddObjectCommand* Clone( ) const = 0;
+	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
 
-//------------------------------------------------- Surcharge d'opérateurs
+
+//------------------------------------------------- Surcharge d'opÃ©rateurs
     AddObjectCommand & operator = ( const AddObjectCommand & unAddObjectCommand );
     // Mode d'emploi :
     //
@@ -73,25 +76,25 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <AddObjectCommand>
+//----------------------------------------- Types dÃ©pendants de <AddObjectCommand>
 
 #endif // ADD_OBJECT_COMMAND_H

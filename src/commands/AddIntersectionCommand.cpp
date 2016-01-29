@@ -1,15 +1,15 @@
 /*************************************************************************
                            AddIntersectionCommand  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <AddIntersectionCommand> (fichier AddIntersectionCommand.cpp) --
+//---------- RÃ©alisation de la classe <AddIntersectionCommand> (fichier AddIntersectionCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 #include <stdexcept>
@@ -22,20 +22,13 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
-// type AddIntersectionCommand::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
+//----------------------------------------------------- MÃ©thodes publiques
 int AddIntersectionCommand::Execute( ) const
 // Algorithme :
 {
@@ -47,16 +40,16 @@ int AddIntersectionCommand::Execute( ) const
 	catch ( const out_of_range& e )
 	{
 		vector<Object*> vec;
-		for (int i = 1; i < params.size(); i++)
+		for ( int i = 1; i < params.size( ); i++ )
 		{
 			try
 			{
 				Object* o = figure->at(params[i]);
-				return -1;
+				vec.push_back( (*figure)[params[i]] );
 			}
 			catch ( const out_of_range& e )
 			{
-				vec.push_back( (*figure)[params[i]] );
+				return -1;
 			}
 		}
 		(*figure)[params[0]] = new InterObject(	vec );
@@ -64,7 +57,13 @@ int AddIntersectionCommand::Execute( ) const
 	return 0;
 }	//----- Fin de Execute
 
-//------------------------------------------------- Surcharge d'opérateurs
+AddIntersectionCommand* AddIntersectionCommand::Clone( ) const
+// Algorithme :
+{
+	return new AddIntersectionCommand( *this );
+}	//----- Fin de Clone
+
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 AddIntersectionCommand & AddIntersectionCommand::operator = ( const AddIntersectionCommand & aAddIntersectionCommand )
 // Algorithme :	Si on n'est pas en train de faire aAddIntersectionCommand = aAddIntersectionCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aAddIntersectionCommand
@@ -112,6 +111,6 @@ AddIntersectionCommand::~AddIntersectionCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

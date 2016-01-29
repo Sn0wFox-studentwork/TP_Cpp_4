@@ -1,15 +1,15 @@
 /*************************************************************************
                            AddPolygonCommand  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <AddPolygonCommand> (fichier AddPolygonCommand.cpp) --
+//---------- RÃ©alisation de la classe <AddPolygonCommand> (fichier AddPolygonCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 #include <stdexcept>
@@ -22,20 +22,13 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
-// type AddPolygonCommand::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
+//----------------------------------------------------- MÃ©thodes publiques
 int AddPolygonCommand::Execute( ) const
 // Algorithme :
 {
@@ -57,7 +50,13 @@ int AddPolygonCommand::Execute( ) const
 	return 0;
 }	//----- Fin de Execute
 
-//------------------------------------------------- Surcharge d'opérateurs
+AddPolygonCommand* AddPolygonCommand::Clone( ) const
+// Algorithme :
+{
+	return new AddPolygonCommand( *this );
+}	//----- Fin de Clone
+
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 AddPolygonCommand & AddPolygonCommand::operator = ( const AddPolygonCommand & aAddPolygonCommand )
 // Algorithme :	Si on n'est pas en train de faire aAddPolygonCommand = aAddPolygonCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aAddPolygonCommand
@@ -105,6 +104,6 @@ AddPolygonCommand::~AddPolygonCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

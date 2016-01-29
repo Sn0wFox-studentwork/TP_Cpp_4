@@ -1,7 +1,7 @@
 /*************************************************************************
                            RestoreCommand  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( RESTORE_COMMAND_H )
 #define RESTORE_COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 #include <map>
 
 #include "ReversableCommand.h"
@@ -20,7 +20,7 @@
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <RestoreCommand>
+// RÃ´le de la classe <RestoreCommand>
 //
 //
 //------------------------------------------------------------------------ 
@@ -30,7 +30,7 @@ class RestoreCommand : public ReversableCommand
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 	virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
@@ -42,8 +42,10 @@ public:
 	//				type de retour covariant : on remplacera RestoreCommand* par HeritedRestoreCommand*.
 	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
 
+	virtual RestoreCommand* Clone( ) const;
+	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
     RestoreCommand & operator = ( const RestoreCommand & unRestoreCommand );
     // Mode d'emploi :
     //
@@ -73,26 +75,26 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 	Object* deletedObject;
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <RestoreCommand>
+//----------------------------------------- Types dÃ©pendants de <RestoreCommand>
 
 #endif // RESTORE_COMMAND_H

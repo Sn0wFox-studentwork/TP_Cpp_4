@@ -90,7 +90,6 @@ protected:
 	Figure figure;					// L'ensemble des formes geometriques
 	FileManager fileManager;		// Permet de sauvegarder/charger une figure
 	CommandManager commandManager;	// Permet la mise en place de annuler/repeter
-	ListCommand history;			// L'historique des commandes utilisees
 
 private:
 //------------------------------------------------------- Attributs privés

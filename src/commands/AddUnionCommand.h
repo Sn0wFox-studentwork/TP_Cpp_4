@@ -1,7 +1,7 @@
 /*************************************************************************
                            AddUnionCommand  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( ADD_UNION_COMMAND_H )
 #define ADD_UNION_COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 #include "AddObjectCommand.h"
 
 //------------------------------------------------------------- Constantes 
@@ -17,7 +17,7 @@
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <AddUnionCommand>
+// RÃ´le de la classe <AddUnionCommand>
 //
 //
 //------------------------------------------------------------------------ 
@@ -27,13 +27,16 @@ class AddUnionCommand : public AddObjectCommand
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
     virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
 	// TODO :	Ces autres valeurs seront a preciser dans les surcharges de cette methode.
 
-//------------------------------------------------- Surcharge d'opérateurs
+	virtual AddUnionCommand* Clone( ) const;
+	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
+
+//------------------------------------------------- Surcharge d'opÃ©rateurs
     AddUnionCommand & operator = ( const AddUnionCommand & unAddUnionCommand );
     // Mode d'emploi :
     //
@@ -63,25 +66,25 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <AddUnionCommand>
+//----------------------------------------- Types dÃ©pendants de <AddUnionCommand>
 
 #endif // ADD_UNION_COMMAND_H

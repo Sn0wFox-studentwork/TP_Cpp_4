@@ -1,58 +1,46 @@
 /*************************************************************************
-                           Segment  -  description
+                      LoadCompositeCommand  -  description
                              -------------------
     début                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Interface de la classe <Segment> (fichier Segment.h) ------
-#if !defined ( SEGMENT_H )
-#define SEGMENT_H
+//---------- Interface de la classe <LoadCompositeCommand> (fichier LoadCompositeCommand.h) ------
+#if ! defined ( LOAD_COMPOSITE_COMMAND_H )
+#define LOAD_COMPOSITE_COMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "SingleObject.h"
+#include "AddObjectCommand.h"
 
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <Segment>
+// Rôle de la classe <LoadCompositeCommand>
 //
 //
 //------------------------------------------------------------------------ 
 
-class Segment : public SingleObject
+class LoadCompositeCommand : public	AddObjectCommand
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    bool Contains ( const Point & point );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    virtual int Execute( ) const;
+	// Mode d'emploi :	Execute la commande courante.
+	//					Retourne :	0 si tout s'est bien passe.
+	//								-1 si le nom de l'objet present dans params[1] existe deja dans la figure.
+	//								-2 si params[1] ne contient ni "OR" ni "OI".
+	// TODO :	Mettre dans les specif generales cette histoire d'unicite du nom.
 
-	Segment* Clone() const
-	{
-		return new Segment(*this);
-	}
+	virtual LoadCompositeCommand* Clone( ) const;
+	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
 
-	void Print() const
-	{
-		std::cout << "S ( " << std::flush;
-		SingleObject::Print();
-		std::cout << ")";
-	}
-
-    inline std::string getLabel ( )
-    {
-        return LABEL;
-    }
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Segment & operator= ( const Segment & unSegment );
+    LoadCompositeCommand & operator = ( const LoadCompositeCommand & unLoadCompositeCommand );
     // Mode d'emploi :
     //
     // Contrat :
@@ -60,19 +48,19 @@ public:
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Segment ( const Segment & unSegment );
+    LoadCompositeCommand ( const LoadCompositeCommand & unLoadCompositeCommand );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Segment ( Point p1, Point p2 );
+    LoadCompositeCommand ( const StringList& params, Figure* const f, const vector<Object*>& obj );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~Segment ( );
+    virtual ~LoadCompositeCommand ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -88,8 +76,7 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-    const static std::string LABEL;
-    const static int POINTS_MAX = 2;	// constante != attribut => a mettre ailleurs ?
+	vector<Object*> components;
 
 private:
 //------------------------------------------------------- Attributs privés
@@ -102,6 +89,6 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <Segment>
+//----------------------------------------- Types dépendants de <LoadCompositeCommand>
 
-#endif // SEGMENT_H
+#endif // LOAD_COMPOSITE_COMMAND_H
