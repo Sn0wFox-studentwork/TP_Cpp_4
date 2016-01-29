@@ -1,15 +1,15 @@
 /*************************************************************************
                            MoveCommand  -  description
                              -------------------
-    début                : 11/01/2016
+    dÃ©but                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- Réalisation de la classe <MoveCommand> (fichier MoveCommand.cpp) --
+//---------- RÃ©alisation de la classe <MoveCommand> (fichier MoveCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 #include <stdexcept>
@@ -21,20 +21,13 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
-// type MoveCommand::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
+//----------------------------------------------------- MÃ©thodes publiques
 int MoveCommand::Execute( ) const
 // Algorithme :
 {
@@ -48,7 +41,13 @@ int MoveCommand::Execute( ) const
 		return -1;
 	}
 	return 0;
-}	//----- Fin de Méthode
+}	//----- Fin de Execute( )
+
+MoveCommand* MoveCommand::Clone( ) const
+// Algorithme :
+{
+	return new MoveCommand( *this );
+}	//----- Fin de Clone
 
 MoveCommand * MoveCommand::GetInversedCommand( ) const
 // Algorithme :
@@ -68,9 +67,9 @@ MoveCommand * MoveCommand::GetInversedCommand( ) const
 	}
 	MoveCommand* moveCmd = new MoveCommand( sl, this->figure );
 	return moveCmd;
-}	//----- Fin de Méthode
+}	//----- Fin de GetInversedCommand( )
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 MoveCommand & MoveCommand::operator = ( const MoveCommand & aMoveCommand )
 // Algorithme :	Si on n'est pas en train de faire aMoveCommand = aMoveCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aMoveCommand
@@ -116,6 +115,6 @@ MoveCommand::~MoveCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es

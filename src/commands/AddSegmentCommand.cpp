@@ -29,14 +29,8 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type AddSegmentCommand::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
-
 int AddSegmentCommand::Execute( ) const
+// Algorithme :
 {
 	try
 	{
@@ -49,7 +43,13 @@ int AddSegmentCommand::Execute( ) const
 											Point(stoi(params[3]), stoi(params[4])) );
 	}
 	return 0;
-}
+}	//----- Fin de Clone
+
+AddSegmentCommand* AddSegmentCommand::Clone( ) const
+// Algorithme :
+{
+	return new AddSegmentCommand( *this );
+}	//----- Fin de Clone
 
 //------------------------------------------------- Surcharge d'opérateurs
 AddSegmentCommand & AddSegmentCommand::operator = ( const AddSegmentCommand & aAddSegmentCommand )

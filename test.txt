@@ -1,0 +1,9 @@
+S segmentName 0 1 1 0
+OI intersectionName {
+	S 6 1 1 6
+	PC 0 1 1 0 7 7
+	OR {
+			S 1 1 1 0
+			S 0 7 7 0
+		}
+}

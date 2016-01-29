@@ -33,7 +33,7 @@ class CommandManager
 
 public:
 //----------------------------------------------------- Méthodes publiques
-	int Do ( ReversableCommand* const cmd );
+	int Do ( const ReversableCommand& cmd );
 	// Mode d'emploi :	Empile la commande cmd sur undoStack.
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
 
@@ -81,6 +81,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 	void clearRedoStack( );
 	// Mode d'emploi :	Vide la pile des commandes annulees redoStack.
+
+	void clearUndoStack( );
+	// Mode d'emploi :	Vide la pile des commandes effeectuees undoStack.
 
 private:
 //------------------------------------------------------- Méthodes privées

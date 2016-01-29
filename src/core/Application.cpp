@@ -28,6 +28,8 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 const string ERR_STRING = "ERR";
 const string OK_STRING = "OK";
+const string YES_STRING = "YES";
+const string NO_STRING = "NO";
 
 //---------------------------------------------------- Variables de classe
 
@@ -49,7 +51,6 @@ int Application::Run ( )
 	int returnCode;
 	string params;
 	StringList paramsList;
-	ReversableCommand* cmd = nullptr;
 
     // Prise du premier code commande
     cin >> stringCode;
@@ -63,53 +64,59 @@ int Application::Run ( )
 		if ( stringCode == "S" )
 		{
 			takeParams( paramsList );
-			cmd = new AddSegmentCommand( paramsList, &figure );
+			AddSegmentCommand cmd( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
-			history.push_back( cmd );			
 		}
 		else if ( stringCode == "R" )
 		{
 			takeParams( paramsList );
-			cmd = new AddRectangleCommand( paramsList, &figure );
+			AddRectangleCommand cmd( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
-			history.push_back( cmd );
 		}
 		else if ( stringCode == "PC" )
 		{
 			takeParams( paramsList );
-			cmd = new AddPolygonCommand( paramsList, &figure );
+			AddPolygonCommand cmd( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
-			history.push_back( cmd );
 		}
 		else if ( stringCode == "OR" )
 		{
 			takeParams( paramsList );
-			cmd = new AddUnionCommand( paramsList, &figure );
+			AddUnionCommand cmd( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
-			history.push_back( cmd );
 		}
 		else if ( stringCode == "OI" )
 		{
 			takeParams( paramsList );
-			cmd = new AddIntersectionCommand( paramsList, &figure );
+			AddIntersectionCommand cmd( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
-			history.push_back( cmd );
 		}
-		/*else if ( stringCode == "HIT" )
+		else if ( stringCode == "HIT" )
 		{
-			code = CommandCode::HIT;
 			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do(*cmd);
-			// Appelle methode adequate
-			delete cmd;
-		}*/
+			if ( figure.count( paramsList[0] ) == 1 )
+			{
+				if (	figure[paramsList[0]]->Contains(
+						Point( stoi( paramsList[1] ), stoi( paramsList[2] ) ) ) )
+				{
+					returnCode = 1;
+					cout << YES_STRING << endl;
+				}
+				else
+				{
+					cout << NO_STRING << endl;
+				}
+			}
+			else
+			{
+				cout << ERR_STRING << endl << "#" << paramsList[0] << " doesn't exist as Object" << endl;
+			}
+		}
 		else if ( stringCode == "MOVE" )
 		{
 			takeParams( paramsList );
-			cmd = new MoveCommand( paramsList, &figure );
+			MoveCommand cmd( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
-			history.push_back( cmd );
 		}
 		else if ( stringCode == "DELETE" )
 		{
@@ -120,9 +127,8 @@ int Application::Run ( )
 			{
 				StringList sl;
 				sl.push_back(s);
-				cmd = new DeleteCommand( sl, &figure );
+				ReversableCommand* cmd = new DeleteCommand( sl, &figure );
 				vec.push_back( cmd );
-				history.push_back( cmd );
 			}
 			returnCode = commandManager.Do( vec );
 			// Si une seule des commandes de supression s'est mal passe, on annule la supression
@@ -130,6 +136,10 @@ int Application::Run ( )
 			{
 				commandManager.Undo( );
 				cout << ERR_STRING << endl << "#A parameter doesn't exist as Object" << endl;
+			}
+			for ( ReversableCommand* cmd : vec )
+			{
+				delete cmd;
 			}
 		}
 		else if ( stringCode == "CLEAR" )
@@ -139,24 +149,18 @@ int Application::Run ( )
 			{
 				StringList sl;
 				sl.push_back( cfi->first );
-				cmd = new DeleteCommand( sl, &figure );
+				ReversableCommand* cmd = new DeleteCommand( sl, &figure );
 				vec.push_back( cmd );
-				history.push_back( cmd );
 			}
 			returnCode = commandManager.Do( vec );
+			for ( ReversableCommand* cmd : vec )
+			{
+				delete cmd;
+			}
 		}
-		/*else if ( stringCode == "LOAD" )
-		{
-			code = CommandCode::LOAD;
-			takeParams( paramsList );
-			cmd = new Command( code, paramsList );
-			commandManager.Do(*cmd);
-			// Appelle methode adequate
-			delete cmd;
-		}*/
 		else if ( stringCode == "LIST" )
 		{
-			list();
+			list( );
 			returnCode = 0;
 		}
 		else if ( stringCode == "UNDO" )
@@ -164,10 +168,11 @@ int Application::Run ( )
 			if ( commandManager.Undoable( ) )
 			{
 				commandManager.Undo( );
+				returnCode = 0;
 			}
 			else
 			{
-				cout << ERR_STRING << endl << "#No action to UNDundo" << endl;
+				cout << ERR_STRING << endl << "#No action to undo" << endl;
 				returnCode = -1;
 			}
 		}
@@ -176,6 +181,7 @@ int Application::Run ( )
 			if ( commandManager.Redoable( ) )
 			{
 				commandManager.Redo( );
+				returnCode = 0;
 			}
 			else
 			{
@@ -183,14 +189,13 @@ int Application::Run ( )
 				returnCode = -1;
 			}
 		}
-		/*else if ( stringCode == "LOAD" )
+		else if ( stringCode == "LOAD" )
 		{
-			code = CommandCode::LOAD;
-			cin >> params;
-			fileManager.Load( params );
-			// TODO : que fait-on si on charge un modele en plein millieu de l'edition d'un autre ?
+			string s;
+			cin >> s;
+			returnCode = fileManager.Load(s, &figure, commandManager);
 		}
-		else if ( stringCode == "SAVE" )
+		/*else if ( stringCode == "SAVE" )
 		{
 			code = CommandCode::SAVE;
 			cin >> params;
@@ -204,13 +209,12 @@ int Application::Run ( )
 		// NB : cas du "EXIT" traite par le while
 
 		// TODO : afficher les bons messages
-		if ( !returnCode && returnCode != -1 )
+		if ( !returnCode && returnCode != 1 )
 		{
 			cout << OK_STRING << endl;
 		}
 
 		// Attente du prochain code de commande
-		cout << "Attente new commande" << endl;
 		cin >> stringCode;
 	
 	}	//----- Fin de while(stringCode != "EXIT")
@@ -223,46 +227,49 @@ Application & Application::operator= ( const Application & uneApplication )
 // Algorithme :	Si on n'est pas en train de faire uneApplication = uneApplication, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de uneApplication
 {
-    if ( this != &uneApplication )
-    {
-    }
+	for ( ConstFigureIterator cfi = figure.begin( ); cfi != figure.end( ); cfi++ )
+	{
+		delete cfi->second;
+	}
+	figure = uneApplication.figure;
+	fileManager = uneApplication.fileManager;
+	commandManager = uneApplication.commandManager;
+
     return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Application::Application ( const Application & unApplication )
+Application::Application ( const Application & unApplication ) :
+	figure( unApplication.figure ), fileManager( unApplication.fileManager ), commandManager( unApplication.commandManager )
 // Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Application>" << endl;
 #endif
-} //----- Fin de Application (constructeur de copie)
+}	//----- Fin de Application (constructeur de copie)
 
 
-Application::Application ( ) : figure( )
+Application::Application ( ) : figure( ), fileManager( ), commandManager( )
 // Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Application>" << endl;
 #endif
-} //----- Fin de Application
+}	//----- Fin de Application
 
 
 Application::~Application ( )
 // Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Application>" << endl;
 #endif
-	for (ConstListCmdIterator cli = history.begin(); cli != history.end(); cli++)
+	for ( ConstFigureIterator cfi = figure.begin( ); cfi != figure.end( ); cfi++ )
 	{
-		delete *cli;
+		delete cfi->second;
 	}
-} //----- Fin de ~Application
+}	//----- Fin de ~Application
 
 //------------------------------------------------------------------ PRIVE
 
@@ -272,13 +279,13 @@ void Application::takeParams( StringList & params ) const
 {
 	string stringParams;
 	getline( cin, stringParams );
-	stringParams = stringParams.substr(1, stringParams.size());
+	stringParams = stringParams.substr( 1, stringParams.size( ) );
 	while ( !stringParams.empty( ) )
 	{
 		size_t lim = stringParams.find( " " );
 		if ( lim == string::npos )
 		{
-			params.push_back(stringParams);
+			params.push_back( stringParams );
 			break;
 		}
 		params.push_back( stringParams.substr( 0, lim ) );
@@ -293,8 +300,8 @@ void Application::list ( ) const
 	{
 		cout << fi->first << " : ";
 		fi->second->Print( );
+		cout << endl;
 	}
 }
-
 
 //------------------------------------------------------- Méthodes privées

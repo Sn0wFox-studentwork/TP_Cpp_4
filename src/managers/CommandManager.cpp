@@ -29,7 +29,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-int CommandManager::Do ( ReversableCommand* const cmd )
+int CommandManager::Do ( const ReversableCommand& cmd )
 // Algorithme :	On vide la pile des commandes annulees si elle n'est pas vide,
 //				puis on empile la commande cmd sur la pile des actions effectuees.
 {
@@ -37,9 +37,9 @@ int CommandManager::Do ( ReversableCommand* const cmd )
 	{
 		clearRedoStack( );
 	}
-	if ( !cmd->Execute( ) )		// On ne push sur la pile que si la commande s'est deroulee normalement
+	if ( !cmd.Execute( ) )		// On ne push sur la pile que si la commande s'est deroulee normalement
 	{
-		undoStack.push( cmd );
+		undoStack.push( cmd.Clone( ) );
 		numberToUndo.push_front(1);
 		return 0;
 	}
@@ -53,11 +53,11 @@ int CommandManager::Do( const vector<ReversableCommand*>& cmds )
 	int ret = 0;
 	if ( Redoable( ) )
 	{
-		clearRedoStack();
+		clearRedoStack( );
 	}
 	for ( int i = 0; i < cmds.size( ); i++ )
 	{
-		undoStack.push( cmds[i] );
+		undoStack.push( cmds[i]->Clone( ) );
 		ret += cmds[i]->Execute( );
 	}
 	if( cmds.size( ) != 0 )
@@ -96,10 +96,11 @@ int CommandManager::Redo ( )
 {
 	int nbToRedo = 0;
 	int returnCode = 0;
-	if ( !numberToRedo.empty( ) )
+	if ( numberToRedo.empty( ) )
 	{
-		nbToRedo = *numberToRedo.begin( );
+		return -1;
 	}
+	nbToRedo = *numberToRedo.begin( );
 	for ( int i = 0; i < nbToRedo; i++ )
 	{
 		ReversableCommand* c = redoStack.top( );	// Acces au premier element
@@ -132,9 +133,12 @@ CommandManager & CommandManager::operator= ( const CommandManager & aCommandMana
 {
     if ( this != &aCommandManager )
     {
+		clearRedoStack( );
+		clearUndoStack( );
         undoStack = aCommandManager.undoStack;
         redoStack = aCommandManager.redoStack;
 		numberToUndo = aCommandManager.numberToUndo;	// TODO : suffisant ?
+		numberToRedo = aCommandManager.numberToRedo;
     }
     return *this;
 }    //----- Fin de operator =
@@ -143,8 +147,8 @@ CommandManager & CommandManager::operator= ( const CommandManager & aCommandMana
 //-------------------------------------------- Constructeurs - destructeur
 CommandManager::CommandManager ( const CommandManager & aCommandManager ) :
         undoStack( aCommandManager.undoStack ), redoStack( aCommandManager.redoStack ),
-		numberToUndo( aCommandManager.numberToUndo )
-// Algorithme :	Utilisation du constructeurs de copie de CommandStack (std::stack<Command>).
+		numberToUndo( aCommandManager.numberToUndo ), numberToRedo( aCommandManager.numberToRedo )
+// Algorithme :	Utilisation du constructeurs de copie de CommandStack (std::stack<Command>) et list<int>.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <CommandManager>" << endl;
@@ -152,7 +156,7 @@ CommandManager::CommandManager ( const CommandManager & aCommandManager ) :
 }    //----- Fin de CommandManager (constructeur de copie)
 
 
-CommandManager::CommandManager ( ) : undoStack( ), redoStack( ), numberToUndo( )
+CommandManager::CommandManager ( ) : undoStack( ), redoStack( ), numberToUndo( ), numberToRedo( )
 // Algorithme :	Instanciation d'un objet par instanciation de deux piles de commandes vides.
 {
 #ifdef MAP
@@ -164,6 +168,8 @@ CommandManager::CommandManager ( ) : undoStack( ), redoStack( ), numberToUndo( )
 CommandManager::~CommandManager ( )
 // Algorithme : Supression de l'objet et liberation de la memoire associee.
 {
+	clearRedoStack( );
+	clearUndoStack( );
 #ifdef MAP
     cout << "Appel au destructeur de <CommandManager>" << endl;
 #endif
@@ -175,11 +181,25 @@ CommandManager::~CommandManager ( )
 
 //----------------------------------------------------- Méthodes protégées
 void CommandManager::clearRedoStack( )
-// Algorithme :	Nettoyage de la pile redoStack par reaffectation d'une pile vide.
+// Algorithme :
 {
-	redoStack = CommandStack();		// Pour le moment, l'application conserve les pointeurs des commandes crees,
-									// et les detruit avec elle ; il n'y a donc pas de probleme.
+	while ( !redoStack.empty( ) )
+	{
+		delete redoStack.top( );
+		redoStack.pop( );
+	}
 	numberToRedo.clear( );
+}	//----- Fin de clearRedoStack
+
+void CommandManager::clearUndoStack( )
+// Algorithme :
+{
+	while ( !undoStack.empty( ) )
+	{
+		delete undoStack.top( );
+		undoStack.pop( );
+	}
+	numberToUndo.clear( );
 }	//----- Fin de clearRedoStack
 
 //------------------------------------------------------- Méthodes privées
