@@ -43,7 +43,7 @@ public:
 	{
 		std::cout << "S ( " << std::flush;
 		SingleObject::Print();
-		std::cout << ")";
+		std::cout << ")" << endl;
 	}
 
     inline std::string getLabel ( )

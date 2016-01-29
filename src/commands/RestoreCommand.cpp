@@ -1,15 +1,15 @@
 /*************************************************************************
                            RestoreCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- RÃ©alisation de la classe <RestoreCommand> (fichier RestoreCommand.cpp) --
+//---------- Réalisation de la classe <RestoreCommand> (fichier RestoreCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include systÃ¨me
+//-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
 
@@ -21,13 +21,20 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
+// type RestoreCommand::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
+
 int RestoreCommand::Execute( ) const
 // Algorithme :
 {
@@ -48,13 +55,7 @@ ReversableCommand* RestoreCommand::GetInversedCommand( ) const
 	return new DeleteCommand( params, figure );
 }	//----- Fin de GetInversedCommand
 
-RestoreCommand* RestoreCommand::Clone( ) const
-// Algorithme :
-{
-	return new RestoreCommand( *this );
-}	//----- Fin de Clone
-
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
 RestoreCommand & RestoreCommand::operator = ( const RestoreCommand & aRestoreCommand )
 // Algorithme :	Si on n'est pas en train de faire aRestoreCommand = aRestoreCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aRestoreCommand
@@ -71,6 +72,7 @@ RestoreCommand & RestoreCommand::operator = ( const RestoreCommand & aRestoreCom
 		{
 			deletedObject = nullptr;
 		}
+		
 	}
 	return *this;
 } //----- Fin de operator =
@@ -123,6 +125,6 @@ RestoreCommand::~RestoreCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées

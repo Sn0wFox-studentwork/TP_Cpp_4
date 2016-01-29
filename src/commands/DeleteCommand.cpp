@@ -1,15 +1,15 @@
 /*************************************************************************
                            DeleteCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- RÃ©alisation de la classe <DeleteCommand> (fichier DeleteCommand.cpp) --
+//---------- Réalisation de la classe <DeleteCommand> (fichier DeleteCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include systÃ¨me
+//-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
 
@@ -21,13 +21,20 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
+// type DeleteCommand::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
+
 int DeleteCommand::Execute( ) const
 // Algorithme :
 {
@@ -40,19 +47,13 @@ int DeleteCommand::Execute( ) const
 	return -1;
 }	//----- Fin de Execute
 
-DeleteCommand* DeleteCommand::Clone( ) const
-// Algorithme :
-{
-	return new DeleteCommand( *this );
-}	//----- Fin de Clone
-
 ReversableCommand* DeleteCommand::GetInversedCommand( ) const
 // Algorithme :
 {
 	return new RestoreCommand( params, figure, deletedObject );
 }	//----- Fin de GetInversedCommand
 
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
 DeleteCommand & DeleteCommand::operator = ( const DeleteCommand & aDeleteCommand )
 // Algorithme :	Si on n'est pas en train de faire aDeleteCommand = aDeleteCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aDeleteCommand
@@ -126,6 +127,6 @@ DeleteCommand::~DeleteCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées

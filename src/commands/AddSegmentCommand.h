@@ -1,7 +1,7 @@
 /*************************************************************************
                            AddSegmentCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( ADD_SEGMENT_COMMAND_H )
 #define ADD_SEGMENT_COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisÃ©es
+//--------------------------------------------------- Interfaces utilisées
 #include "AddObjectCommand.h"
 
 //------------------------------------------------------------- Constantes 
@@ -17,7 +17,7 @@
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// RÃ´le de la classe <AddSegmentCommand>
+// Rôle de la classe <AddSegmentCommand>
 //
 //
 //------------------------------------------------------------------------ 
@@ -27,16 +27,13 @@ class AddSegmentCommand : public AddObjectCommand
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
     virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
 	// TODO :	Ces autres valeurs seront a preciser dans les surcharges de cette methode.
 
-	virtual AddSegmentCommand* Clone( ) const;
-	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
-
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
     AddSegmentCommand & operator = ( const AddSegmentCommand & unAddSegmentCommand );
     // Mode d'emploi :
     //
@@ -66,25 +63,25 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
 private:
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées
 
 protected:
-//----------------------------------------------------- Attributs protÃ©gÃ©s
+//----------------------------------------------------- Attributs protégés
 
 private:
-//------------------------------------------------------- Attributs privÃ©s
+//------------------------------------------------------- Attributs privés
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privÃ©es
+//-------------------------------------------------------- Classes privées
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 };
 
-//----------------------------------------- Types dÃ©pendants de <AddSegmentCommand>
+//----------------------------------------- Types dépendants de <AddSegmentCommand>
 
 #endif // ADD_SEGMENT_COMMAND_H

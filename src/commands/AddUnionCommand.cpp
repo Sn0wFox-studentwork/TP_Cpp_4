@@ -1,15 +1,15 @@
 /*************************************************************************
                            AddUnionCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- RÃ©alisation de la classe <AddUnionCommand> (fichier AddUnionCommand.cpp) --
+//---------- Réalisation de la classe <AddUnionCommand> (fichier AddUnionCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include systÃ¨me
+//-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
 #include <stdexcept>
@@ -22,13 +22,20 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
+// type AddUnionCommand::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
+
 int AddUnionCommand::Execute( ) const
 // Algorithme :
 {
@@ -40,16 +47,16 @@ int AddUnionCommand::Execute( ) const
 	catch ( const out_of_range& e )
 	{
 		vector<Object*> vec;
-		for ( int i = 1; i < params.size( ); i++ )
+		for (int i = 1; i < params.size(); i++)
 		{
 			try
 			{
-				Object* o = figure->at( params[i] );
-				vec.push_back( (*figure)[params[i]] );
+				Object* o = figure->at(params[i]);
+				return -1;
 			}
 			catch ( const out_of_range& e )
 			{
-				return -1;
+				vec.push_back( (*figure)[params[i]] );
 			}
 		}
 		(*figure)[params[0]] = new UnionObject(	vec );
@@ -57,13 +64,7 @@ int AddUnionCommand::Execute( ) const
 	return 0;
 }	//----- Fin de Execute
 
-AddUnionCommand* AddUnionCommand::Clone( ) const
-// Algorithme :
-{
-	return new AddUnionCommand( *this );
-}	//----- Fin de Clone
-
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
 AddUnionCommand & AddUnionCommand::operator = ( const AddUnionCommand & aAddUnionCommand )
 // Algorithme :	Si on n'est pas en train de faire aAddUnionCommand = aAddUnionCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aAddUnionCommand
@@ -111,6 +112,6 @@ AddUnionCommand::~AddUnionCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées

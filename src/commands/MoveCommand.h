@@ -1,7 +1,7 @@
 /*************************************************************************
                            MoveCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( MOVE_COMMAND_H )
 #define MOVE_COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisÃ©es
+//--------------------------------------------------- Interfaces utilisées
 #include "ReversableCommand.h"
 
 //------------------------------------------------------------- Constantes 
@@ -17,7 +17,7 @@
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// RÃ´le de la classe <MoveCommand>
+// Rôle de la classe <MoveCommand>
 //
 //
 //------------------------------------------------------------------------ 
@@ -27,7 +27,7 @@ class MoveCommand : public ReversableCommand
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
     virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
@@ -38,15 +38,12 @@ public:
 	// A noter :	On utilise une surcharge avec type de retour covariant.
 	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
 
-	virtual MoveCommand* Clone( ) const;
-	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
-
 	void print(){
 		std::cout << "MOVE " << params[0] << " " << params[1] << " " << params[2] << std::endl;
 	}
 
 
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
     MoveCommand & operator = ( const MoveCommand & unMoveCommand );
     // Mode d'emploi :
     //
@@ -76,25 +73,25 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
 private:
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées
 
 protected:
-//----------------------------------------------------- Attributs protÃ©gÃ©s
+//----------------------------------------------------- Attributs protégés
 
 private:
-//------------------------------------------------------- Attributs privÃ©s
+//------------------------------------------------------- Attributs privés
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privÃ©es
+//-------------------------------------------------------- Classes privées
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 };
 
-//----------------------------------------- Types dÃ©pendants de <MoveCommand>
+//----------------------------------------- Types dépendants de <MoveCommand>
 
 #endif // MOVE_COMMAND_H

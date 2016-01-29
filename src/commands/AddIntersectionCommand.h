@@ -1,7 +1,7 @@
 /*************************************************************************
                            AddIntersectionCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( ADD_INTERSECTION_COMMAND_H )
 #define ADD_INTERSECTION_COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisÃ©es
+//--------------------------------------------------- Interfaces utilisées
 #include "AddObjectCommand.h"
 
 //------------------------------------------------------------- Constantes 
@@ -17,7 +17,7 @@
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// RÃ´le de la classe <AddIntersectionCommand>
+// Rôle de la classe <AddIntersectionCommand>
 //
 //
 //------------------------------------------------------------------------ 
@@ -27,16 +27,13 @@ class AddIntersectionCommand : public AddObjectCommand
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
     virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
 	// TODO :	Ces autres valeurs seront a preciser dans les surcharges de cette methode.
 
-	virtual AddIntersectionCommand* Clone( ) const;
-	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
-
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
     AddIntersectionCommand & operator = ( const AddIntersectionCommand & unAddIntersectionCommand );
     // Mode d'emploi :
     //
@@ -66,25 +63,25 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
 private:
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées
 
 protected:
-//----------------------------------------------------- Attributs protÃ©gÃ©s
+//----------------------------------------------------- Attributs protégés
 
 private:
-//------------------------------------------------------- Attributs privÃ©s
+//------------------------------------------------------- Attributs privés
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privÃ©es
+//-------------------------------------------------------- Classes privées
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 };
 
-//----------------------------------------- Types dÃ©pendants de <AddIntersectionCommand>
+//----------------------------------------- Types dépendants de <AddIntersectionCommand>
 
 #endif // ADD_INTERSECTION_COMMAND_H

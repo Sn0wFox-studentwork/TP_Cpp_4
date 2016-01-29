@@ -1,15 +1,15 @@
 /*************************************************************************
                            AddRectangleCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- RÃ©alisation de la classe <AddRectangleCommand> (fichier AddRectangleCommand.cpp) --
+//---------- Réalisation de la classe <AddRectangleCommand> (fichier AddRectangleCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include systÃ¨me
+//-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
 #include <stdexcept>
@@ -22,13 +22,20 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
+// type AddRectangleCommand::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
+
 int AddRectangleCommand::Execute( ) const
 // Algorithme :
 {
@@ -47,13 +54,7 @@ int AddRectangleCommand::Execute( ) const
 	return 0;
 }	//----- Fin de Execute
 
-AddRectangleCommand* AddRectangleCommand::Clone( ) const
-// Algorithme :
-{
-	return new AddRectangleCommand( *this );
-}	//----- Fin de Clone
-
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
 AddRectangleCommand & AddRectangleCommand::operator = ( const AddRectangleCommand & aAddRectangleCommand )
 // Algorithme :	Si on n'est pas en train de faire aAddRectangleCommand = aAddRectangleCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aAddRectangleCommand
@@ -101,6 +102,6 @@ AddRectangleCommand::~AddRectangleCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées

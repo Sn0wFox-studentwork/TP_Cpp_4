@@ -1,7 +1,7 @@
 /*************************************************************************
                            ReversableCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
 	copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
@@ -9,7 +9,7 @@
 #if ! defined ( REVERSABLE_COMMAND_H )
 #define REVERSABLE_COMMAND_H
 
-//--------------------------------------------------- Interfaces utilisÃ©es
+//--------------------------------------------------- Interfaces utilisées
 #include <map>
 
 #include "Command.h"
@@ -21,7 +21,7 @@
 typedef std::map<string, Object*> Figure;
 
 //------------------------------------------------------------------------ 
-// RÃ´le de la classe <ReversableCommand>
+// Rôle de la classe <ReversableCommand>
 //
 //
 //------------------------------------------------------------------------ 
@@ -31,7 +31,7 @@ class ReversableCommand : public Command
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
 	virtual int Execute( ) const = 0;
 	// Mode d'emploi :	Execute la commande courante.
 	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
@@ -43,11 +43,8 @@ public:
 	//				type de retour covariant : on remplacera ReversableCommand* par HeritedReversableCommand*.
 	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
 
-	virtual ReversableCommand* Clone( ) const = 0;
-	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
 
-
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
     ReversableCommand & operator = ( const ReversableCommand & unReversableCommand );
     // Mode d'emploi :
     //
@@ -77,26 +74,26 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
 private:
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées
 
 protected:
-//----------------------------------------------------- Attributs protÃ©gÃ©s
+//----------------------------------------------------- Attributs protégés
 	Figure* figure;
 
 private:
-//------------------------------------------------------- Attributs privÃ©s
+//------------------------------------------------------- Attributs privés
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privÃ©es
+//-------------------------------------------------------- Classes privées
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 };
 
-//----------------------------------------- Types dÃ©pendants de <ReversableCommand>
+//----------------------------------------- Types dépendants de <ReversableCommand>
 
 #endif // REVERSABLE_COMMAND_H

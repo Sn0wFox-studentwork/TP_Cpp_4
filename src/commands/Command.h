@@ -17,6 +17,12 @@
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types
+typedef enum CommandCode
+// Cette enumeration liste toutes les commandes inversibles possibles
+{
+	NULLCMD, S, R, PC, OR, OI, HIT, DELETE, MOVE, LIST, UNDO, REDO, LOAD, SAVE, CLEAR
+} CommandCode;
+
 typedef std::vector<std::string> StringList;
 
 //------------------------------------------------------------------------ 
@@ -41,9 +47,6 @@ public:
 	{
 		return params;
 	}
-
-	virtual Command* Clone( ) const = 0;
-	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	Command & operator = ( const Command & aCommand );

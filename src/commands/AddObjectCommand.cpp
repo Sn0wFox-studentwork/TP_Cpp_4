@@ -1,15 +1,15 @@
 /*************************************************************************
                            AddObjectCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- RÃ©alisation de la classe <AddObjectCommand> (fichier AddObjectCommand.cpp) --
+//---------- Réalisation de la classe <AddObjectCommand> (fichier AddObjectCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include systÃ¨me
+//-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
 
@@ -20,28 +20,28 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- MÃ©thodes publiques
-// type AddObjectCommand::MÃ©thode ( liste de paramÃ¨tres )
+//----------------------------------------------------- Méthodes publiques
+// type AddObjectCommand::Méthode ( liste de paramètres )
 // Algorithme :
 //
 //{
-//} //----- Fin de MÃ©thode
+//} //----- Fin de Méthode
 
 
-DeleteCommand* AddObjectCommand::GetInversedCommand( ) const
+DeleteCommand * AddObjectCommand::GetInversedCommand( ) const
 {
 	StringList sl;
 	sl.push_back( params[0] );
 	return new DeleteCommand( sl, figure );
 }
 
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+//------------------------------------------------- Surcharge d'opérateurs
 AddObjectCommand & AddObjectCommand::operator = ( const AddObjectCommand & aAddObjectCommand )
 // Algorithme :	Si on n'est pas en train de faire aAddObjectCommand = aAddObjectCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aAddObjectCommand
@@ -90,6 +90,6 @@ AddObjectCommand::~AddObjectCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées

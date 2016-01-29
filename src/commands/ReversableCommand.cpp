@@ -1,15 +1,15 @@
 /*************************************************************************
                            ReversableCommand  -  description
                              -------------------
-    dÃ©but                : 11/01/2016
+    début                : 11/01/2016
     copyright            : (C) 2016 par Baha & Pericas-Moya
 *************************************************************************/
 
-//---------- RÃ©alisation de la classe <ReversableCommand> (fichier ReversableCommand.cpp) --
+//---------- Réalisation de la classe <ReversableCommand> (fichier ReversableCommand.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include systÃ¨me
+//-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
 
@@ -20,15 +20,21 @@ using namespace std;
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privÃ©s
+//----------------------------------------------------------- Types privés
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Méthodes publiques
+// type ReversableCommand::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opÃ©rateurs
+
+//------------------------------------------------- Surcharge d'opérateurs
 ReversableCommand & ReversableCommand::operator = ( const ReversableCommand & aReversableCommand )
 // Algorithme :	Si on n'est pas en train de faire aReversableCommand = aReversableCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de aReversableCommand
@@ -77,6 +83,6 @@ ReversableCommand::~ReversableCommand ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+//----------------------------------------------------- Méthodes protégées
 
-//------------------------------------------------------- MÃ©thodes privÃ©es
+//------------------------------------------------------- Méthodes privées
