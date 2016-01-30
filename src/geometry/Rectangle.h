@@ -88,6 +88,7 @@ private:
 protected:
 //----------------------------------------------------- Attributs protégés
     const static std::string LABEL;
+    const static int POINTS_MAX = 2;
 
 private:
 //------------------------------------------------------- Attributs privés

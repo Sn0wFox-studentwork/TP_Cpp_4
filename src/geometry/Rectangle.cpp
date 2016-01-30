@@ -28,10 +28,17 @@ const std::string Rectangle::LABEL = "R";
 
 //----------------------------------------------------- Méthodes publiques
 bool Rectangle::Contains ( const Point & point )
-// Algorithme :
-//
+// Algorithme : On vérifie que le point se trouve entre les deux coins du rectangle
+// NOTE : Cet algo marche uniquement avec les rectangles parallèles à l'axe x, y
 {
-    return false;
+    int xmin = points.at( 0 ).GetX( ); // Coin GAUCHE-HAUT
+    int ymin = points.at( 0 ).GetY( );
+    int xmax = points.at( 1 ).GetX( ); // Coin DROITE-BAS
+    int ymax = points.at( 1 ).GetY( );
+    int x = point.GetX( );
+    int y = point.GetY( );
+
+    return x > xmin && x < xmax && y > ymin && y < ymax;
 }    //----- Fin de Contains
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -62,7 +69,7 @@ Rectangle::Rectangle ( const std::vector<Point> & _points ) : Polygone( _points 
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <SingleObject>" << endl;
+    cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif
 } //----- Fin de Rectangle
 
@@ -71,7 +78,7 @@ Rectangle::Rectangle ( )
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <SingleObject>" << endl;
+    cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif
 } //----- Fin de Rectangle
 

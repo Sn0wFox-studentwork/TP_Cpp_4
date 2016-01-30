@@ -39,6 +39,8 @@ public:
 		return new Polygone(*this);
 	}
 
+    bool IsConvex ( ) const;
+
     std::string getLabel ( )
     {
         return LABEL;

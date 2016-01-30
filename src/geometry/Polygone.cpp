@@ -28,11 +28,73 @@ const std::string Polygone::LABEL = "PC";
 
 //----------------------------------------------------- Méthodes publiques
 bool Polygone::Contains ( const Point & point )
-// Algorithme :
-//
+// Algorithme : On vérifie que le point se situe à droite de chaque segment
+// partant d'un point A à un point B consécutif du polygone.
 {
-    return false;
+    int x0, y0, x1, y1, x, y, res;
+    int indB;
+    int nbPoints = points.size( );
+
+    for ( int indA = 0 ; indA < nbPoints ; indA++ )
+    {
+        indB = ( indA + 1 ) % nbPoints;
+
+        // (y - y0) (x1 - x0) - (x - x0) (y1 - y0)
+        x0 = points.at( indA ).GetX( );
+        y0 = points.at( indA ).GetY( );
+        x1 = points.at( indB ).GetX( );
+        y1 = points.at( indB ).GetY( );
+        x = point.GetX( );
+        y = point.GetY( );
+
+        res = ( y - y0 ) * ( x1 - x0 ) - ( x - x0 ) * ( y1 - y0 );
+
+        if ( res > 0 )
+        {
+            return false;
+        }
+    }
+
+    return true;
 }    //----- Fin de Contains
+
+bool Polygone::IsConvex ( ) const
+// Algorithme : On itère pour chaque trois points consécutifs de notre polygone
+// (A->B->C), puis calcule le produit vectoriel ABxBC.
+// Si tous les produits sont positifs ou négatifs, le polygone est convexe.
+{
+    bool negative = false;
+    bool positive = false;
+    int indB, indC, BAx, BAy, BCx, BCy, crossProduct;
+    int nbPoints = points.size( );
+
+    for ( int indA = 0 ; indA < nbPoints ; indA++ )
+    {
+        indB = ( indA + 1 ) % nbPoints;
+        indC = ( indB + 1 ) % nbPoints;
+
+        BAx = points.at( indA ).GetX( ) - points.at( indB ).GetX( );
+        BAy = points.at( indA ).GetY( ) - points.at( indB ).GetY( );
+        BCx = points.at( indC ).GetX( ) - points.at( indB ).GetX( );
+        BCy = points.at( indC ).GetY( ) - points.at( indB ).GetY( );
+        crossProduct = ( BAx * BCy - BAy * BCx );
+
+        if ( crossProduct < 0 )
+        {
+            negative = true;
+        }
+        else if ( crossProduct > 0 )
+        {
+            positive = true;
+        }
+        if ( negative && positive )
+        {
+            return false;
+        }
+    }
+
+    return true;
+}    //----- Fin de IsConvex
 
 //------------------------------------------------- Surcharge d'opérateurs
 Polygone & Polygone::operator= ( const Polygone & unPolygone )
@@ -61,7 +123,7 @@ Polygone::Polygone ( const std::vector<Point> & _points ) : SingleObject( _point
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <SingleObject>" << endl;
+    cout << "Appel au constructeur de <Polygone>" << endl;
 #endif
 } //----- Fin de Polygone
 
@@ -70,7 +132,7 @@ Polygone::Polygone ( )
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <SingleObject>" << endl;
+    cout << "Appel au constructeur de <Polygone>" << endl;
 #endif
 } //----- Fin de Polygone
 
