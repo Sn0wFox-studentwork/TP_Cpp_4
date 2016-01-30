@@ -10,10 +10,11 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
+
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "MoveCommand.h"
