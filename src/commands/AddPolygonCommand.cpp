@@ -10,10 +10,11 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
+
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "AddPolygonCommand.h"
@@ -46,7 +47,7 @@ int AddPolygonCommand::Execute( ) const
 			vec.push_back( Point( atoi( params[i].c_str( ) ), atoi( params[i + 1].c_str( ) ) ) );
 		}
 
-		Polygone p = new Polygone( vec );
+		Polygone * p = new Polygone( vec );
 		if ( p->IsConvex( ))
 		{
 			( *figure )[params[0]] = new Polygone( vec );
