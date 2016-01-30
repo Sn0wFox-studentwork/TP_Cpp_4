@@ -11,8 +11,6 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <sstream>
-#include <cstdlib>
 
 using namespace std;
 
@@ -24,7 +22,6 @@ using namespace std;
 #include "../commands/AddPolygonCommand.h"
 #include "../commands/AddIntersectionCommand.h"
 #include "../commands/AddUnionCommand.h"
-#include "../commands/DeleteCommand.h"
 
 //------------------------------------------------------------- Constantes
 const string ERR_STRING = "ERR";
@@ -79,6 +76,10 @@ int Application::Run ( )
 			takeParams( paramsList );
 			AddPolygonCommand cmd( paramsList, &figure );
 			returnCode = commandManager.Do( cmd );
+			if ( returnCode == -2 )
+			{
+				cout << ERR_STRING << endl << "#Polygon is not convex" << endl;
+			}
 		}
 		else if ( stringCode == "OR" )
 		{
