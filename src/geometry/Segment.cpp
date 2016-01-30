@@ -95,7 +95,7 @@ Segment::Segment ( Point p1, Point p2 ) : SingleObject( )
 	points.push_back( p1 );
 	points.push_back( p2 );
 #ifdef MAP
-    cout << "Appel au constructeur de <SingleObject>" << endl;
+    cout << "Appel au constructeur de <Segment>" << endl;
 #endif
 } //----- Fin de Segment
 
