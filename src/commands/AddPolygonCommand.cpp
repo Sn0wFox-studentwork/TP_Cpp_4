@@ -13,6 +13,7 @@
 using namespace std;
 #include <iostream>
 #include <stdexcept>
+#include <cstdlib>
 
 //------------------------------------------------------ Include personnel
 #include "AddPolygonCommand.h"
@@ -42,7 +43,7 @@ int AddPolygonCommand::Execute( ) const
 		vector<Point> vec;
 		for ( int i = 1; i+1 < params.size(); i+=2 )
 		{
-			vec.push_back( Point( stoi( params[i] ), stoi( params[i + 1] ) ) );
+			vec.push_back( Point( atoi( params[i].c_str( ) ), atoi( params[i + 1].c_str( ) ) ) );
 		}
 
 		(*figure)[params[0]] = new Polygone( vec );

@@ -12,6 +12,7 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -97,7 +98,7 @@ int Application::Run ( )
 			if ( figure.count( paramsList[0] ) == 1 )
 			{
 				if (	figure[paramsList[0]]->Contains(
-						Point( stoi( paramsList[1] ), stoi( paramsList[2] ) ) ) )
+						Point( atoi( paramsList[1].c_str( ) ), atoi( paramsList[2].c_str( ) ) ) ) )
 				{
 					returnCode = 1;
 					cout << YES_STRING << endl;

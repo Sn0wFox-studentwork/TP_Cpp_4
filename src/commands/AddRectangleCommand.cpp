@@ -13,6 +13,7 @@
 using namespace std;
 #include <iostream>
 #include <stdexcept>
+#include <cstdlib>
 
 //------------------------------------------------------ Include personnel
 #include "AddRectangleCommand.h"
@@ -40,8 +41,8 @@ int AddRectangleCommand::Execute( ) const
 	catch ( const out_of_range& e )
 	{
 		vector<Point> vec;
-		vec.push_back(Point(stoi(params[1]), stoi(params[2])));
-		vec.push_back(Point(stoi(params[3]), stoi(params[4])));
+		vec.push_back(Point(atoi(params[1].c_str()), atoi(params[2].c_str())));
+		vec.push_back(Point(atoi(params[3].c_str( )), atoi(params[4].c_str( ))));
 		(*figure)[params[0]] = new Rectangle( vec );
 	}
 	return 0;

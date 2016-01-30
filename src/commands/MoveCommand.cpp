@@ -13,6 +13,7 @@
 using namespace std;
 #include <iostream>
 #include <stdexcept>
+#include <cstdlib>
 
 //------------------------------------------------------ Include personnel
 #include "MoveCommand.h"
@@ -34,7 +35,7 @@ int MoveCommand::Execute( ) const
 	try
 	{
 		Object* o = figure->at( params[0] );
-		(*figure)[params[0]]->Move( stoi( params[1] ), stoi( params[2] ) );
+		(*figure)[params[0]]->Move( atoi( params[1].c_str( ) ), atoi( params[2].c_str( ) ) );
 	}
 	catch ( const out_of_range& e )
 	{
