@@ -24,7 +24,6 @@ using namespace std;
 #include "../commands/AddPolygonCommand.h"
 #include "../geometry/Segment.h"
 #include "../geometry/Rectangle.h"
-#include "../geometry/Polygone.h"
 #include "../geometry/InterObject.h"
 #include "../geometry/UnionObject.h"
 
@@ -271,6 +270,10 @@ SingleObject* FileManager::createSingleObject( const string& type, stringstream&
 		{
 			return nullptr;
 		}
+	}
+	else
+	{
+		return nullptr;
 	}
 }	//----- Fin de createSingleObject
 
