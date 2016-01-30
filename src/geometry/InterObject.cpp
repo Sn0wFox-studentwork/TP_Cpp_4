@@ -31,7 +31,14 @@ bool InterObject::Contains ( const Point & point )
 // Algorithme :
 //
 {
-    return false;
+    for (Object* o : components)
+    {
+        if (!o->Contains(point))
+        {
+            return false;
+        }
+    }
+    return true;
 } //----- Fin de Méthode
 
 
@@ -62,7 +69,7 @@ InterObject::InterObject ( const std::vector<Object *> & _components ) : Composi
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <CompositeObject>" << endl;
+    cout << "Appel au constructeur de <InterObject>" << endl;
 #endif
 }
 

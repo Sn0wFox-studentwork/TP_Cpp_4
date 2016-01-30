@@ -31,6 +31,13 @@ bool UnionObject::Contains ( const Point & point )
 // Algorithme :
 //
 {
+    for (Object* o : components)
+    {
+        if (o->Contains(point))
+        {
+            return true;
+        }
+    }
     return false;
 } //----- Fin de Méthode
 
@@ -62,7 +69,7 @@ UnionObject::UnionObject ( const std::vector<Object *> & _components ) : Composi
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <CompositeObject>" << endl;
+    cout << "Appel au constructeur de <UnionObject>" << endl;
 #endif
 }
 

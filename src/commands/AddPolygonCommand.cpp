@@ -46,7 +46,17 @@ int AddPolygonCommand::Execute( ) const
 			vec.push_back( Point( atoi( params[i].c_str( ) ), atoi( params[i + 1].c_str( ) ) ) );
 		}
 
-		(*figure)[params[0]] = new Polygone( vec );
+		Polygone p = new Polygone( vec );
+		if ( p->IsConvex( ))
+		{
+			( *figure )[params[0]] = new Polygone( vec );
+		}
+		else
+		{
+			delete p;
+			return -2;
+		}
+
 	}
 	return 0;
 }	//----- Fin de Execute
