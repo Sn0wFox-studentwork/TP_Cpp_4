@@ -165,6 +165,7 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 
 	// Execution du groupement de commandes
 	cmdManager.Do( cmds );
+	clearBeforeAbortLoading( cmds );
     return 0;
 
 }	//----- Fin de Méthode

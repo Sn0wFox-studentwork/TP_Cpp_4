@@ -7,11 +7,16 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 
 //---------- Réalisation de <main> (fichier main.cpp) --
 
+//----------------------------------------------- Constantes préprocesseur
+//#define VLD
+
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <vld.h>
+#ifdef VLD
+	#include <vld.h>
+#endif
 
 using namespace std;
 
