@@ -11,6 +11,7 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vld.h>
 
 using namespace std;
 

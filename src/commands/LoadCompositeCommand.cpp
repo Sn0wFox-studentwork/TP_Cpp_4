@@ -19,15 +19,7 @@ using namespace std;
 #include "../geometry/InterObject.h"
 #include "../geometry/UnionObject.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int LoadCompositeCommand::Execute( ) const
@@ -53,7 +45,7 @@ int LoadCompositeCommand::Execute( ) const
 }	//----- Fin de Execute
 
 LoadCompositeCommand* LoadCompositeCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new LoadCompositeCommand( *this );
 }	//----- Fin de Clone
@@ -64,9 +56,12 @@ LoadCompositeCommand & LoadCompositeCommand::operator = ( const LoadCompositeCom
 // Algorithme :	Si on n'est pas en train de faire unLoadCompositeCommand = unLoadCompositeCommand, on "copie" tout les champs :
 //				on les modifie pour qu'ils soient comme ceux de unLoadCompositeCommand
 {
-	params = unLoadCompositeCommand.params;
-	figure = unLoadCompositeCommand.figure;
-	components = unLoadCompositeCommand.components;
+	if ( this != &unLoadCompositeCommand )
+	{
+		params = unLoadCompositeCommand.params;
+		figure = unLoadCompositeCommand.figure;
+		components = unLoadCompositeCommand.components;
+	}
 	return *this;
 } //----- Fin de operator =
 
@@ -94,7 +89,7 @@ LoadCompositeCommand::LoadCompositeCommand ( const StringList& params, Figure* c
 
 
 LoadCompositeCommand::~LoadCompositeCommand ( )
-// Algorithme :
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 	for ( int i = 0; i < components.size( ); i++ )
 	{
@@ -103,11 +98,4 @@ LoadCompositeCommand::~LoadCompositeCommand ( )
 #ifdef MAP
     cout << "Appel au destructeur de <LoadCompositeCommand>" << endl;
 #endif
-} //----- Fin de ~LoadCompositeCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+}	//----- Fin de ~LoadCompositeCommand

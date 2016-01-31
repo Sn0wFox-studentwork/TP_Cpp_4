@@ -36,7 +36,6 @@ const string NO_STRING = "NO";
 
 
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 
@@ -97,6 +96,7 @@ int Application::Run ( )
 			if ( paramsList.size( ) < 7 || paramsList.size( )%2 != 1)
 			{
 				cout << ERR_STRING << endl << "#Must have at least 7 parameters, and an odd number of them" << endl;
+				returnCode = -1;
 			}
 			else
 			{
@@ -319,6 +319,7 @@ int Application::Run ( )
 			if ( paramsList.size( ) != 1 )
 			{
 				cout << ERR_STRING << endl << "#Must have only one parameter" << endl;
+				returnCode = -1;
 			}
 			else
 			{
@@ -342,7 +343,6 @@ int Application::Run ( )
 		}
 		// NB : cas du "EXIT" traite par le while
 
-		// TODO : afficher les bons messages
 		if ( !returnCode && returnCode != 1 )
 		{
 			cout << OK_STRING << endl;
@@ -359,25 +359,51 @@ int Application::Run ( )
 //------------------------------------------------- Surcharge d'opérateurs
 Application & Application::operator= ( const Application & uneApplication )
 // Algorithme :	Si on n'est pas en train de faire uneApplication = uneApplication, on "copie" tout les champs :
-//				on les modifie pour qu'ils soient comme ceux de uneApplication
+//				on les modifie pour qu'ils soient comme ceux de uneApplication.
+//				Copie en profondeur de la figure, sous peine d'avoir de gros problemes.
 {
-	for ( ConstFigureIterator cfi = figure.begin( ); cfi != figure.end( ); cfi++ )
+	if ( this != &uneApplication )
 	{
-		delete cfi->second;
+		for ( ConstFigureIterator cfi = figure.begin( ); cfi != figure.end( ); cfi++ )
+		{
+			delete cfi->second;
+			figure.erase( cfi->first );
+		}
+		for ( ConstFigureIterator cfi = uneApplication.figure.begin( ); cfi != uneApplication.figure.end( ); cfi++ )
+		{
+			if ( cfi->second )
+			{
+				figure[cfi->first] = cfi->second->Clone( );
+			}
+			else
+			{
+				figure[cfi->first] = nullptr;
+			}
+		}
+		fileManager = uneApplication.fileManager;
+		commandManager = uneApplication.commandManager;
 	}
-	figure = uneApplication.figure;
-	fileManager = uneApplication.fileManager;
-	commandManager = uneApplication.commandManager;
-
     return *this;
 }	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Application::Application ( const Application & unApplication ) :
-	figure( unApplication.figure ), fileManager( unApplication.fileManager ), commandManager( unApplication.commandManager )
-// Algorithme :
+Application::Application( const Application & unApplication ) :
+	figure( ), fileManager( unApplication.fileManager ), commandManager( unApplication.commandManager )
+// Algorithme :	Utilisation des constructeurs de copie de FileManager et CommandManager.
+//				Copie en profondeur de la figure, sous peine d'avoir de gros problemes.
 {
+	for ( ConstFigureIterator cfi = unApplication.figure.begin( ); cfi != unApplication.figure.end( ); cfi++ )
+	{
+		if ( cfi->second )
+		{
+			figure[cfi->first] = cfi->second->Clone( );
+		}
+		else
+		{
+			figure[cfi->first] = nullptr;
+		}
+	}
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Application>" << endl;
 #endif
@@ -385,7 +411,7 @@ Application::Application ( const Application & unApplication ) :
 
 
 Application::Application ( ) : figure( ), fileManager( ), commandManager( )
-// Algorithme :
+// Algorithme :	Utilisation des constructeurs par defaut de Figure, FileManager et CommandManager.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Application>" << endl;
@@ -394,7 +420,7 @@ Application::Application ( ) : figure( ), fileManager( ), commandManager( )
 
 
 Application::~Application ( )
-// Algorithme :
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Application>" << endl;
@@ -409,7 +435,11 @@ Application::~Application ( )
 
 //----------------------------------------------------- Méthodes protégées
 void Application::takeParams( StringList & params ) const
-// Algorithme :
+// Algorithme :	Lit la ligne courante sur l'entree standard et la stocke dans une string.
+//				Si cette string est vide, la fonction s'arrete.
+//				Sinon, cette ligne est parsee pour faire en sorte que chaque groupement de caracteres
+//				entre deux espaces (ou espace et fin de ligne pour le dernier groupe) soit ajoute a params.
+//				La fonction s'arrete lorsqu'elle a ajoute le dernier groupement.
 {
 	string stringParams;
 	getline( cin, stringParams );
@@ -432,7 +462,9 @@ void Application::takeParams( StringList & params ) const
 }
 
 void Application::list ( ) const
-// Algorithme :
+// Algorithme :	Affiche chaque element de la figure sur la sortie standard,
+//				en utilisant la methode print pour chaque objet.
+//				TODO : se servir de print pour SAVE ? Passer en parametre un ostream qui par defaut vaut 0 ?
 {
 	for ( ConstFigureIterator fi = figure.begin(); fi != figure.end(); fi++ )
 	{
@@ -441,5 +473,3 @@ void Application::list ( ) const
 		cout << endl;
 	}
 }
-
-//------------------------------------------------------- Méthodes privées

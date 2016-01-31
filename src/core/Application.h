@@ -75,15 +75,12 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-//-------- Execution générale
 	void takeParams( StringList& params ) const;
 	// Mode d'emploi :	Ajoute les parametres rentres sur l'entree standard dans la liste
 	//					de parametres params (ajout par la fin).
 
 	void list( ) const;
 	// Mode d'emploi :	Affiche toutes les formes géometrique de la Figure figure.
-private:
-//------------------------------------------------------- Méthodes privées
 
 protected:
 //----------------------------------------------------- Attributs protégés
@@ -101,7 +98,5 @@ private:
 //----------------------------------------------------------- Types privés
 
 };
-
-//----------------------------------------- Types dépendants de <Application>
 
 #endif // APPLICATION_H

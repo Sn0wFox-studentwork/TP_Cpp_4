@@ -20,15 +20,7 @@ using namespace std;
 #include "AddRectangleCommand.h"
 #include "../geometry/Rectangle.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int AddRectangleCommand::Execute( ) const
@@ -50,7 +42,7 @@ int AddRectangleCommand::Execute( ) const
 }	//----- Fin de Execute
 
 AddRectangleCommand* AddRectangleCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new AddRectangleCommand( *this );
 }	//----- Fin de Clone
@@ -66,39 +58,38 @@ AddRectangleCommand & AddRectangleCommand::operator = ( const AddRectangleComman
 		figure = aAddRectangleCommand.figure;
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 AddRectangleCommand::AddRectangleCommand ( const AddRectangleCommand & aAddRectangleCommand ) :
 	AddObjectCommand ( aAddRectangleCommand )
-// Algorithme :
+// Algorithme :	Utilisation du constructeur de copie de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <AddRectangleCommand>" << endl;
 #endif
-} //----- Fin de AddRectangleCommand (constructeur de copie)
+}	//----- Fin de AddRectangleCommand (constructeur de copie)
 
 
 AddRectangleCommand::AddRectangleCommand ( const StringList& params, Figure* const f ) :
 	AddObjectCommand( params, f )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <AddRectangleCommand>" << endl;
 #endif
-} //----- Fin de AddRectangleCommand
+}	//----- Fin de AddRectangleCommand
 
 
 AddRectangleCommand::~AddRectangleCommand ( )
-// Algorithme :
-//
+// Algorithme :	Libere la memoire asociee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <AddRectangleCommand>" << endl;
 #endif
-} //----- Fin de ~AddRectangleCommand
+	// Pas d'allocation dynamique.
+}	//----- Fin de ~AddRectangleCommand
 
 
 //------------------------------------------------------------------ PRIVE

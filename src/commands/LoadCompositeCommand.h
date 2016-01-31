@@ -12,10 +12,6 @@
 //--------------------------------------------------- Interfaces utilisées
 #include "AddObjectCommand.h"
 
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
-
 //------------------------------------------------------------------------ 
 // Rôle de la classe <LoadCompositeCommand>
 //
@@ -33,11 +29,9 @@ public:
 	//					Retourne :	0 si tout s'est bien passe.
 	//								-1 si le nom de l'objet present dans params[1] existe deja dans la figure.
 	//								-2 si params[1] ne contient ni "OR" ni "OI".
-	// TODO :	Mettre dans les specif generales cette histoire d'unicite du nom.
 
 	virtual LoadCompositeCommand* Clone( ) const;
 	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
-
 
 //------------------------------------------------- Surcharge d'opérateurs
     LoadCompositeCommand & operator = ( const LoadCompositeCommand & unLoadCompositeCommand );
@@ -69,26 +63,9 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-private:
-//------------------------------------------------------- Méthodes privées
-
-protected:
 //----------------------------------------------------- Attributs protégés
 	vector<Object*> components;
 
-private:
-//------------------------------------------------------- Attributs privés
-
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privées
-
-//----------------------------------------------------------- Types privés
-
 };
-
-//----------------------------------------- Types dépendants de <LoadCompositeCommand>
 
 #endif // LOAD_COMPOSITE_COMMAND_H

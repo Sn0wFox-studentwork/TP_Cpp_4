@@ -48,10 +48,9 @@ public:
 
 //------------------------------------------------- Surcharge d'opérateurs
     AddObjectCommand & operator = ( const AddObjectCommand & unAddObjectCommand );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point similaire a unAddObjectCommand.
+	//					Les deux AddObjectCommand auront toutes les deux un pointeur vers la meme Figure.
+    // Contrat :	La desallocation de cette figure reste a la charge de l'appelant.
 
 
 //-------------------------------------------- Constructeurs - destructeur

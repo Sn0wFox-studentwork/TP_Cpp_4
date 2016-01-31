@@ -16,10 +16,6 @@
 #include "DeleteCommand.h"
 #include "../geometry/Object.h"
 
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types
-
 //------------------------------------------------------------------------ 
 // Rôle de la classe <DeleteCommand>
 //
@@ -34,8 +30,8 @@ public:
 //----------------------------------------------------- Méthodes publiques
 	virtual int Execute( ) const;
 	// Mode d'emploi :	Execute la commande courante.
-	//					Retourne 0 si tout s'est bien passe, une autre valeur sinon.
-	//					Ces autres valeurs seront a preciser dans les surcharges de cette methode.
+	//					Retourne :	0 si tout s'est bien passe.
+	//								-1 si l'objet a supprimer n'existait pas dans la figure.
 
     virtual ReversableCommand* GetInversedCommand( ) const;
 	// Mode d'emploi :	Retourne un pointeur sur la commande annulant la commande courante.
@@ -45,14 +41,14 @@ public:
 
 	virtual DeleteCommand* Clone( ) const;
 	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
-
+	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
 
 //------------------------------------------------- Surcharge d'opérateurs
     DeleteCommand & operator = ( const DeleteCommand & unDeleteCommand );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point similaire a unDeleteCommand.
+	//					Les deux DeleteCommand auront toutes les deux un pointeur vers la meme Figure,
+	//					et un vers le meme objet supprime.
+	// Contrat :	La desallocation de cette figure reste a la charge de l'appelant.
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -77,27 +73,9 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-private:
-//------------------------------------------------------- Méthodes privées
-
-protected:
 //----------------------------------------------------- Attributs protégés
-	bool isComplete;
-	Object* deletedObject;
-
-private:
-//------------------------------------------------------- Attributs privés
-
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privées
-
-//----------------------------------------------------------- Types privés
+	Object* deletedObject;	// Pointeur vers une copie de l'objet a supprimer
 
 };
-
-//----------------------------------------- Types dépendants de <DeleteCommand>
 
 #endif // DELETE_COMMAND_H

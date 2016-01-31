@@ -19,15 +19,7 @@ using namespace std;
 #include "AddUnionCommand.h"
 #include "../geometry/UnionObject.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int AddUnionCommand::Execute( ) const
@@ -59,7 +51,7 @@ int AddUnionCommand::Execute( ) const
 }	//----- Fin de Execute
 
 AddUnionCommand* AddUnionCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new AddUnionCommand( *this );
 }	//----- Fin de Clone
@@ -75,43 +67,35 @@ AddUnionCommand & AddUnionCommand::operator = ( const AddUnionCommand & aAddUnio
 		figure = aAddUnionCommand.figure;
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 AddUnionCommand::AddUnionCommand ( const AddUnionCommand & aAddUnionCommand ) :
 	AddObjectCommand ( aAddUnionCommand )
-// Algorithme :
+// Algorithme :	Utilisation du constructeur de copie de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <AddUnionCommand>" << endl;
 #endif
-} //----- Fin de AddUnionCommand (constructeur de copie)
+}	//----- Fin de AddUnionCommand (constructeur de copie)
 
 
 AddUnionCommand::AddUnionCommand ( const StringList& params, Figure* const f ) :
 	AddObjectCommand( params, f )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <AddUnionCommand>" << endl;
 #endif
-} //----- Fin de AddUnionCommand
+}	//----- Fin de AddUnionCommand
 
 
 AddUnionCommand::~AddUnionCommand ( )
-// Algorithme :
-//
+// Algorithme :	Libere la memoire asociee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <AddUnionCommand>" << endl;
 #endif
-} //----- Fin de ~AddUnionCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique.
+}	//----- Fin de ~AddUnionCommand

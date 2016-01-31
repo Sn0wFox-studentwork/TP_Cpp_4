@@ -17,17 +17,7 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "ReversableCommand.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
-
-//----------------------------------------------------- Méthodes publiques
 
 //------------------------------------------------- Surcharge d'opérateurs
 ReversableCommand & ReversableCommand::operator = ( const ReversableCommand & aReversableCommand )
@@ -40,44 +30,35 @@ ReversableCommand & ReversableCommand::operator = ( const ReversableCommand & aR
 		figure = aReversableCommand.figure;
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 ReversableCommand::ReversableCommand ( const ReversableCommand & aReversableCommand ) :
 	Command( aReversableCommand ), figure( aReversableCommand.figure )
-// Algorithme :
-//
+// Algorithme :	Utilisation des constructeurs de copie de Command et Figure* (copie de pointeur).
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <ReversableCommand>" << endl;
 #endif
-} //----- Fin de ReversableCommand (constructeur de copie)
+}	//----- Fin de ReversableCommand (constructeur de copie)
 
 
 ReversableCommand::ReversableCommand ( const StringList& params, Figure* const f ) :
 	Command( params ), figure( f )
-// Algorithme :
-//
+// Algorithme :	Utilisation des constructeurs de Command et Figure* (copie de pointeur).
 {
 #ifdef MAP
     cout << "Appel au constructeur de <ReversableCommand>" << endl;
 #endif
-} //----- Fin de ReversableCommand
+}	//----- Fin de ReversableCommand
 
 
 ReversableCommand::~ReversableCommand ( )
-// Algorithme :
-//
+// Algorithme :	Libere la memoire.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <ReversableCommand>" << endl;
 #endif
-} //----- Fin de ~ReversableCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	//	Pas d'allocation dynamique
+}	//----- Fin de ~ReversableCommand

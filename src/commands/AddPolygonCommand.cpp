@@ -50,20 +50,19 @@ int AddPolygonCommand::Execute( ) const
 		Polygone * p = new Polygone( vec );
 		if ( p->IsConvex( ))
 		{
-			( *figure )[params[0]] = new Polygone( vec );
+			( *figure )[params[0]] = p;
 		}
 		else
 		{
 			delete p;
 			return -2;
 		}
-
 	}
 	return 0;
 }	//----- Fin de Execute
 
 AddPolygonCommand* AddPolygonCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new AddPolygonCommand( *this );
 }	//----- Fin de Clone
@@ -79,43 +78,35 @@ AddPolygonCommand & AddPolygonCommand::operator = ( const AddPolygonCommand & aA
 		figure = aAddPolygonCommand.figure;
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 AddPolygonCommand::AddPolygonCommand ( const AddPolygonCommand & aAddPolygonCommand ) :
 	AddObjectCommand ( aAddPolygonCommand )
-// Algorithme :
+// Algorithme :	Utilisation du constructeur de copie de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <AddPolygonCommand>" << endl;
 #endif
-} //----- Fin de AddPolygonCommand (constructeur de copie)
+}	//----- Fin de AddPolygonCommand (constructeur de copie)
 
 
 AddPolygonCommand::AddPolygonCommand ( const StringList& params, Figure* const f ) :
 	AddObjectCommand( params, f )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <AddPolygonCommand>" << endl;
 #endif
-} //----- Fin de AddPolygonCommand
+}	//----- Fin de AddPolygonCommand
 
 
 AddPolygonCommand::~AddPolygonCommand ( )
-// Algorithme :
-//
+// Algorithme :	Libere la memoire asociee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <AddPolygonCommand>" << endl;
 #endif
-} //----- Fin de ~AddPolygonCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique
+}	//----- Fin de ~AddPolygonCommand

@@ -45,34 +45,32 @@ public:
 
 	virtual ReversableCommand* Clone( ) const = 0;
 	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
+	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
 
 
 //------------------------------------------------- Surcharge d'opérateurs
     ReversableCommand & operator = ( const ReversableCommand & unReversableCommand );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+    // Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point similaire a unReversableCommand.
+	//					Les deux ReversableCommand auront toutes les deux un pointeur vers la meme Figure.
+    // Contrat :	La desallocation de cette figure reste a la charge de l'appelant.
 
 //-------------------------------------------- Constructeurs - destructeur
     ReversableCommand ( const ReversableCommand & unReversableCommand );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
+    // Mode d'emploi (constructeur de copie) :	Construit une reversableCommand a partir de unReversableCommand.
+	//											Les deux ReversableCommand auront toutes les deux un pointeur
+	//											vers la meme Figure.
+	// Contrat :	La desallocation de cette figure reste a la charge de l'appelant.
 
     ReversableCommand ( const StringList& params, Figure* const f );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Mode d'emploi :	Construit une reversableCommand a partir des parametres donnes.
+	//					La Figure manipulee par la ReversableCommand est celle pointee par f.
+	//					Le constructeur ne fera donc qu'un copie de pointeur.
+    // Contrat :	La desallocation de f reste a la charge de l'appelant.
 
     virtual ~ReversableCommand ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Mode d'emploi :	Detruit l'objet courant et libere la memoire.
+	//					Appele automatiquement.
+	// Contrat :	La desallocation de figure reste a la charge de l'appelant.
 
 //------------------------------------------------------------------ PRIVE 
 

@@ -18,19 +18,14 @@ using namespace std;
 #include "RestoreCommand.h"
 #include "DeleteCommand.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int RestoreCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	Si il n'existe pas un objet referencee dans la Figure pointee par figure
+//				sous le nom contenu dans params[0], on insere dans la figure une copie de 
+//				deletedObject allouee dynamiquement. On retourne 0.
+//				Sinon, on retourne -1.
 {
 	if( figure->count( params[0] ) == 0 )
 	{
@@ -39,18 +34,19 @@ int RestoreCommand::Execute( ) const
 			(*figure)[params[0]] = deletedObject->Clone( );
 			return 0;
 		}
+		return -2;
 	}
 	return -1;
 }	//----- Fin de Execute
 
 ReversableCommand* RestoreCommand::GetInversedCommand( ) const
-// Algorithme :
+// Algorithme :	Allocation dynamique d'une commande annulant la commande courante.
 {
 	return new DeleteCommand( params, figure );
 }	//----- Fin de GetInversedCommand
 
 RestoreCommand* RestoreCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new RestoreCommand( *this );
 }	//----- Fin de Clone
@@ -80,8 +76,9 @@ RestoreCommand & RestoreCommand::operator = ( const RestoreCommand & aRestoreCom
 //-------------------------------------------- Constructeurs - destructeur
 RestoreCommand::RestoreCommand ( const RestoreCommand & aRestoreCommand ) :
 	ReversableCommand( aRestoreCommand ), deletedObject( nullptr )
-// Algorithme :
-//
+// Algorithme :	Utilisation des constructeurs de copie de ReversableCommand et Objet* (copie de pointeur).
+//				deletedObjet est initialise en tant que pointeur null. Il pointera vers un Object (une copie)
+//				uniquement si cet objet existe dans aRestoreCommand, et restera a nullptr sinon.
 {
 	if( aRestoreCommand.deletedObject )
 	{
@@ -90,13 +87,14 @@ RestoreCommand::RestoreCommand ( const RestoreCommand & aRestoreCommand ) :
 #ifdef MAP
     cout << "Appel au constructeur de copie de <RestoreCommand>" << endl;
 #endif
-} //----- Fin de RestoreCommand (constructeur de copie)
+}	//----- Fin de RestoreCommand (constructeur de copie)
 
 
 RestoreCommand::RestoreCommand( const StringList& params, Figure* const f, Object* const delObject ) :
 	ReversableCommand( params, f ), deletedObject( nullptr )
-	// Algorithme :
-	//
+// Algorithme :	Utilisation des constructeurs de ReversableCommand et Objet* (copie de pointeur).
+//				deletedObjet est initialise en tant que pointeur null. Il pointera vers un delObject (une copie)
+//				uniquement si cet objet existe, et restera a nullptr sinon.
 {
 	if ( delObject )
 	{
@@ -109,8 +107,7 @@ RestoreCommand::RestoreCommand( const StringList& params, Figure* const f, Objec
 
 
 RestoreCommand::~RestoreCommand ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 	if ( deletedObject )	// pour ne pas tenter de desallouer un pointeur null
 	{
@@ -120,10 +117,3 @@ RestoreCommand::~RestoreCommand ( )
     cout << "Appel au destructeur de <RestoreCommand>" << endl;
 #endif
 } //----- Fin de ~RestoreCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées

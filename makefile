@@ -32,7 +32,7 @@ SRCFILE = cpp
 HEADFILE = h
 EXEFILE = exe
 
-DEBUG = no
+DEBUG = yes
 
 SRCPATH = src/
 SRC = $(wildcard $(SRCPATH)*/*.$(SRCFILE))
@@ -50,6 +50,7 @@ EXECS = $(EXE1) $(EXE2)
 W = -W
 WA = -Wall
 STDLIB = -std=c++11
+GGDB = -ggdb
 
 CFLAGS =
 #---------------------------------------------------------------
@@ -69,7 +70,7 @@ else
 endif
 
 ifeq ($(DEBUG),yes)
-	CFLAGS += $(W) $(WA) $(STDLIB)
+	CFLAGS += $(W) $(WA) $(STDLIB) $(GGDB)
 else
 	CFLAGS = $(STDLIB)
 endif

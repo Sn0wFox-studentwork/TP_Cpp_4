@@ -19,15 +19,7 @@ using namespace std;
 #include "AddIntersectionCommand.h"
 #include "../geometry/InterObject.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int AddIntersectionCommand::Execute( ) const
@@ -59,7 +51,7 @@ int AddIntersectionCommand::Execute( ) const
 }	//----- Fin de Execute
 
 AddIntersectionCommand* AddIntersectionCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new AddIntersectionCommand( *this );
 }	//----- Fin de Clone
@@ -81,37 +73,29 @@ AddIntersectionCommand & AddIntersectionCommand::operator = ( const AddIntersect
 //-------------------------------------------- Constructeurs - destructeur
 AddIntersectionCommand::AddIntersectionCommand ( const AddIntersectionCommand & aAddIntersectionCommand ) :
 	AddObjectCommand ( aAddIntersectionCommand )
-// Algorithme :
+// Algorithme :	Utilisation du constructeur de copie de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <AddIntersectionCommand>" << endl;
 #endif
-} //----- Fin de AddIntersectionCommand (constructeur de copie)
+}	//----- Fin de AddIntersectionCommand (constructeur de copie)
 
 
 AddIntersectionCommand::AddIntersectionCommand ( const StringList& params, Figure* const f ) :
 	AddObjectCommand( params, f )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <AddIntersectionCommand>" << endl;
 #endif
-} //----- Fin de AddIntersectionCommand
+}	//----- Fin de AddIntersectionCommand
 
 
 AddIntersectionCommand::~AddIntersectionCommand ( )
-// Algorithme :
-//
+// Algorithme :	Libere la memoire asociee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <AddIntersectionCommand>" << endl;
 #endif
-} //----- Fin de ~AddIntersectionCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique.
+}	//----- Fin de ~AddIntersectionCommand

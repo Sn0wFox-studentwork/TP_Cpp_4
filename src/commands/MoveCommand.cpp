@@ -19,19 +19,14 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "MoveCommand.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int MoveCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	Si il existe un objet contenu dans la Figure pointee par figure sous le
+//				nom contenu dans params[0], il est deplace de params[1] selon x et params[2] selon y,
+//				et 0 est retourne.
+//				Sinon, on retourne -1;
 {
 	try
 	{
@@ -46,13 +41,15 @@ int MoveCommand::Execute( ) const
 }	//----- Fin de Execute( )
 
 MoveCommand* MoveCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new MoveCommand( *this );
 }	//----- Fin de Clone
 
 MoveCommand * MoveCommand::GetInversedCommand( ) const
-// Algorithme :
+// Algorithme :	Allocation dynamique d'une commande annulant la commande courante.
+//				Cette commande est calculee en inversant le signe des coordonnees
+//				de deplacement.
 {
 	StringList sl;
 	sl.push_back( params[0] );	// Push du nom de l'objet
@@ -82,41 +79,33 @@ MoveCommand & MoveCommand::operator = ( const MoveCommand & aMoveCommand )
 		figure = aMoveCommand.figure;
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 MoveCommand::MoveCommand ( const MoveCommand & aMoveCommand ) : ReversableCommand ( aMoveCommand )
-// Algorithme :
+// Algorithme :	Utilisation du constructeur de copie de ReversableCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <MoveCommand>" << endl;
 #endif
-} //----- Fin de MoveCommand (constructeur de copie)
+}	//----- Fin de MoveCommand (constructeur de copie)
 
 
 MoveCommand::MoveCommand ( const StringList& params, Figure* const f ) : ReversableCommand( params, f )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur de ReversableCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <MoveCommand>" << endl;
 #endif
-} //----- Fin de MoveCommand
+}	//----- Fin de MoveCommand
 
 
 MoveCommand::~MoveCommand ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <MoveCommand>" << endl;
 #endif
-} //----- Fin de ~MoveCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique
+}	//----- Fin de ~MoveCommand

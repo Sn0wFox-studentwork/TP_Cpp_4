@@ -73,9 +73,9 @@ SingleObject::SingleObject ( const std::vector<Point> & pts )
 // Algorithme :
 //
 {
-    // L'affectation n'est pas suffisante car elle ne transfère pas la taille (et capacité) du vecteur
+    /*// L'affectation n'est pas suffisante car elle ne transfère pas la taille (et capacité) du vecteur
     points.clear( );
-    points.resize( pts.size( ));
+    points.resize( pts.size( ));*/
     points = pts;
 #ifdef MAP
     cout << "Appel au constructeur de <SingleObject>" << endl;

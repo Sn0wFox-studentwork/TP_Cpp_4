@@ -58,12 +58,9 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 		StringList params;					// La liste des parametres de la commande
 		stringstream sstream;				// Un flux pour manipuler plus facilement les strings
 											// Il faut la reinitialiser a chaque tour de boucle
-		cout << "---BOUCLE---" << endl;
 		sstream << paramLine;
 		sstream >> cmdCode;
 		sstream >> name;
-		cout << "Apres prises de la ligne, on a : " << paramLine << endl;
-		cout << "sstream vaut : " << sstream.str() << endl;
 
 		// Verification de l'unicite du nom de l'objet
 		if ( figure->count( name ) != 0 )
@@ -79,13 +76,11 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 				return -3;
 			}
 		}
-		cout << "La ligne est valide" << endl;
 
 		// Creation de la commande de creation
 		params.push_back( name );
 		if ( cmdCode == "OI" || cmdCode == "OR" )
 		{
-			cout << "Tentative de chargement d'un objet composite" << endl;
 			params.push_back( cmdCode );
 			vector<Object*> comp;
 			sstream.clear( );
@@ -95,7 +90,6 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 				stringstream sstreamcompo;
 				sstreamcompo << paramLine;
 				sstreamcompo >> cmdCode;
-				cout << "cmdCode vaut : " << cmdCode << endl;
 				
 				// Cas ou le composant est un composant simple
 				if ( cmdCode == "S" || cmdCode == "R" || cmdCode == "PC" )
@@ -107,8 +101,8 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 					}
 					else
 					{
-						clearBeforeAbortLoading(comp);
-						clearBeforeAbortLoading(cmds);
+						clearBeforeAbortLoading( comp );
+						clearBeforeAbortLoading( cmds );
 						return -5;
 					}
 					
@@ -122,16 +116,16 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 					}
 					else
 					{
-						clearBeforeAbortLoading(comp);
-						clearBeforeAbortLoading(cmds);
+						clearBeforeAbortLoading( comp );
+						clearBeforeAbortLoading( cmds );
 						return -5;
 					}
 					
 				}
 				else	// mauvaise commande presente dans le fichier
 				{
-					clearBeforeAbortLoading(comp);
-					clearBeforeAbortLoading(cmds);
+					clearBeforeAbortLoading( comp );
+					clearBeforeAbortLoading( cmds );
 					return -4;
 				}
 
@@ -170,7 +164,7 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 	}	//----- Fin de while( !ifs.eof( ) )
 
 	// Execution du groupement de commandes
-	cmdManager.Do( cmds );	// TODO : fuites memoires ?
+	cmdManager.Do( cmds );
     return 0;
 
 }	//----- Fin de Méthode
@@ -284,7 +278,6 @@ CompositeObject* FileManager::createCompositeObject( const string& type, ifstrea
 	string lineWithoutTab;
 	string cmdCode;
 	vector<Object*> comp;
-	cout << "--presence d'un cas de compose composite--" << endl;
 	while ( getline( ifs, line ) )
 	{
 		
@@ -296,11 +289,8 @@ CompositeObject* FileManager::createCompositeObject( const string& type, ifstrea
 			break;	// Nous avons finis de traiter le compose composite
 		}
 
-		cout << "apres lecture de la ligne, on a " << line << endl;
-		cout << "sstream vaut : " << sstream.str() << endl;
 		if ( cmdCode == "S" || cmdCode == "R" || cmdCode == "PC" )
 		{
-			cout << "un des ses composes est simple ; c'est un " << cmdCode << endl;
 			SingleObject* sobj = createSingleObject( cmdCode, sstream );
 			if ( sobj )
 			{

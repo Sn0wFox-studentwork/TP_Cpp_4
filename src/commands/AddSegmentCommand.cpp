@@ -20,15 +20,7 @@ using namespace std;
 #include "AddSegmentCommand.h"
 #include "../geometry/Segment.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int AddSegmentCommand::Execute( ) const
@@ -48,7 +40,7 @@ int AddSegmentCommand::Execute( ) const
 }	//----- Fin de Execute
 
 AddSegmentCommand* AddSegmentCommand::Clone( ) const
-// Algorithme :
+// Algorithme :	Retour d'un pointeur vers une copie de l'objet courant allouee dynamiquement.
 {
 	return new AddSegmentCommand( *this );
 }	//----- Fin de Clone
@@ -64,43 +56,35 @@ AddSegmentCommand & AddSegmentCommand::operator = ( const AddSegmentCommand & aA
 		figure = aAddSegmentCommand.figure;
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 AddSegmentCommand::AddSegmentCommand ( const AddSegmentCommand & aAddSegmentCommand ) :
 	AddObjectCommand ( aAddSegmentCommand )
-// Algorithme :
+// Algorithme :	Utilisation du constructeur de copie de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <AddSegmentCommand>" << endl;
 #endif
-} //----- Fin de AddSegmentCommand (constructeur de copie)
+}	//----- Fin de AddSegmentCommand (constructeur de copie)
 
 
 AddSegmentCommand::AddSegmentCommand ( const StringList& params, Figure* const f ) :
 	AddObjectCommand( params, f )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur de AddObjectCommand.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <AddSegmentCommand>" << endl;
 #endif
-} //----- Fin de AddSegmentCommand
+}	//----- Fin de AddSegmentCommand
 
 
 AddSegmentCommand::~AddSegmentCommand ( )
-// Algorithme :
-//
+// Algorithme :	Libere la memoire asociee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <AddSegmentCommand>" << endl;
 #endif
-} //----- Fin de ~AddSegmentCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique.
+}	//----- Fin de ~AddSegmentCommand
