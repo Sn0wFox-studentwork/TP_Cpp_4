@@ -34,7 +34,7 @@ public:
     // Contrat :
     //
 
-    std::string getLabel ( )
+    std::string getLabel ( ) const
     {
         return LABEL;
     }

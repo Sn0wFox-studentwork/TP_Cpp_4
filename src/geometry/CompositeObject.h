@@ -36,8 +36,6 @@ public:
     // Contrat :
     //
 
-	virtual CompositeObject* Clone( ) const = 0;
-
 	void Move( int dx, int dy );
 	// Mode d'emploi :
 	//
@@ -46,10 +44,12 @@ public:
 
 	virtual void Print() const
 	{
+		cout << getLabel( ) << " {" << endl;
 		for (Object* o : components)
 		{
 			o->Print();
 		}
+		cout << "}" << endl;
 	}
 
 

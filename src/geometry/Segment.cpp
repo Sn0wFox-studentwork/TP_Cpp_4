@@ -88,7 +88,7 @@ Segment::Segment ( const Segment & unSegment ) : SingleObject( unSegment )
 #endif
 } //----- Fin de Segment (constructeur de copie)
 
-Segment::Segment ( Point p1, Point p2 ) : SingleObject( )
+Segment::Segment ( const Point & p1, const Point & p2 ) : SingleObject( )
 // Algorithme :
 //
 {

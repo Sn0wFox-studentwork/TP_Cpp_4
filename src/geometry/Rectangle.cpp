@@ -58,6 +58,7 @@ Rectangle::Rectangle ( const Rectangle & unRectangle )
 // Algorithme :
 //
 {
+    points = unRectangle.points;
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Rectangle>" << endl;
 #endif

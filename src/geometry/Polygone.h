@@ -41,7 +41,7 @@ public:
 
     bool IsConvex ( ) const;
 
-    std::string getLabel ( )
+    std::string getLabel ( ) const
     {
         return LABEL;
     }

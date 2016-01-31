@@ -53,7 +53,7 @@ public:
 	// Contrat :
 	//
 
-	virtual std::string getLabel ( ) = 0;
+    virtual std::string getLabel ( ) const = 0;
     // Mode d'emploi :
     //
     // Contrat :

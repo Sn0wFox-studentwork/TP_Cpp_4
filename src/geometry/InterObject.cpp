@@ -55,7 +55,7 @@ InterObject & InterObject::operator= ( const InterObject & unInterObject )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-InterObject::InterObject ( const InterObject & unInterObject )
+InterObject::InterObject ( const InterObject & unInterObject ) : CompositeObject::CompositeObject( unInterObject )
 // Algorithme :
 //
 {

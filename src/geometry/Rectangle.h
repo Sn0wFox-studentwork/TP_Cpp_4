@@ -39,7 +39,7 @@ public:
 		return new Rectangle(*this);
 	}
 
-    std::string getLabel ( )
+    std::string getLabel ( ) const
     {
         return LABEL;
     }

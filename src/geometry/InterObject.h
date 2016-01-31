@@ -34,7 +34,7 @@ public:
     // Contrat :
     //
 
-    std::string getLabel ( )
+    std::string getLabel ( ) const
     {
         return LABEL;
     }
@@ -42,11 +42,6 @@ public:
 	InterObject* Clone() const
 	{
 		return new InterObject(*this);
-	}
-
-	void Print() const
-	{
-		CompositeObject::Print();
 	}
 
 //------------------------------------------------- Surcharge d'opérateurs

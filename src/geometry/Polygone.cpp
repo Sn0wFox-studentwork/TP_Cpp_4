@@ -113,6 +113,7 @@ Polygone::Polygone ( const Polygone & unPolygone )
 // Algorithme :
 //
 {
+    points = unPolygone.points;
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Polygone>" << endl;
 #endif

@@ -39,14 +39,7 @@ public:
 		return new Segment(*this);
 	}
 
-	void Print() const
-	{
-		std::cout << "S ( " << std::flush;
-		SingleObject::Print();
-		std::cout << ")";
-	}
-
-    inline std::string getLabel ( )
+    std::string getLabel ( ) const
     {
         return LABEL;
     }
@@ -66,7 +59,7 @@ public:
     // Contrat :
     //
 
-    Segment ( Point p1, Point p2 );
+    Segment ( const Point & p1, const Point & p2 );
     // Mode d'emploi :
     //
     // Contrat :

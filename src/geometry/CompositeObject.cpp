@@ -50,20 +50,27 @@ CompositeObject & CompositeObject::operator= ( const CompositeObject & unComposi
 
 
 //-------------------------------------------- Constructeurs - destructeur
-CompositeObject::CompositeObject ( const CompositeObject & unCompositeObject ) :
-	components(unCompositeObject.components)
+CompositeObject::CompositeObject ( const CompositeObject & unCompositeObject )
 // Algorithme :
 //
 {
+	for ( Object * o : unCompositeObject.components )
+	{
+		components.push_back( o->Clone( ));
+	}
 #ifdef MAP
     cout << "Appel au constructeur de copie de <CompositeObject>" << endl;
 #endif
 } //----- Fin de CompositeObject (constructeur de copie)
 
 
-CompositeObject::CompositeObject ( const std::vector<Object *> & c ) : components( c )
+CompositeObject::CompositeObject ( const std::vector<Object *> & c )
 // Algorithme :
 {
+	for ( Object * o : c )
+	{
+		components.push_back( o->Clone( ));
+	}
 #ifdef MAP
     cout << "Appel au constructeur de <CompositeObject>" << endl;
 #endif
@@ -83,6 +90,10 @@ CompositeObject::~CompositeObject ( )
 // Algorithme :
 //
 {
+	for ( Object * o : components )
+	{
+		delete o;
+	}
 #ifdef MAP
     cout << "Appel au destructeur de <CompositeObject>" << endl;
 #endif

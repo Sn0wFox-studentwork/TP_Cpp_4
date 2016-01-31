@@ -42,14 +42,14 @@ public:
 	// Contrat :
 	//
 
-	virtual SingleObject* Clone() const = 0;
-
 	virtual void Print() const
 	{
+		std::cout << getLabel( ) << " ";
 		for (Point p : points)
 		{
 			std::cout << p.GetX() << " " << p.GetY() << " ";
 		}
+		std::cout << std::endl;
 	}
 
 

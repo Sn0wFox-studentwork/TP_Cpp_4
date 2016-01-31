@@ -55,7 +55,7 @@ UnionObject & UnionObject::operator= ( const UnionObject & unUnionObject )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-UnionObject::UnionObject ( const UnionObject & unUnionObject )
+UnionObject::UnionObject ( const UnionObject & unUnionObject ) : CompositeObject::CompositeObject( unUnionObject )
 // Algorithme :
 //
 {
