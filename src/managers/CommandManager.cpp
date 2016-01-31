@@ -33,24 +33,25 @@ int CommandManager::Do ( const ReversableCommand& cmd )
 // Algorithme :	On vide la pile des commandes annulees si elle n'est pas vide,
 //				puis on empile la commande cmd sur la pile des actions effectuees.
 {
+	int returnCode = 0;
 	if ( Redoable( ) )
 	{
 		clearRedoStack( );
 	}
-	if ( !cmd.Execute( ) )		// On ne push sur la pile que si la commande s'est deroulee normalement
+	if ( !( returnCode = cmd.Execute( ) ) )		// On ne push sur la pile que si la commande s'est deroulee normalement
 	{
 		undoStack.push( cmd.Clone( ) );
 		numberToUndo.push_front(1);
 		return 0;
 	}
-	return -1;
+	return returnCode;
 }	//----- Fin de Do
 
 int CommandManager::Do( const vector<ReversableCommand*>& cmds )
 // Algorithme :
 // TODO :	Se servir de la methode au dessus !
 {
-	int ret = 0;
+	int returnCode = 0;
 	if ( Redoable( ) )
 	{
 		clearRedoStack( );
@@ -58,13 +59,13 @@ int CommandManager::Do( const vector<ReversableCommand*>& cmds )
 	for ( int i = 0; i < cmds.size( ); i++ )
 	{
 		undoStack.push( cmds[i]->Clone( ) );
-		ret += cmds[i]->Execute( );
+		returnCode += cmds[i]->Execute( );
 	}
 	if( cmds.size( ) != 0 )
 	{
 		numberToUndo.push_front( cmds.size( ) );
 	}
-	return ret;
+	return returnCode;
 }
 
 int CommandManager::Undo ( )

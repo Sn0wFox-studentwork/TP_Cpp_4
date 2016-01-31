@@ -50,7 +50,7 @@ int AddIntersectionCommand::Execute( ) const
 			}
 			catch ( const out_of_range& e )
 			{
-				return -1;
+				return -2;
 			}
 		}
 		(*figure)[params[0]] = new InterObject(	vec );

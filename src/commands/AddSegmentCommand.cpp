@@ -45,7 +45,7 @@ int AddSegmentCommand::Execute( ) const
 											Point(atoi(params[3].c_str()), atoi(params[4].c_str())) );
 	}
 	return 0;
-}	//----- Fin de Clone
+}	//----- Fin de Execute
 
 AddSegmentCommand* AddSegmentCommand::Clone( ) const
 // Algorithme :

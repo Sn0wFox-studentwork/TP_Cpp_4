@@ -11,6 +11,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -45,9 +46,8 @@ int Application::Run ( )
 // TODO : il y a de la redondance, il faudrait la supprimer
 {
 	// Variables de traitement des commandes
-	string stringCode;
+	string stringCode = "";
 	int returnCode;
-	string params;
 	StringList paramsList;
 
     // Prise du premier code commande
@@ -56,146 +56,278 @@ int Application::Run ( )
 	// Prise des parametres, traitement et attente du prochain code commande
 	while ( stringCode != "EXIT" )
 	{
-		paramsList = StringList();
-		params = "";
+		paramsList = StringList( );
+		takeParams( paramsList );
 		// Traitement du code de commande (NB : switch impossible avec std::string)
 		if ( stringCode == "S" )
 		{
-			takeParams( paramsList );
-			AddSegmentCommand cmd( paramsList, &figure );
-			returnCode = commandManager.Do( cmd );
+			if ( paramsList.size( ) != 5 )
+			{
+				cout << ERR_STRING << endl << "#Must have 5 parameters" << endl;
+				returnCode = -1;
+			}
+			else
+			{
+				AddSegmentCommand cmd( paramsList, &figure );
+				returnCode = commandManager.Do( cmd );
+				if ( returnCode )
+				{
+					cout << ERR_STRING << endl << "#" << paramsList[0] << " already exists" << endl;
+				}
+			}
 		}
 		else if ( stringCode == "R" )
 		{
-			takeParams( paramsList );
-			AddRectangleCommand cmd( paramsList, &figure );
-			returnCode = commandManager.Do( cmd );
+			if ( paramsList.size( ) != 5 )
+			{
+				cout << ERR_STRING << endl << "#Must have 5 parameters" << endl;
+			}
+			else
+			{
+				AddRectangleCommand cmd( paramsList, &figure );
+				returnCode = commandManager.Do( cmd );
+				if ( returnCode )
+				{
+					cout << ERR_STRING << endl << "#" << paramsList[0] << " already exists" << endl;
+				}
+			}
 		}
 		else if ( stringCode == "PC" )
 		{
-			takeParams( paramsList );
-			AddPolygonCommand cmd( paramsList, &figure );
-			returnCode = commandManager.Do( cmd );
-			if ( returnCode == -2 )
+			if ( paramsList.size( ) < 7 || paramsList.size( )%2 != 1)
 			{
-				cout << ERR_STRING << endl << "#Polygon is not convex" << endl;
+				cout << ERR_STRING << endl << "#Must have at least 7 parameters, and an odd number of them" << endl;
+			}
+			else
+			{
+				AddPolygonCommand cmd( paramsList, &figure );
+				returnCode = commandManager.Do( cmd );
+				if ( returnCode == -2 )
+				{
+					cout << ERR_STRING << endl << "#Polygon is not convex" << endl;
+				}
+				else if ( returnCode == -1 )
+				{
+					cout << ERR_STRING << endl << "#" << paramsList[0] << " already exists" << endl;
+				}
 			}
 		}
 		else if ( stringCode == "OR" )
 		{
-			takeParams( paramsList );
-			AddUnionCommand cmd( paramsList, &figure );
-			returnCode = commandManager.Do( cmd );
+			if ( paramsList.size( ) < 2 )
+			{
+				cout << ERR_STRING << endl << "#Must have at least two parameters" << endl;
+				returnCode = -1;
+			}
+			else
+			{
+				AddUnionCommand cmd( paramsList, &figure );
+				returnCode = commandManager.Do( cmd );
+				if ( returnCode == -2 )
+				{
+					cout << ERR_STRING << endl << "#One parameters is not part of the figure" << endl;
+				}
+				else if ( returnCode == -1 )
+				{
+					cout << ERR_STRING << endl << "#" << paramsList[0] << " already exists" << endl;
+				}
+			}
 		}
 		else if ( stringCode == "OI" )
 		{
-			takeParams( paramsList );
-			AddIntersectionCommand cmd( paramsList, &figure );
-			returnCode = commandManager.Do( cmd );
+			if ( paramsList.size( ) < 2 )
+			{
+				cout << ERR_STRING << endl << "#Must have at least two parameters" << endl;
+				returnCode = -1;
+			}
+			else
+			{
+				AddIntersectionCommand cmd( paramsList, &figure );
+				returnCode = commandManager.Do( cmd );
+				if ( returnCode == -2 )
+				{
+					cout << ERR_STRING << endl << "#One parameters is not part of the figure" << endl;
+				}
+				else if ( returnCode == -1 )
+				{
+					cout << ERR_STRING << endl << "#" << paramsList[0] << " already exists" << endl;
+				}
+			}
+
 		}
 		else if ( stringCode == "HIT" )
 		{
-			takeParams( paramsList );
 			if ( figure.count( paramsList[0] ) == 1 )
 			{
 				if (	figure[paramsList[0]]->Contains(
 						Point( atoi( paramsList[1].c_str( ) ), atoi( paramsList[2].c_str( ) ) ) ) )
 				{
-					returnCode = 1;
 					cout << YES_STRING << endl;
 				}
 				else
 				{
 					cout << NO_STRING << endl;
 				}
+				returnCode = 1;		// Pour ne pas afficher OK_STRING
 			}
 			else
 			{
 				cout << ERR_STRING << endl << "#" << paramsList[0] << " doesn't exist as Object" << endl;
+				returnCode = -1;
 			}
 		}
 		else if ( stringCode == "MOVE" )
 		{
-			takeParams( paramsList );
-			MoveCommand cmd( paramsList, &figure );
-			returnCode = commandManager.Do( cmd );
+			if ( paramsList.size( ) != 3 )
+			{
+				cout << ERR_STRING << endl << "#Must have 3 parameters" << endl;
+				returnCode = -1;
+			}
+			else
+			{
+				MoveCommand cmd( paramsList, &figure );
+				returnCode = commandManager.Do( cmd );
+				if ( returnCode )
+				{
+					cout << ERR_STRING << endl<< "#" << paramsList[0] << " is not part of the figure" << endl;
+				}
+			}
 		}
 		else if ( stringCode == "DELETE" )
 		{
 			// TODO : optimiser ca
-			takeParams( paramsList );
-			vector<ReversableCommand*> vec;
-			for ( string& s : paramsList )
+			if ( !paramsList.size( ) )
 			{
-				StringList sl;
-				sl.push_back(s);
-				ReversableCommand* cmd = new DeleteCommand( sl, &figure );
-				vec.push_back( cmd );
+				cout << ERR_STRING << endl << "#Must have at least 1 parameter" << endl;
+				returnCode = -1;
 			}
-			returnCode = commandManager.Do( vec );
-			// Si une seule des commandes de supression s'est mal passe, on annule la supression
-			if ( returnCode )
+			else
 			{
-				commandManager.Undo( );
-				cout << ERR_STRING << endl << "#A parameter doesn't exist as Object" << endl;
-			}
-			for ( ReversableCommand* cmd : vec )
-			{
-				delete cmd;
+				vector<ReversableCommand*> vec;
+				for ( string& s : paramsList )
+				{
+					StringList sl;
+					sl.push_back( s );
+					ReversableCommand* cmd = new DeleteCommand( sl, &figure );
+					vec.push_back( cmd );
+				}
+				returnCode = commandManager.Do( vec );
+				// Si une seule des commandes de supression s'est mal passe, on annule la supression
+				if ( returnCode )
+				{
+					commandManager.Undo( );
+					cout << ERR_STRING << endl << "#A parameter doesn't exist as Object" << endl;
+				}
+				for ( ReversableCommand* cmd : vec )
+				{
+					delete cmd;
+				}
 			}
 		}
 		else if ( stringCode == "CLEAR" )
 		{
-			vector<ReversableCommand*> vec;
-			for ( ConstFigureIterator cfi = figure.begin( ); cfi != figure.end( ); cfi++ )
+			if ( paramsList.size( ) )
 			{
-				StringList sl;
-				sl.push_back( cfi->first );
-				ReversableCommand* cmd = new DeleteCommand( sl, &figure );
-				vec.push_back( cmd );
+				cout << ERR_STRING << endl << "#Must not have any parameters" << endl;
+				returnCode = -1;
 			}
-			returnCode = commandManager.Do( vec );
-			for ( ReversableCommand* cmd : vec )
+			else
 			{
-				delete cmd;
+				vector<ReversableCommand*> vec;
+				for ( ConstFigureIterator cfi = figure.begin(); cfi != figure.end(); cfi++ )
+				{
+					StringList sl;
+					sl.push_back( cfi->first );
+					ReversableCommand* cmd = new DeleteCommand( sl, &figure );
+					vec.push_back( cmd );
+				}
+				returnCode = commandManager.Do( vec );
+				for ( ReversableCommand* cmd : vec )
+				{
+					delete cmd;
+				}
+				if ( returnCode )
+				{
+					commandManager.Undo();
+					cout << ERR_STRING << endl << "#Error while clearing the figure" << endl;
+				}
 			}
 		}
 		else if ( stringCode == "LIST" )
 		{
-			list( );
-			returnCode = 0;
-		}
-		else if ( stringCode == "UNDO" )
-		{
-			if ( commandManager.Undoable( ) )
+			if ( paramsList.size( ) )
 			{
-				commandManager.Undo( );
-				returnCode = 0;
+				cout << ERR_STRING << endl << "#Must not have any parameters" << endl;
+				returnCode = -1;
 			}
 			else
 			{
-				cout << ERR_STRING << endl << "#No action to undo" << endl;
+				list( );
+				returnCode = 0;
+			}
+		}
+		else if ( stringCode == "UNDO" )
+		{
+			if ( paramsList.size( ) )
+			{
+				cout << ERR_STRING << endl << "#Must not have any parameters" << endl;
 				returnCode = -1;
+			}
+			else
+			{
+				if ( commandManager.Undoable( ) )
+				{
+					returnCode = commandManager.Undo( );
+					if ( returnCode )
+					{
+						cout << ERR_STRING << endl << "#Error when trying to undo" << endl;
+					}
+				}
+				else
+				{
+					cout << ERR_STRING << endl << "#No action to undo" << endl;
+					returnCode = -1;
+				}
 			}
 		}
 		else if ( stringCode == "REDO" )
 		{
-			if ( commandManager.Redoable( ) )
+			if ( paramsList.size( ) )
 			{
-				commandManager.Redo( );
-				returnCode = 0;
+				cout << ERR_STRING << endl << "#Must not have any parameters" << endl;
+				returnCode = -1;
 			}
 			else
 			{
-				cout << ERR_STRING << endl << "#No action to redo" << endl;
-				returnCode = -1;
+				if ( commandManager.Redoable( ) )
+				{
+					returnCode = commandManager.Redo( );
+					if ( returnCode )
+					{
+						cout << ERR_STRING << endl << "#Error when trying to redo" << endl;
+					}
+				}
+				else
+				{
+					cout << ERR_STRING << endl << "#No action to redo" << endl;
+					returnCode = -1;
+				}
 			}
 		}
 		else if ( stringCode == "LOAD" )
 		{
-			string s;
-			cin >> s;
-			returnCode = fileManager.Load(s, &figure, commandManager);
+			if ( paramsList.size( ) != 1 )
+			{
+				cout << ERR_STRING << endl << "#Must have only one parameter" << endl;
+			}
+			else
+			{
+				returnCode = fileManager.Load( paramsList[0], &figure, commandManager );
+				if ( returnCode )
+				{
+					cout << ERR_STRING << endl << "#Error while trying to read " << paramsList[0] << endl;
+				}
+			}
 		}
 		/*else if ( stringCode == "SAVE" )
 		{
@@ -281,6 +413,10 @@ void Application::takeParams( StringList & params ) const
 {
 	string stringParams;
 	getline( cin, stringParams );
+	if ( stringParams.empty( ) )
+	{
+		return;
+	}
 	stringParams = stringParams.substr( 1, stringParams.size( ) );
 	while ( !stringParams.empty( ) )
 	{
