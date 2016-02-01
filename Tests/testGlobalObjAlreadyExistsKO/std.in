@@ -1,0 +1,7 @@
+S a 0 0 1 1
+S a 2 5 8 6
+R a 2 5 8 6
+PC a 0 0 2 2 6 6
+OI a a
+OR a a
+EXIT

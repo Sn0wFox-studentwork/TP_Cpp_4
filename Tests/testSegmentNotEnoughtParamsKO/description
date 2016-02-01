@@ -1,0 +1,1 @@
+Verification du bon fonctionnement de la commande S avec retour negatif : tentative d'ajout d'un segment avec moins de 2 points, ou nom manquant (= pas assez de parametres)

@@ -79,6 +79,7 @@ int Application::Run ( )
 			if ( paramsList.size( ) != 5 )
 			{
 				cout << ERR_STRING << endl << "#Must have 5 parameters" << endl;
+				returnCode = -1;
 			}
 			else
 			{

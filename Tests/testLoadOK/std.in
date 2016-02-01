@@ -1,0 +1,3 @@
+LOAD ./../Tests/testLoadOK/test.txt
+LIST
+EXIT

@@ -1,3 +1,3 @@
-PC pc1 0 0 0 2 5 5
-HIT r1 1 1
-EXIT
+PC pc1 0 0 0 2 5 5 
+HIT r1 1 1 
+EXIT 
