@@ -31,10 +31,10 @@ bool Rectangle::Contains ( const Point & point )
 // Algorithme : On vérifie que le point se trouve entre les deux coins du rectangle
 // NOTE : Cet algo marche uniquement avec les rectangles parallèles à l'axe x, y
 {
-    int xmin = points.at( 0 ).GetX( ); // Coin GAUCHE-HAUT
-    int ymin = points.at( 0 ).GetY( );
-    int xmax = points.at( 1 ).GetX( ); // Coin DROITE-BAS
-    int ymax = points.at( 1 ).GetY( );
+    int xmax = points.at( 0 ).GetX( ); // Coin GAUCHE-HAUT
+    int ymax = points.at( 0 ).GetY( );
+    int xmin = points.at( 1 ).GetX( ); // Coin DROITE-BAS
+    int ymin = points.at( 1 ).GetY( );
     int x = point.GetX( );
     int y = point.GetY( );
 

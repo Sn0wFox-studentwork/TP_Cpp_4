@@ -51,7 +51,6 @@ public:
 		{
 			std::cout << p.GetX() << " " << p.GetY() << " ";
 		}
-		std::cout << std::endl;
 	}
 
 

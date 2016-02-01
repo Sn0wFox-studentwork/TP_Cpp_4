@@ -51,7 +51,7 @@ public:
 		{
 			o->Print();
 		}
-		cout << "}" << endl;
+		cout << "}";
 	}
 
 

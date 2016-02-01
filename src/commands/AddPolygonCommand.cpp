@@ -34,12 +34,11 @@ using namespace std;
 int AddPolygonCommand::Execute( ) const
 // Algorithme :
 {
-	try
+	if ( figure->count( params[0] ) != 0 )
 	{
-		Object* o = figure->at( params[0] );
 		return -1;
 	}
-	catch ( const out_of_range& e )
+	else
 	{
 		vector<Point> vec;
 		for ( int i = 1; i+1 < params.size(); i+=2 )

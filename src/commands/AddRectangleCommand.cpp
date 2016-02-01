@@ -26,12 +26,11 @@ using namespace std;
 int AddRectangleCommand::Execute( ) const
 // Algorithme :
 {
-	try
+	if (figure->count( params[0] ) != 0 )
 	{
-		Object* o = figure->at( params[0] );
 		return -1;
 	}
-	catch ( const out_of_range& e )
+	else
 	{
 		vector<Point> vec;
 		vec.push_back(Point(atoi(params[1].c_str()), atoi(params[2].c_str())));

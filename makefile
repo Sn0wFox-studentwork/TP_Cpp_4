@@ -21,10 +21,7 @@
 #Variables generales--------------------------------------------
 OSUNIX = unix
 OSWIN = win
-OS = $(OSWIN)
-CD =
-DEL =
-DELOPT =
+OS = $(OSUNIX)
 CC = g++
 MAINFILE = main
 OFILE = o
@@ -40,15 +37,25 @@ OBJPATH = bin/
 TEMPOBJ = $(SRC:.$(SRCFILE)=.$(OFILE))
 OBJ = $(TEMPOBJ:$(SRCPATH)%=$(OBJPATH)%)
 
-EXEPATH = $(OBJPATH)
-EXE1 = $(EXEPATH)shapes.$(EXEFILE)
+EXEPATH =
+
+#Ajout de l'extension .exe selon l'OS----------------------------
+ifeq ($(OS),$(OSWIN))
+	EXE1 = $(EXEPATH)shapes.$(EXEFILE)
+else ifeq ($(OS),$(OSUNIX))
+    EXE1 = $(EXEPATH)shapes
+else
+	echo Unknown OS
+	exit 1
+endif
+
 EXE2 =
 EXECS = $(EXE1) $(EXE2)
 #---------------------------------------------------------------
 
 #Variables pour les options de compilation----------------------
 W = -W
-WA = -Wall
+WA = -Wall -Wextra
 STDLIB = -std=c++11
 GGDB = -ggdb
 
@@ -57,12 +64,12 @@ CFLAGS =
 
 #Compilation conditionnelle-------------------------------------
 ifeq ($(OS),$(OSWIN))
-	DEL += del
-	DELOPT += /s
+	DEL = del
+	DELOPT = /s
 	CD = cd
 else ifeq ($(OS),$(OSUNIX))
-	DEL += rm
-	DELOPT += -rf
+	DEL = rm
+	DELOPT = -rf
 	CD = cd
 else
 	echo Unknown OS
@@ -130,9 +137,9 @@ $(OBJPATH)managers/%.$(OFILE) : $(SRCPATH)managers/%.$(SRCFILE) $(SRCPATH)manage
 
 #Regles de nettoyage
 clean:
-	$(CD) $(OBJPATH) && $(DEL) $(DELOPT) *.$(OFILE)
+	$(CD) $(OBJPATH) && $(DEL) $(DELOPT) */*.$(OFILE)
 	
-mrproper: clean
+propre: clean
 	$(DEL) $(DELOPT) $(notdir $(EXECS))
 
 

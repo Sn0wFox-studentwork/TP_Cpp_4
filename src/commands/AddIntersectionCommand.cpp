@@ -25,22 +25,20 @@ using namespace std;
 int AddIntersectionCommand::Execute( ) const
 // Algorithme :
 {
-	try
+	if (figure->count( params[0] ) != 0 )
 	{
-		Object* o = figure->at( params[0] );
 		return -1;
 	}
-	catch ( const out_of_range& e )
+	else
 	{
 		vector<Object*> vec;
 		for ( int i = 1; i < params.size( ); i++ )
 		{
-			try
+			if (figure->count( params[i] ) != 0 )
 			{
-				Object* o = figure->at(params[i]);
 				vec.push_back( (*figure)[params[i]] );
 			}
-			catch ( const out_of_range& e )
+			else
 			{
 				return -2;
 			}

@@ -11,8 +11,6 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <stdexcept>
-#include <cstdlib>
 
 using namespace std;
 
@@ -26,12 +24,11 @@ using namespace std;
 int AddSegmentCommand::Execute( ) const
 // Algorithme :
 {
-	try
+	if (figure->count( params[0] ) != 0 )
 	{
-		Object* o = figure->at( params[0] );
 		return -1;
 	}
-	catch ( const out_of_range& e )
+	else
 	{
 		(*figure)[params[0]] = new Segment(	Point(atoi(params[1].c_str()), atoi(params[2].c_str())),
 											Point(atoi(params[3].c_str()), atoi(params[4].c_str())) );
