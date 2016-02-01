@@ -38,7 +38,7 @@ bool Rectangle::Contains ( const Point & point )
     int x = point.GetX( );
     int y = point.GetY( );
 
-    return x > xmin && x < xmax && y > ymin && y < ymax;
+    return x >= xmin && x <= xmax && y >= ymin && y <= ymax;
 }    //----- Fin de Contains
 
 //------------------------------------------------- Surcharge d'opérateurs
