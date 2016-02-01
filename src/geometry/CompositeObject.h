@@ -11,6 +11,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <vector>
+#include <iostream>
+#include <string>
 
 #include "Object.h"
 
@@ -44,8 +46,8 @@ public:
 
 	virtual void Print() const
 	{
-		cout << getLabel( ) << " {" << endl;
-		for (Object* o : components)
+		std::cout << getLabel( ) << " {" << endl;
+		for ( Object* o : components )
 		{
 			o->Print();
 		}

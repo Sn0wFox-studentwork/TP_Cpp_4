@@ -56,7 +56,7 @@ CompositeObject::CompositeObject ( const CompositeObject & unCompositeObject )
 {
 	for ( Object * o : unCompositeObject.components )
 	{
-		components.push_back( o->Clone( ));
+		components.push_back( o->Clone( ) );
 	}
 #ifdef MAP
     cout << "Appel au constructeur de copie de <CompositeObject>" << endl;
@@ -69,7 +69,7 @@ CompositeObject::CompositeObject ( const std::vector<Object *> & c )
 {
 	for ( Object * o : c )
 	{
-		components.push_back( o->Clone( ));
+		components.push_back( o->Clone( ) );
 	}
 #ifdef MAP
     cout << "Appel au constructeur de <CompositeObject>" << endl;

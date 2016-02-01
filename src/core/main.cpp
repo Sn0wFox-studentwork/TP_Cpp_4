@@ -8,7 +8,7 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 //---------- Réalisation de <main> (fichier main.cpp) --
 
 //----------------------------------------------- Constantes préprocesseur
-//#define VLD
+#define VLD
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -37,10 +37,10 @@ int main ( int arcg, char ** argv )
 	Application app;
 
 	Object * o1 = new Segment( Point( 0, 0 ), Point( 1, 1 ));
-	//o1->Print();
+	o1->Print();
 	vector<Point> vec1 = { Point( 0, 2 ), Point( 2, 0 ) };
 	Object * o2 = new Rectangle( vec1 );
-	//o2->Print();
+	o2->Print();
 	vector<Object *> vecs = { o1, o2 };
 	Object * o3 = new UnionObject( vecs );
 	o3->Print( );
@@ -50,5 +50,10 @@ int main ( int arcg, char ** argv )
 	cout << "Réunion de Composites" << endl;
 	Object * o5 = new UnionObject( vecs2 );
 	o5->Print( );
+	delete o1;
+	delete o2;
+	delete o3;
+	delete o4;
+	delete o5;
 	return app.Run( );
 }

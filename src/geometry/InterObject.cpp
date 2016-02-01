@@ -16,7 +16,7 @@
 #include "InterObject.h"
 
 //------------------------------------------------------------- Constantes
-const std::string InterObject::LABEL = "IO";
+const std::string InterObject::LABEL = "OI";
 
 //---------------------------------------------------- Variables de classe
 

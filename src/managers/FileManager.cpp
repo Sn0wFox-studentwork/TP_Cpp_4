@@ -105,7 +105,6 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 						clearBeforeAbortLoading( cmds );
 						return -5;
 					}
-					
 				}
 				else if ( cmdCode == "OI" || cmdCode == "OR" )
 				{
@@ -120,7 +119,6 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 						clearBeforeAbortLoading( cmds );
 						return -5;
 					}
-					
 				}
 				else	// mauvaise commande presente dans le fichier
 				{
@@ -133,6 +131,7 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 			}	//----- Fin de while ( paramLine != } && !eof )
 
 			cmds.push_back( new LoadCompositeCommand( params, figure, comp ) );
+			clearBeforeAbortLoading( comp );
 		}	//----- Fin de if( cmdCode == OR || cmdCode == OI )
 		else
 		{
@@ -281,7 +280,6 @@ CompositeObject* FileManager::createCompositeObject( const string& type, ifstrea
 	vector<Object*> comp;
 	while ( getline( ifs, line ) )
 	{
-		
 		stringstream sstream;
 		sstream << line;
 		sstream >> cmdCode;
@@ -323,14 +321,18 @@ CompositeObject* FileManager::createCompositeObject( const string& type, ifstrea
 		}	//----- Fin de if ( cmdCode est coherent )
 	}	//----- Fin de while ( getline( ) && braceNumber )
 	
+	CompositeObject* o = nullptr;
 	if ( type == "OR" )
 	{
-		return new InterObject( comp );
+		o = new InterObject( comp );
 	}
 	else
 	{
-		return new UnionObject( comp );
+		o = new UnionObject( comp );
 	}
+	clearBeforeAbortLoading( comp );
+	return o;
+
 }	//----- Fin de createCompositeObject
 
 void FileManager::clearBeforeAbortLoading( vector<ReversableCommand*>& v ) const

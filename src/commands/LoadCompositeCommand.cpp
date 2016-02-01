@@ -68,10 +68,13 @@ LoadCompositeCommand & LoadCompositeCommand::operator = ( const LoadCompositeCom
 
 //-------------------------------------------- Constructeurs - destructeur
 LoadCompositeCommand::LoadCompositeCommand ( const LoadCompositeCommand & unLoadCompositeCommand ) :
-	AddObjectCommand( unLoadCompositeCommand ), components( unLoadCompositeCommand.components )
+	AddObjectCommand( unLoadCompositeCommand ), components( )
 // Algorithme :
-//
 {
+	for ( Object* o : unLoadCompositeCommand.components )
+	{
+		components.push_back( o->Clone( ) );
+	}
 #ifdef MAP
     cout << "Appel au constructeur de copie de <LoadCompositeCommand>" << endl;
 #endif
@@ -79,9 +82,13 @@ LoadCompositeCommand::LoadCompositeCommand ( const LoadCompositeCommand & unLoad
 
 
 LoadCompositeCommand::LoadCompositeCommand ( const StringList& params, Figure* const f, const vector<Object*>& obj ) :
-	AddObjectCommand( params, f ), components( obj )
+	AddObjectCommand( params, f ), components( )
 // Algorithme :
 {
+	for ( Object* o : obj )
+	{
+		components.push_back( o->Clone( ) );
+	}
 #ifdef MAP
     cout << "Appel au constructeur de <LoadCompositeCommand>" << endl;
 #endif

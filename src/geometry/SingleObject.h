@@ -11,6 +11,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <vector>
+#include <iostream>
+#include <string>
 
 #include "Object.h"
 

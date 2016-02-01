@@ -16,7 +16,7 @@
 #include "UnionObject.h"
 
 //------------------------------------------------------------- Constantes
-const std::string UnionObject::LABEL = "UO";
+const std::string UnionObject::LABEL = "OR";
 
 //---------------------------------------------------- Variables de classe
 
