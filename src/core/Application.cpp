@@ -266,7 +266,7 @@ int Application::Run ( )
 			else
 			{
 				list( );
-				returnCode = 0;
+				returnCode = 1;
 			}
 		}
 		else if ( stringCode == "UNDO" )

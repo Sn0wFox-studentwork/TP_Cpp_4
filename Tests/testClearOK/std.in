@@ -1,0 +1,5 @@
+S s1 0 0 1 1 
+S s2 0 0 2 2 
+CLEAR 
+LIST
+EXIT
