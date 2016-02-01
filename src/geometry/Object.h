@@ -41,7 +41,7 @@ public:
 	// Contrat :
 	//
 
-	virtual void Print() const = 0;
+    virtual string ToString ( ) const = 0;
 	// Mode d'emploi :
 	//
 	// Contrat :

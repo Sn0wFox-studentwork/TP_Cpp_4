@@ -473,7 +473,7 @@ void Application::list ( ) const
 	for ( ConstFigureIterator fi = figure.begin(); fi != figure.end(); fi++ )
 	{
 		cout << fi->first << " : ";
-		fi->second->Print( );
+		fi->second->ToString( );
 		cout << endl;
 	}
 }

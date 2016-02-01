@@ -13,6 +13,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include "Object.h"
 
@@ -44,14 +45,17 @@ public:
 	// Contrat :
 	//
 
-	virtual void Print() const
+	virtual string ToString ( ) const
 	{
-		std::cout << getLabel( ) << " {" << endl;
+		ostringstream os;
+		os << getLabel( ) << " {" << endl;
 		for ( Object* o : components )
 		{
-			o->Print();
+			os << o->ToString( ) << endl;
 		}
-		cout << "}";
+		os << "}";
+
+		return os.str( );
 	}
 
 

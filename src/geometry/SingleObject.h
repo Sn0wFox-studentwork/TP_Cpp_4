@@ -13,6 +13,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include "Object.h"
 
@@ -44,13 +45,15 @@ public:
 	// Contrat :
 	//
 
-	virtual void Print() const
+	virtual string ToString ( ) const
 	{
-		std::cout << getLabel( ) << " ";
+		ostringstream os;
+		os << getLabel( ) << " ";
 		for (Point p : points)
 		{
-			std::cout << p.GetX() << " " << p.GetY() << " ";
+			os << p.GetX( ) << " " << p.GetY( ) << " ";
 		}
+		return os.str( );
 	}
 
 
