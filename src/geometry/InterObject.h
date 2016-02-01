@@ -39,9 +39,9 @@ public:
         return LABEL;
     }
 
-	InterObject* Clone() const
+	InterObject* Clone( ) const
 	{
-		return new InterObject(*this);
+		return new InterObject( *this );
 	}
 
 //------------------------------------------------- Surcharge d'opérateurs

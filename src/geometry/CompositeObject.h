@@ -48,10 +48,10 @@ public:
 	virtual string ToString ( ) const
 	{
 		ostringstream os;
-		os << getLabel( ) << " {" << endl;
+		os << getLabel( ) << " {" << "\n";
 		for ( Object* o : components )
 		{
-			os << o->ToString( ) << endl;
+			os << o->ToString( ) << "\n";
 		}
 		os << "}";
 

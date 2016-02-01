@@ -48,10 +48,10 @@ public:
 	virtual string ToString ( ) const
 	{
 		ostringstream os;
-		os << getLabel( ) << " ";
-		for (Point p : points)
+		os << getLabel( );
+		for ( Point p : points )
 		{
-			os << p.GetX( ) << " " << p.GetY( ) << " ";
+			os << " " << p.GetX( ) << " " << p.GetY( ) ;
 		}
 		return os.str( );
 	}

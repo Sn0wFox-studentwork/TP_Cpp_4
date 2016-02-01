@@ -11,6 +11,7 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -470,10 +471,12 @@ void Application::list ( ) const
 //				en utilisant la methode print pour chaque objet.
 //				TODO : se servir de print pour SAVE ? Passer en parametre un ostream qui par defaut vaut 0 ?
 {
-	for ( ConstFigureIterator fi = figure.begin(); fi != figure.end(); fi++ )
+	for ( ConstFigureIterator fi = figure.begin( ); fi != figure.end( ); fi++ )
 	{
-		cout << fi->first << " : ";
-		fi->second->ToString( );
-		cout << endl;
+		string strTamp = fi->second->ToString( );
+		size_t spacePlace = strTamp.find( " " );
+		string strToShow = strTamp.substr( 0, spacePlace+1 ) + fi->first + " " + strTamp.substr( spacePlace + 1 );
+		//replace( strToShow.begin( ), strToShow.end( ), '\n', ' ');
+		cout << strToShow << endl;
 	}
 }
