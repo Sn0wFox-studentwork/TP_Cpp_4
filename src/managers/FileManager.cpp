@@ -35,7 +35,6 @@ using namespace std;
 
 
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 
@@ -171,7 +170,19 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 
 int FileManager::Save ( const string& fileName, const Figure& figure ) const
 {
-    return 0;
+	ofstream file( fileName, ios::binary | ios::out );
+	if ( file )
+	{
+		for ( ConstFigureIterator cfi = figure.begin( ); cfi != figure.end( ); cfi++ )
+		{
+			string strTamp = cfi->second->ToString( );
+			size_t spacePlace = strTamp.find( " " );
+			string strToPrint = strTamp.substr( 0, spacePlace + 1 ) + cfi->first + " " + strTamp.substr( spacePlace + 1 );
+			file << strToPrint << endl;
+		}
+		return 0;
+	}
+	return -1;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -181,6 +192,7 @@ FileManager & FileManager::operator= ( const FileManager & unFileManager )
 {
     if ( this != &unFileManager )
     {
+		// Nothing to do
     }
     return *this;
 } //----- Fin de operator =
@@ -189,8 +201,8 @@ FileManager & FileManager::operator= ( const FileManager & unFileManager )
 //-------------------------------------------- Constructeurs - destructeur
 FileManager::FileManager ( const FileManager & unFileManager )
 // Algorithme :
-//
 {
+	// Nothing to do
 #ifdef MAP
     cout << "Appel au constructeur de copie de <FileManager>" << endl;
 #endif
@@ -199,7 +211,6 @@ FileManager::FileManager ( const FileManager & unFileManager )
 
 FileManager::FileManager ( )
 // Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au constructeur de <FileManager>" << endl;

@@ -335,12 +335,22 @@ int Application::Run ( )
 				}
 			}
 		}
-		/*else if ( stringCode == "SAVE" )
+		else if ( stringCode == "SAVE" )
 		{
-			code = CommandCode::SAVE;
-			cin >> params;
-			fileManager.Save( params, figure );
-		}*/
+			if ( paramsList.size( ) != 1 )
+			{
+				cout << ERR_STRING << endl << "#Must have only one parameter" << endl;
+				returnCode = -1;
+			}
+			else
+			{
+				returnCode = fileManager.Save( paramsList[0], figure );
+				if ( returnCode )
+				{
+					cout << ERR_STRING << endl << "#Error while trying to save the figure" << endl;
+				}
+			}
+		}
 		else
 		{
 			cout << ERR_STRING << endl << "#Unknown command" << endl;

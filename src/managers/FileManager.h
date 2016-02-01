@@ -53,10 +53,12 @@ public:
 	//				et ne contient qu'eventuellement les erreurs pour lesquelles il existe un code de retour.
 
     int Save ( const string& fileName, const Figure& figure ) const;
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // Mode d'emploi :	Ecrit une description de la figure figure dans le fichier fileName.
+	//					Si le fichier n'existe pas, il sera cree.
+	//					Si le fichier existe, il sera ecrase sans preavis.
+	//					Retourne :	0 si la figure a pu etre ecrite dans le fichier fileName.
+	//								-1 si fileName n'a pas pu etre ouvert.
+    // Contrat :	L'utilisateur doit s'assurer qui si le fichier existe, il peut etre ecrase.
 
 
 
@@ -99,7 +101,7 @@ protected:
 	// Mode d'emploi :	
 	// Contrat :	Il a ete verifier avant l'appel a cette fonction que type etait correct.
 	void clearBeforeAbortLoading( vector<ReversableCommand*>& v ) const;
-	void clearBeforeAbortLoading(vector<Object*>& v) const;
+	void clearBeforeAbortLoading( vector<Object*>& v ) const;
 
 private:
 //------------------------------------------------------- Méthodes privées
