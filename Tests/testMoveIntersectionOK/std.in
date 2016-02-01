@@ -1,0 +1,6 @@
+R r1 2 2 0 0
+R r2 5 2 3 2
+OI r12 r1 r2
+MOVE r12 3 3
+LIST
+EXIT

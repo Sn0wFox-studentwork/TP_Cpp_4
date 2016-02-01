@@ -1,5 +1,5 @@
 R r1 2 2 0 0
-R r2 3 2 1 0
+R r2 5 2 3 2
 OI r12 r1 r2
-HIT r12 2 1
+HIT r12 1 1
 EXIT

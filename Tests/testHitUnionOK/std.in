@@ -1,0 +1,5 @@
+R r1 3 3 0 0
+R r2 4 4 1 1
+OR r12 r1 r2
+HIT r12 2 2
+EXIT
