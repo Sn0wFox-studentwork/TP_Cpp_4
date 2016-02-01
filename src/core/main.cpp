@@ -8,7 +8,7 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 //---------- Réalisation de <main> (fichier main.cpp) --
 
 //----------------------------------------------- Constantes préprocesseur
-#define VLD
+//#define VLD
 
 //---------------------------------------------------------------- INCLUDE
 

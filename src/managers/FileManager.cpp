@@ -324,11 +324,11 @@ CompositeObject* FileManager::createCompositeObject( const string& type, ifstrea
 	CompositeObject* o = nullptr;
 	if ( type == "OR" )
 	{
-		o = new InterObject( comp );
+		o = new UnionObject( comp );
 	}
 	else
 	{
-		o = new UnionObject( comp );
+		o = new InterObject( comp );
 	}
 	clearBeforeAbortLoading( comp );
 	return o;
