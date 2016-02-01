@@ -1,3 +1,4 @@
 PC pc1 0 0 1 1 2 2 2 0
 MOVE pc1 1 1
 LIST
+EXIT

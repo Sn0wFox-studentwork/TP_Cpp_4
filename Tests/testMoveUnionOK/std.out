@@ -1,2 +1,10 @@
-OK 
-NO
+OK
+OK
+OK
+OK
+R r1 2 2 1 1
+OR r12 {
+R 3 3 2 2
+R 2 2 1 1
+}
+R r2 1 1 0 0

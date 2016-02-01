@@ -1,2 +1,10 @@
-OK 
-NO
+OK
+OK
+OK
+OK
+R r1 2 2 0 0
+OI r12 {
+R 5 5 3 3
+R 8 5 6 5
+}
+R r2 5 2 3 2
