@@ -38,7 +38,7 @@ int AddRectangleCommand::Execute( ) const
 		int x1 = atoi( params[3].c_str( )); // GAUCHE BAS
 		int y1 = atoi( params[4].c_str( ));
 
-		if ( x0 > x1 && y0 > y1 )
+		if ( x0 >= x1 && y0 >= y1 )
 		{
 			vec.push_back( Point( x0, y0 ));
 			vec.push_back( Point( x1, y1 ));
