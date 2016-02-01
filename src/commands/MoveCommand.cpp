@@ -26,7 +26,7 @@ int MoveCommand::Execute( ) const
 //				et 0 est retourne.
 //				Sinon, on retourne -1;
 {
-	if ( figure->count( params[0] ) != 0 )
+	if ( figure->count( params[0] ) == 0 )
 	{
 		return -1;
 	}

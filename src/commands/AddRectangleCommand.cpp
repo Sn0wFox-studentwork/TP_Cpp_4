@@ -33,9 +33,21 @@ int AddRectangleCommand::Execute( ) const
 	else
 	{
 		vector<Point> vec;
-		vec.push_back(Point(atoi(params[1].c_str()), atoi(params[2].c_str())));
-		vec.push_back(Point(atoi(params[3].c_str( )), atoi(params[4].c_str( ))));
-		(*figure)[params[0]] = new Rectangle( vec );
+		int x0 = atoi( params[1].c_str( )); // DROITE HAUT
+		int y0 = atoi( params[2].c_str( ));
+		int x1 = atoi( params[3].c_str( )); // GAUCHE BAS
+		int y1 = atoi( params[4].c_str( ));
+
+		if ( x0 > x1 && y0 > y1 )
+		{
+			vec.push_back( Point( x0, y0 ));
+			vec.push_back( Point( x1, y1 ));
+			( *figure )[params[0]] = new Rectangle( vec );
+		}
+		else
+		{
+			return -2;
+		}
 	}
 	return 0;
 }	//----- Fin de Execute

@@ -11,7 +11,6 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <cstdlib>
 
 using namespace std;
 
@@ -85,9 +84,13 @@ int Application::Run ( )
 			{
 				AddRectangleCommand cmd( paramsList, &figure );
 				returnCode = commandManager.Do( cmd );
-				if ( returnCode )
+				if ( returnCode == -1 )
 				{
 					cout << ERR_STRING << endl << "#" << paramsList[0] << " already exists" << endl;
+				}
+				else if ( returnCode == -2 )
+				{
+					cout << ERR_STRING << endl << "#" << "Rectangle not well constructed" << endl;
 				}
 			}
 		}
