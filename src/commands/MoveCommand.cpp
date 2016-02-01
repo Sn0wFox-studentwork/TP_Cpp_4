@@ -11,8 +11,6 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <stdexcept>
-#include <cstdlib>
 
 using namespace std;
 
@@ -28,14 +26,13 @@ int MoveCommand::Execute( ) const
 //				et 0 est retourne.
 //				Sinon, on retourne -1;
 {
-	try
-	{
-		Object* o = figure->at( params[0] );
-		(*figure)[params[0]]->Move( atoi( params[1].c_str( ) ), atoi( params[2].c_str( ) ) );
-	}
-	catch ( const out_of_range& e )
+	if ( figure->count( params[0] ) != 0 )
 	{
 		return -1;
+	}
+	else
+	{
+		(*figure)[params[0]]->Move( atoi( params[1].c_str( ) ), atoi( params[2].c_str( ) ) );
 	}
 	return 0;
 }	//----- Fin de Execute( )
