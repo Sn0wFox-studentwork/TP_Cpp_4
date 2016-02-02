@@ -100,7 +100,7 @@ int Application::Run ( )
 		{
 			if ( paramsList.size( ) < 7 || paramsList.size( )%2 != 1)
 			{
-				cout << ERR_STRING << endl << "#Must have at least 7 parameters, and an odd number of them" << endl;
+				cout << ERR_STRING << endl << "#Must have an odd number of at least 7 parameters" << endl;
 				returnCode = -1;
 			}
 			else
@@ -121,7 +121,7 @@ int Application::Run ( )
 		{
 			if ( paramsList.size( ) < 2 )
 			{
-				cout << ERR_STRING << endl << "#Must have at least two parameters" << endl;
+				cout << ERR_STRING << endl << "#Must have at least 2 parameters" << endl;
 				returnCode = -1;
 			}
 			else
@@ -130,7 +130,7 @@ int Application::Run ( )
 				returnCode = commandManager.Do( cmd );
 				if ( returnCode == -2 )
 				{
-					cout << ERR_STRING << endl << "#One parameters is not part of the figure" << endl;
+					cout << ERR_STRING << endl << "#Object(s) not part of the figure" << endl;
 				}
 				else if ( returnCode == -1 )
 				{
@@ -142,7 +142,7 @@ int Application::Run ( )
 		{
 			if ( paramsList.size( ) < 2 )
 			{
-				cout << ERR_STRING << endl << "#Must have at least two parameters" << endl;
+				cout << ERR_STRING << endl << "#Must have at least 2 parameters" << endl;
 				returnCode = -1;
 			}
 			else
@@ -151,7 +151,7 @@ int Application::Run ( )
 				returnCode = commandManager.Do( cmd );
 				if ( returnCode == -2 )
 				{
-					cout << ERR_STRING << endl << "#One parameters is not part of the figure" << endl;
+					cout << ERR_STRING << endl << "#Object(s) not part of the figure" << endl;
 				}
 				else if ( returnCode == -1 )
 				{
@@ -177,7 +177,7 @@ int Application::Run ( )
 			}
 			else
 			{
-				cout << ERR_STRING << endl << "#" << paramsList[0] << " doesn't exist as Object" << endl;
+				cout << ERR_STRING << endl << "#" << paramsList[0] << " not part of the figure" << endl;
 				returnCode = -1;
 			}
 		}
@@ -194,7 +194,7 @@ int Application::Run ( )
 				returnCode = commandManager.Do( cmd );
 				if ( returnCode )
 				{
-					cout << ERR_STRING << endl<< "#" << paramsList[0] << " is not part of the figure" << endl;
+					cout << ERR_STRING << endl << "#" << paramsList[0] << " not part of the figure" << endl;
 				}
 			}
 		}
@@ -221,7 +221,7 @@ int Application::Run ( )
 				if ( returnCode )
 				{
 					commandManager.Undo( );
-					cout << ERR_STRING << endl << "#A parameter doesn't exist as Object" << endl;
+					cout << ERR_STRING << endl << "#Object(s) not part of the figure" << endl;
 				}
 				for ( ReversableCommand* cmd : vec )
 				{
@@ -323,7 +323,7 @@ int Application::Run ( )
 		{
 			if ( paramsList.size( ) != 1 )
 			{
-				cout << ERR_STRING << endl << "#Must have only one parameter" << endl;
+				cout << ERR_STRING << endl << "#Must have only 1 parameter" << endl;
 				returnCode = -1;
 			}
 			else
@@ -339,7 +339,7 @@ int Application::Run ( )
 		{
 			if ( paramsList.size( ) != 1 )
 			{
-				cout << ERR_STRING << endl << "#Must have only one parameter" << endl;
+				cout << ERR_STRING << endl << "#Must have only 1 parameter" << endl;
 				returnCode = -1;
 			}
 			else
