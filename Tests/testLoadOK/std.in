@@ -1,3 +1,3 @@
-LOAD ./../Tests/testLoadOK/test.txt
+LOAD test.txt
 LIST
 EXIT

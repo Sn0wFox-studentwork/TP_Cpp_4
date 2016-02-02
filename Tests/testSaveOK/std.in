@@ -2,5 +2,5 @@ S s1 0 0 1 1
 S s2 0 0 2 2
 OI oi1 s1 s2
 OR or1 oi1 s1 s2
-SAVE ./../Tests/testSaveOK/save.txt
+SAVE save.txt
 EXIT
