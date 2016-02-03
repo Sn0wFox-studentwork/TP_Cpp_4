@@ -14,20 +14,21 @@
 #include <string>
 #include <iostream>
 
-//------------------------------------------------------------- Constantes 
-
 //------------------------------------------------------------------ Types
 typedef std::vector<std::string> StringList;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Command>
-//
-//
+// Classe abstraite decrivant une commande.
+// Une commande est un objet qui pourra en modifier un autre lorsqu'on
+// fait appel a sa methode Execute( ).
+// Permet d'implementer un command pattern pour gerer plus facilement
+// la manipulation des commandes de l'application.
 //------------------------------------------------------------------------ 
 
 class Command
 {
-		//----------------------------------------------------------------- PUBLIC
+//----------------------------------------------------------------- PUBLIC
 
 public:
 	//----------------------------------------------------- Méthodes publiques
@@ -43,12 +44,13 @@ public:
 	}
 
 	virtual Command* Clone( ) const = 0;
-	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
+	// Mode d'emploi :	Alloue dynamiquement une copie de la commande courante
+	//					et retourne un pointeur vers l'instance ainsi creee.
+	// Contrat :	La desallocation du pointeur retourne est a la charge de l'appelant.
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	Command & operator = ( const Command & aCommand );
-	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point semblable a aCommand.
-	//					Retourne l'objet modifie par reference.
+	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout point similaire a aCommand.
 
 	//-------------------------------------------- Constructeurs - destructeur
 	Command( const Command & aCommand );
@@ -58,6 +60,7 @@ public:
 	// Mode d'emploi :	Construit une instance de Command.
 	//					La commande cree aura comme liste de parametres params (copie).
 	// Contrat :	La liste de parametres doit etre complete, car elle ne sera pas modifiable par la suite.
+	//				Valable pour toutes les classes heritant de Command.
 
 	virtual ~Command( );
 	// Mode d'emploi :	Detruit l'objet courant et libere la memoire associee.
@@ -66,26 +69,9 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-private:
-//------------------------------------------------------- Méthodes privées
-
-protected:
 //----------------------------------------------------- Attributs protégés
-	StringList params;
-
-private:
-//------------------------------------------------------- Attributs privés
-
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privées
-
-//----------------------------------------------------------- Types privés
+	StringList params;		// La liste des parametres de la commande.
 
 };
-
-//----------------------------------------- Types dépendants de <Command>
 
 #endif // COMMAND_H

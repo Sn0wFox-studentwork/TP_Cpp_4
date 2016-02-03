@@ -60,7 +60,7 @@ AddObjectCommand::AddObjectCommand ( const StringList& params, Figure* const f )
 #ifdef MAP
     cout << "Appel au constructeur de <AddObjectCommand>" << endl;
 #endif
-} //----- Fin de AddObjectCommand
+}	//----- Fin de AddObjectCommand
 
 
 AddObjectCommand::~AddObjectCommand ( )

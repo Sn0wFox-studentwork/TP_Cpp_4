@@ -11,7 +11,6 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
-#include <stdexcept>
 #include <cstdlib>
 
 using namespace std;
@@ -24,9 +23,15 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 int AddRectangleCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	On verifie que la figure ne contient pas deja un objet avec le nom prevu pour le rectangle.
+//				Sinon, on retourne -1;
+//				On verifie que le rectangle a bien ete cree selon la convention : point haut droit en premier,
+//				point bas gauche en second.
+//				Sinon, on retourne -2.
+//				On alloue dynamiquement un rectangle qu'on ajoute a la figure via un pointeur.
+//				On retourne 0.
 {
-	if (figure->count( params[0] ) != 0 )
+	if ( figure->count( params[0] ) != 0 )
 	{
 		return -1;
 	}
@@ -101,10 +106,3 @@ AddRectangleCommand::~AddRectangleCommand ( )
 #endif
 	// Pas d'allocation dynamique.
 }	//----- Fin de ~AddRectangleCommand
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées

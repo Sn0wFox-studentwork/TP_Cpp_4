@@ -17,21 +17,15 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "CommandManager.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-
 int CommandManager::Do ( const ReversableCommand& cmd )
 // Algorithme :	On vide la pile des commandes annulees si elle n'est pas vide,
-//				puis on empile la commande cmd sur la pile des actions effectuees.
+//				puis on empile la commande cmd sur la pile des actions effectuees si cmd s'execute correctement,
+//				et on ajoute 1 en tete de la liste numberToUndo pour se souvenir que lors d'un
+//				Undo( ), une seule commande devra etre annulee.
+//				On retourne la valeur retourne par l'execution de la commande.
 {
 	int returnCode = 0;
 	if ( Redoable( ) )
@@ -42,7 +36,6 @@ int CommandManager::Do ( const ReversableCommand& cmd )
 	{
 		undoStack.push( cmd.Clone( ) );
 		numberToUndo.push_front(1);
-		return 0;
 	}
 	return returnCode;
 }	//----- Fin de Do
@@ -50,6 +43,7 @@ int CommandManager::Do ( const ReversableCommand& cmd )
 int CommandManager::Do( const vector<ReversableCommand*>& cmds )
 // Algorithme :
 // TODO :	Se servir de la methode au dessus !
+// TODO :	Ne push que les commandes qui se sont bien passees !
 {
 	int returnCode = 0;
 	if ( Redoable( ) )

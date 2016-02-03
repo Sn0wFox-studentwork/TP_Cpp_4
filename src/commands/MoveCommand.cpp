@@ -22,10 +22,11 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 int MoveCommand::Execute( ) const
-// Algorithme :	Si il existe un objet contenu dans la Figure pointee par figure sous le
-//				nom contenu dans params[0], il est deplace de params[1] selon x et params[2] selon y,
-//				et 0 est retourne.
-//				Sinon, on retourne -1;
+// Algorithme :	On verifie qu'il n'existe pas un objet referencee dans la Figure pointee par figure
+//				sous le nom contenu dans params[0]
+//				Sinon, on retourne -1.
+//				On deplace l'objet de params[1] selon x et params[2] selon y.
+//				On retourne 0.
 {
 	if ( figure->count( params[0] ) == 0 )
 	{
@@ -48,6 +49,7 @@ MoveCommand * MoveCommand::GetInversedCommand( ) const
 // Algorithme :	Allocation dynamique d'une commande annulant la commande courante.
 //				Cette commande est calculee en inversant le signe des coordonnees
 //				de deplacement.
+//				On retourne un pointeur vers cette commande.
 {
 	StringList sl;
 	sl.push_back( params[0] );	// Push du nom de l'objet

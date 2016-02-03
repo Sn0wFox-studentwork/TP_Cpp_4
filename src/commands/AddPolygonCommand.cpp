@@ -20,19 +20,16 @@ using namespace std;
 #include "AddPolygonCommand.h"
 #include "../geometry/Polygone.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 int AddPolygonCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	On verifie que la figure ne contient pas deja un objet avec le nom prevu pour le polygone.
+//				Sinon, on retourne -1;
+//				On instancie dynamiquement le polygone et on verifie qu'il est bien convexe.
+//				Sinon, on libere la memoire de ce polygone et on retourne -2.
+//				On ajoute a la figure le polygone.
+//				On retourne 0.
 {
 	if ( figure->count( params[0] ) != 0 )
 	{

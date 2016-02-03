@@ -17,15 +17,7 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Command.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 
@@ -48,7 +40,7 @@ Command::Command ( const Command & aCommand ) : params( aCommand.params )
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Command>" << endl;
 #endif
-} //----- Fin de Command (constructeur de copie)
+}	//----- Fin de Command (constructeur de copie)
 
 Command::Command ( const StringList& p ) : params( p )
 // Algorithme :	Utilisation des constructeurs de copie de CommandCode (int) et StringList (std::vector<string>).
@@ -56,7 +48,7 @@ Command::Command ( const StringList& p ) : params( p )
 #ifdef MAP
     cout << "Appel au constructeur de <Command>" << endl;
 #endif
-} //----- Fin de Command
+}	//----- Fin de Command
 
 
 Command::~Command ( )
@@ -66,11 +58,4 @@ Command::~Command ( )
     cout << "Appel au destructeur de <Command>" << endl;
 #endif
     // Pas d'allocation dynamique.
-} //----- Fin de ~Command
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+}	//----- Fin de ~Command

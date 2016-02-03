@@ -55,7 +55,7 @@ ReversableCommand::ReversableCommand ( const StringList& params, Figure* const f
 
 
 ReversableCommand::~ReversableCommand ( )
-// Algorithme :	Libere la memoire.
+// Algorithme :	Libere la memoire associee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <ReversableCommand>" << endl;

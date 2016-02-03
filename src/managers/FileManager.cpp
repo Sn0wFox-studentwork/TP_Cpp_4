@@ -27,19 +27,29 @@ using namespace std;
 #include "../geometry/InterObject.h"
 #include "../geometry/UnionObject.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
 
 int FileManager::Load ( const string& fileName, Figure* const figure, CommandManager& cmdManager ) const
-// Algorithme :
+// Algorithme :	On verifie qu'il est possible d'ouvrir le fichier fileName en lecture.
+//				Sinon, on retourne -1.
+//				Tant qu'on arrive a lire une ligne du fichier (= on n'est pas a la fin du fichier) :
+//					On extrait le code de l'objet a creer et le nom de l'objet a creer.
+//					On verifie qu'aucun objet avec ce nom n'existe deja dans la figure.
+//					Sinon, on retourne -2.
+//					On verifie qu'aucun objet deja cree a partir du fichier ne porte ce nom.
+//					Sinon, on retourne -3.
+//					Si le code de la commande est celui d'un composite (OI ou OR),
+//						Tant qu'on arrive a lire une ligne correctement,
+//							on cree les objets composant le composite.
+//						On ajoute la commande permettant de creer le composite a la liste des commandes a effectuer.
+//					Sinon, on cree une commande permettant de creer l'objet et on l'ajoute a la liste des
+//					commandes a effecteur.
+//					A tout moment, si on echour a creer un des objets, on retourne -5.
+//					Si un autre probleme a lieu, on retourne -4.
+//				On execute la liste des commandes via cmdManager.
+//				On retourne le code de retour de cmdManager passe en positif.
 {
 	ifstream ifs( fileName );
 	if ( !ifs )
@@ -52,7 +62,7 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 	string paramLine;					// Les parametres de la commande sur une seule ligne
 	string name;						// Nom de l'objet a creer	
 
-	while ( getline( ifs, paramLine ) )	// TODO : probleme si on a atteint eof avant ou pas ?
+	while ( getline( ifs, paramLine ) )
 	{
 		StringList params;					// La liste des parametres de la commande
 		stringstream sstream;				// Un flux pour manipuler plus facilement les strings
@@ -162,13 +172,19 @@ int FileManager::Load ( const string& fileName, Figure* const figure, CommandMan
 	}	//----- Fin de while( !ifs.eof( ) )
 
 	// Execution du groupement de commandes
-	cmdManager.Do( cmds );
+	int returnCode = cmdManager.Do( cmds );
 	clearBeforeAbortLoading( cmds );
-    return 0;
+    return -returnCode;
 
-}	//----- Fin de Méthode
+}	//----- Fin de Load
 
 int FileManager::Save ( const string& fileName, const Figure& figure ) const
+// Algorithme :	On tente d'ouvrir le fichier fileName.
+//				Si on echoue, on retourne -1.
+//				Sinon, on ecrit dans ce fichier la description de chaque objet present dans figure
+//				qui nous est donnee par Object::ToString(), en y inserant le nom sous lequel est connu
+//				l'objet dans la figure apres le code representant l'objet.
+//				On retourne 0.
 {
 	ofstream file( fileName, ios::binary | ios::out );
 	if ( file )
@@ -192,39 +208,39 @@ FileManager & FileManager::operator= ( const FileManager & unFileManager )
 {
     if ( this != &unFileManager )
     {
-		// Nothing to do
+		// Rien a faire
     }
     return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 FileManager::FileManager ( const FileManager & unFileManager )
-// Algorithme :
+// Algorithme :	Aucun attribut a initialiser.
 {
 	// Nothing to do
 #ifdef MAP
     cout << "Appel au constructeur de copie de <FileManager>" << endl;
 #endif
-} //----- Fin de FileManager (constructeur de copie)
+}	//----- Fin de FileManager (constructeur de copie)
 
 
 FileManager::FileManager ( )
-// Algorithme :
+// Algorithme :	Aucun attribut a initialiser.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <FileManager>" << endl;
 #endif
-} //----- Fin de FileManager
+}	//----- Fin de FileManager
 
 
 FileManager::~FileManager ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire occupee par l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <FileManager>" << endl;
 #endif
+	// Pas d'allocation dynamique
 }	//----- Fin de ~FileManager
 
 

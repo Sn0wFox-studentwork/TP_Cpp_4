@@ -51,7 +51,8 @@ ReversableCommand* DeleteCommand::GetInversedCommand( ) const
 //------------------------------------------------- Surcharge d'opérateurs
 DeleteCommand & DeleteCommand::operator = ( const DeleteCommand & aDeleteCommand )
 // Algorithme :	Si on n'est pas en train de faire aDeleteCommand = aDeleteCommand, on "copie" tout les champs :
-//				on les modifie pour qu'ils soient comme ceux de aDeleteCommand
+//				on les modifie pour qu'ils soient comme ceux de aDeleteCommand.
+//				Copie en profondeur de deletedObject sous peine d'avoir de gros ennuis.
 {
 	if ( this != &aDeleteCommand )
 	{
@@ -59,7 +60,7 @@ DeleteCommand & DeleteCommand::operator = ( const DeleteCommand & aDeleteCommand
 		figure = aDeleteCommand.figure;
 		if ( aDeleteCommand.deletedObject )
 		{
-			deletedObject = aDeleteCommand.deletedObject->Clone();
+			deletedObject = aDeleteCommand.deletedObject->Clone( );
 		}
 		else
 		{

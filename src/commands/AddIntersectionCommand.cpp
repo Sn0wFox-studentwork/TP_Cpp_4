@@ -23,9 +23,14 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 int AddIntersectionCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	On verifie que la figure ne contient pas deja un objet avec le nom prevu pour l'intersection.
+//				Sinon, on retourne -1;
+//				On verifie que tout les composants existent dans la figure.
+//				Sinon, on retourne -2.
+//				On instancie dynamiquement un InterObject et on l'ajoute a la figure.
+//				On retourne 0.
 {
-	if (figure->count( params[0] ) != 0 )
+	if ( figure->count( params[0] ) != 0 )
 	{
 		return -1;
 	}
@@ -34,7 +39,7 @@ int AddIntersectionCommand::Execute( ) const
 		vector<Object*> vec;
 		for ( int i = 1; i < params.size( ); i++ )
 		{
-			if (figure->count( params[i] ) != 0 )
+			if ( figure->count( params[i] ) != 0 )
 			{
 				vec.push_back( (*figure)[params[i]] );
 			}
@@ -65,7 +70,7 @@ AddIntersectionCommand & AddIntersectionCommand::operator = ( const AddIntersect
 		figure = aAddIntersectionCommand.figure;
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur

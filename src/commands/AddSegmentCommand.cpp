@@ -23,16 +23,19 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 int AddSegmentCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	On verifie que la figure ne contient pas deja un objet avec le nom prevu pour le rectangle.
+//				Sinon, on retourne -1;
+//				On alloue dynamiquement un segment qu'on ajoute a la figure via un pointeur.
+//				On retourne 0.
 {
-	if (figure->count( params[0] ) != 0 )
+	if ( figure->count( params[0] ) != 0 )
 	{
 		return -1;
 	}
 	else
 	{
-		(*figure)[params[0]] = new Segment(	Point(atoi(params[1].c_str()), atoi(params[2].c_str())),
-											Point(atoi(params[3].c_str()), atoi(params[4].c_str())) );
+		(*figure)[params[0]] = new Segment(	Point( atoi(params[1].c_str( ) ), atoi( params[2].c_str( ) ) ),
+											Point( atoi(params[3].c_str( ) ), atoi( params[4].c_str( ) ) ) );
 	}
 	return 0;
 }	//----- Fin de Execute

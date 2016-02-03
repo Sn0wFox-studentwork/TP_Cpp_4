@@ -23,9 +23,14 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 int AddUnionCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	On verifie que la figure ne contient pas deja un objet avec le nom prevu pour l'union.
+//				Sinon, on retourne -1;
+//				On verifie que tout les composants existent dans la figure.
+//				Sinon, on retourne -2.
+//				On instancie dynamiquement un UnionObject et on l'ajoute a la figure.
+//				On retourne 0.
 {
-	if (figure->count( params[0] ) != 0 )
+	if ( figure->count( params[0] ) != 0 )
 	{
 		return -1;
 	}

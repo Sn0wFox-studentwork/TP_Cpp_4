@@ -23,7 +23,13 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 int LoadCompositeCommand::Execute( ) const
-// Algorithme :
+// Algorithme :	On verifie qu'il n'existe pas un objet referencee dans la Figure pointee par figure
+//				sous le nom contenu dans params[0]
+//				Sinon, on retourne -1.
+//				On verifie que le params[1] contient bien "OI" ou "OR".
+//				Sinon, on retourne -2.
+//				On insere dans la figure un CompositeObject alloue dynamiquement a partir de components.
+//				On retourne 0.
 {
 	if( figure->count( params[0] ) == 0 )
 	{
@@ -54,45 +60,68 @@ LoadCompositeCommand* LoadCompositeCommand::Clone( ) const
 //------------------------------------------------- Surcharge d'opérateurs
 LoadCompositeCommand & LoadCompositeCommand::operator = ( const LoadCompositeCommand & unLoadCompositeCommand )
 // Algorithme :	Si on n'est pas en train de faire unLoadCompositeCommand = unLoadCompositeCommand, on "copie" tout les champs :
-//				on les modifie pour qu'ils soient comme ceux de unLoadCompositeCommand
+//				on les modifie pour qu'ils soient comme ceux de unLoadCompositeCommand.
+//				Copie en profondeur de compenents et de ses pointeurs sous peine d'avoir de gros ennuis.
 {
 	if ( this != &unLoadCompositeCommand )
 	{
 		params = unLoadCompositeCommand.params;
 		figure = unLoadCompositeCommand.figure;
-		components = unLoadCompositeCommand.components;
+		for ( Object* o : unLoadCompositeCommand.components )
+		{
+			Object* objClone = nullptr;
+			if ( o )
+			{
+				objClone = o->Clone( );
+			}
+			components.push_back( objClone );
+		}
 	}
 	return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 LoadCompositeCommand::LoadCompositeCommand ( const LoadCompositeCommand & unLoadCompositeCommand ) :
 	AddObjectCommand( unLoadCompositeCommand ), components( )
-// Algorithme :
+// Algorithme :	Utilisation des constructeurs de copie de AddObjectCommand.
+//				components est initialise en tant que vecteur vide. Il contiendra des pointeurs vers un Object (une copie)
+//				uniquement si cet objet existe dans unLoadCompositeCommand, et restera a nullptr sinon.
 {
 	for ( Object* o : unLoadCompositeCommand.components )
 	{
-		components.push_back( o->Clone( ) );
+		Object* objClone = nullptr;
+		if ( o )
+		{
+			objClone = o->Clone( );
+		}
+		components.push_back( objClone );
 	}
 #ifdef MAP
     cout << "Appel au constructeur de copie de <LoadCompositeCommand>" << endl;
 #endif
-} //----- Fin de LoadCompositeCommand (constructeur de copie)
+}	//----- Fin de LoadCompositeCommand (constructeur de copie)
 
 
 LoadCompositeCommand::LoadCompositeCommand ( const StringList& params, Figure* const f, const vector<Object*>& obj ) :
 	AddObjectCommand( params, f ), components( )
-// Algorithme :
+// Algorithme :	Utilisation des constructeurs de AddObjectCommand.
+//				components est initialise en tant que vecteur vide. Il contiendra des pointeurs vers un Object(une copie)
+//				uniquement si cet objet existe dans obj, et restera a nullptr sinon.
 {
 	for ( Object* o : obj )
 	{
-		components.push_back( o->Clone( ) );
+		Object* objClone = nullptr;
+		if ( o )
+		{
+			objClone = o->Clone( );
+		}
+		components.push_back( objClone );
 	}
 #ifdef MAP
     cout << "Appel au constructeur de <LoadCompositeCommand>" << endl;
 #endif
-} //----- Fin de LoadCompositeCommand
+}	//----- Fin de LoadCompositeCommand
 
 
 LoadCompositeCommand::~LoadCompositeCommand ( )

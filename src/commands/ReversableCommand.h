@@ -15,15 +15,14 @@
 #include "Command.h"
 #include "../geometry/Object.h"
 
-//------------------------------------------------------------- Constantes 
-
 //------------------------------------------------------------------ Types
 typedef std::map<string, Object*> Figure;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <ReversableCommand>
-//
-//
+// Classe abstraite decrivant une commande dont l'execution peut etre
+// inversee.
+// Permet de mettre en place un comportement de annuler/repeter.
 //------------------------------------------------------------------------ 
 
 class ReversableCommand : public Command
@@ -44,9 +43,9 @@ public:
 	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
 
 	virtual ReversableCommand* Clone( ) const = 0;
-	// Mode d'emploi :	Alloue dynamiquement une commande et retourne un pointeur vers l'instance ainsi creee.
-	// Contrat :	La desallocation du pointeur retourne est a la charge de l'utilisateur.
-
+	// Mode d'emploi :	Alloue dynamiquement une copie de la commande courante
+	//					et retourne un pointeur vers l'instance ainsi creee.
+	// Contrat :	La desallocation du pointeur retourne est a la charge de l'appelant.
 
 //------------------------------------------------- Surcharge d'opérateurs
     ReversableCommand & operator = ( const ReversableCommand & unReversableCommand );
@@ -75,26 +74,9 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-private:
-//------------------------------------------------------- Méthodes privées
-
-protected:
 //----------------------------------------------------- Attributs protégés
-	Figure* figure;
-
-private:
-//------------------------------------------------------- Attributs privés
-
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privées
-
-//----------------------------------------------------------- Types privés
+	Figure* figure;		// La figure qui sera manipulee par la commande
 
 };
-
-//----------------------------------------- Types dépendants de <ReversableCommand>
 
 #endif // REVERSABLE_COMMAND_H
