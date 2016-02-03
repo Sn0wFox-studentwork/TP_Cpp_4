@@ -8,7 +8,9 @@ copyright            : (C) 2016 par Baha & Pericas-Moya
 //---------- Réalisation de <main> (fichier main.cpp) --
 
 //----------------------------------------------- Constantes préprocesseur
-//#define VLD
+//#define VLD	// Vld est un outil propre a Visual Studio qui a un fonctionnement similaire a Valgrind.
+				// Enlever le commentaire devant la ligne precedente aura pour effet de l'activer.
+				// (si vous possedez Vld)
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -27,13 +29,12 @@ using namespace std;
 #include "../geometry/UnionObject.h"
 #include "../geometry/InterObject.h"
 
-//------------------------------------------------------------- Constantes
-
-
 //------------------------------------------------------------- Fonction principale
 
 int main ( int arcg, char ** argv )
+// Algorithme :	Point d'entree du programme.
+//				Instancie une application, et retourne la valeur retournee par Run().
 {
 	Application app;
 	return app.Run( );
-}
+}	//----- Fin de main

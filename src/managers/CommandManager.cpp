@@ -25,7 +25,7 @@ int CommandManager::Do ( const ReversableCommand& cmd )
 //				puis on empile la commande cmd sur la pile des actions effectuees si cmd s'execute correctement,
 //				et on ajoute 1 en tete de la liste numberToUndo pour se souvenir que lors d'un
 //				Undo( ), une seule commande devra etre annulee.
-//				On retourne la valeur retourne par l'execution de la commande.
+//				On retourne la valeur retournee par l'execution de la commande.
 {
 	int returnCode = 0;
 	if ( Redoable( ) )
@@ -41,42 +41,74 @@ int CommandManager::Do ( const ReversableCommand& cmd )
 }	//----- Fin de Do
 
 int CommandManager::Do( const vector<ReversableCommand*>& cmds )
-// Algorithme :
-// TODO :	Se servir de la methode au dessus !
-// TODO :	Ne push que les commandes qui se sont bien passees !
+// Algorithme :	On vide la pile des commandes annulees si elle n'est pas vide.
+//				Pour chaque commande de cmds, on la clone et on tente de l'executer.
+//					Si l'execution reussie, on incremente le compteur de commandes reussies,
+//					et on empile la commande sur la pile des actions effectuees.
+//					On ajoute le code de retour de l'execution a la valeur de retour de la methode.
+//					Si un seule des commandes ne s'execute pas correctement, on annule toutes les modifications :
+//					on appelle Undo( ) et efface les traces de son appel (depile redoStack
+//					et suppression en tete de numberToRedo).
+//				Si toutes les commandes se sont executees correctement, on ajoute en tete de la liste
+//				numberToUndo le nombre total de commandes pour pouvoir eventuellement les annuler
+//				d'un seul coup.
+//				On retourne la somme des codes de retour de l'execution des commandes.
 {
-	int returnCode = 0;
+	int returnCode = 0;		// Code de retour de la methode
+	int nbRetourOK = 0;		// Nombre de commandes s'etant executees correctement
 	if ( Redoable( ) )
 	{
 		clearRedoStack( );
 	}
-	for ( int i = 0; i < cmds.size( ); i++ )
+	for ( nbRetourOK = 0; nbRetourOK < cmds.size( ); nbRetourOK++ )
 	{
-		undoStack.push( cmds[i]->Clone( ) );
-		returnCode += cmds[i]->Execute( );
+		ReversableCommand* cmdClone = cmds[nbRetourOK]->Clone( );
+		if ( !cmds[nbRetourOK]->Execute( ) )		// On ne push sur la pile que si la commande s'est deroulee normalement
+		{
+			undoStack.push( cmdClone );
+		}
+		else
+		{
+			delete cmdClone;
+			if ( nbRetourOK )	// Annulation des commandes deja executees
+			{
+				numberToUndo.push_front( nbRetourOK );
+				Undo( );
+				for ( int i = 0; i < nbRetourOK; i++ )
+				{
+					ReversableCommand* cmd = redoStack.top( );
+					redoStack.pop( );
+					delete cmd;
+				}
+				numberToRedo.pop_front( );
+			}
+			return -1;
+		}
 	}
-	if( cmds.size( ) != 0 )
-	{
-		numberToUndo.push_front( cmds.size( ) );
-	}
-	return returnCode;
+	numberToUndo.push_front( cmds.size( ) );
+	return 0;
 }
 
 int CommandManager::Undo ( )
-// Algorithme :	On depile la commande au sommet de la pile des commandes effectuees (= derniere en date)
-//				et on l'empile sur la pile des commandes annulees.
-//				Retourne l'inverse de la commande depilee.
-// TODO :	Et si la commande inverse se passe mal ?
+// Algorithme :	On depile la commande au sommet de la pile des commandes effectuees (= derniere en date) undoStack
+//				et on tente d'executer son inverse.
+//				On ajoute le code de retour de l'execution a la valeur de retour de la methode.
+//				On recommence ces operations autant de fois que le nombre a la tete de la liste numberToUndo,
+//				qu'on fini par supprimer une fois toutes les iterations effectuees.
+//				On ajoute en tete de la liste numberToRedo le nombre de total de commandes inverseees
+//				pour pouvoir eventuellement les repeter d'un seul coup.
+//				On retourne la somme des codes de retour de l'execution des commandes inverses.
 {
-	int returnCode = 0;
+	int returnCode = 0;		// Code de retour de la methode
+
 	for ( int i = 0; i < *numberToUndo.begin( ); i++ )
 	{
 		ReversableCommand* c = undoStack.top( );	// Acces au premier element
 		undoStack.pop( );							// Suppression du premier element
-		redoStack.push( c );
 		ReversableCommand* cReverse = c->GetInversedCommand( );
+		redoStack.push( c );
 		returnCode += cReverse->Execute( );
-		delete cReverse;							// On doit desallouer la commande inverse !
+		delete cReverse;							// On doit desallouer la commande inverse
 	}
 	numberToRedo.push_front( *numberToUndo.begin( ) );
 	numberToUndo.pop_front( );
@@ -84,19 +116,18 @@ int CommandManager::Undo ( )
 }	//----- Fin de Undo
 
 int CommandManager::Redo ( )
-// Algorithme :	On depile la commande au sommet de la pile des commandes annulees (= derniere annulee en date)
-//				et on l'empile sur la pile des commandes effectuees.
-//				Retour de cette meme commande.
-// TODO :	Et si la commande se passe mal ?
+// Algorithme :	On depile la commande au sommet de la pile des commandes annulees (= derniere annulee en date) redoStack
+//				et on tente de l'executer.
+//				On ajoute le code de retour de l'execution a la valeur de retour de la methode.
+//				On recommence ces operations autant de fois que le nombre a la tete de la liste numberToRedo,
+//				qu'on fini par supprimer une fois toutes les iterations effectuees.
+//				On ajoute en tete de la liste numberToUndo le nombre de total de commandes
+//				pour pouvoir eventuellement les repeter d'un seul coup.
+//				On retourne la somme des codes de retour de l'execution des commandes inverses.
 {
-	int nbToRedo = 0;
-	int returnCode = 0;
-	if ( numberToRedo.empty( ) )
-	{
-		return -1;
-	}
-	nbToRedo = *numberToRedo.begin( );
-	for ( int i = 0; i < nbToRedo; i++ )
+	int returnCode = 0;		// Code de retour de la methode
+
+	for ( int i = 0; i < *numberToRedo.begin( ); i++ )
 	{
 		ReversableCommand* c = redoStack.top( );	// Acces au premier element
 		redoStack.pop( );							// Suppression du premier element
@@ -132,7 +163,7 @@ CommandManager & CommandManager::operator= ( const CommandManager & aCommandMana
 		clearUndoStack( );
         undoStack = aCommandManager.undoStack;
         redoStack = aCommandManager.redoStack;
-		numberToUndo = aCommandManager.numberToUndo;	// TODO : suffisant ?
+		numberToUndo = aCommandManager.numberToUndo;
 		numberToRedo = aCommandManager.numberToRedo;
     }
     return *this;
@@ -152,7 +183,7 @@ CommandManager::CommandManager ( const CommandManager & aCommandManager ) :
 
 
 CommandManager::CommandManager ( ) : undoStack( ), redoStack( ), numberToUndo( ), numberToRedo( )
-// Algorithme :	Instanciation d'un objet par instanciation de deux piles de commandes vides.
+// Algorithme :	Instanciation d'un objet par instanciation de deux piles de commandes vides et deux listes d'entiers vides.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <CommandManager>" << endl;
@@ -169,14 +200,14 @@ CommandManager::~CommandManager ( )
     cout << "Appel au destructeur de <CommandManager>" << endl;
 #endif
     // Pas d'allocation dynamique
-}    //----- Fin de ~CommandManager
+}	//----- Fin de ~CommandManager
 
 
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
 void CommandManager::clearRedoStack( )
-// Algorithme :
+// Algorithme :	On vide redoStack et on libere la memoire associee a chaque element.
 {
 	while ( !redoStack.empty( ) )
 	{
@@ -187,7 +218,7 @@ void CommandManager::clearRedoStack( )
 }	//----- Fin de clearRedoStack
 
 void CommandManager::clearUndoStack( )
-// Algorithme :
+// Algorithme :	On vide undoStack et on libere la memoire associee a chaque element.
 {
 	while ( !undoStack.empty( ) )
 	{
@@ -196,5 +227,3 @@ void CommandManager::clearUndoStack( )
 	}
 	numberToUndo.clear( );
 }	//----- Fin de clearRedoStack
-
-//------------------------------------------------------- Méthodes privées

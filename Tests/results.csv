@@ -17,7 +17,7 @@ testHitSegmentCenterOK;2;1;2;2;1
 testHitSegmentKO;2;1;2;2;1
 testHitUnionKO;2;1;2;2;1
 testHitUnionOK;2;1;2;2;1
-testLoadOK;2;0;2;2;0
+testLoadOK;2;1;2;2;1
 testMoveIntersectionOK;2;1;2;2;1
 testMoveKO;2;1;2;2;1
 testMovePolygoneOK;2;1;2;2;1
@@ -33,7 +33,7 @@ testRectangleTooManyParamsKO;2;1;2;2;1
 testRedoKO;2;1;2;2;1
 testRedoOK;2;1;2;2;1
 testRedoTooManyParamsKO;2;1;2;2;1
-testSaveOK;2;0;2;0;0
+testSaveOK;2;1;2;1;1
 testSegmentNotEnoughtParamsKO;2;1;2;2;1
 testSegmentOK;2;1;2;2;1
 testSegmentTooManyParamsKO;2;1;2;2;1

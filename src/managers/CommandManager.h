@@ -43,32 +43,39 @@ public:
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
 	//					Execute la commande cmd.
 	//					Retourne :	0 si tout c'est bien passe.
-	//								le code d'erreur retourne par l'execution de la commande sinon.
+	//								le code d'erreur retourne par l'execution de la commande sinon, qui sera negatif.
 
 	int Do ( const vector<ReversableCommand*>& cmds );
-	// Mode d'emploi :	Empile le vecteur de commandes cmds sur undoStack, en commencant par celle d'indice 0.
+	// Mode d'emploi :	Tente d'executer toutes les commandes de cmds.
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
 	//					Si cmds est vide, ne fait rien.
 	//					Si cmds ne contient qu'une commande, est equivalent a l'appel de Do(ReversableCommand*).
-	//					Tente d'executer toutes les commandes de cmds.
-	//					Retourne la somme des retour de l'execution des commandes. Comme ces retours sont negatifs
-	//					ou nuls, cela correspond a :
-	//					0 si toutes les commandes ont etes effectuees avec succes.
-	//					Un entier negatif sinon.
+	//					Empile les commandes de cmds sur redoStack uniquement si toutes ont pu s'executer correctement.
+	//					Sinon, aucun des changements ne sera pris en compte.
+	//					Retourne :	0 si toutes les commandes ont etes effectuees avec succes.
+	//								-1 sinon.
 	// Contrat :	La desallocation eventuelle des commandes de cmds reste a la charge de l'utilisateur.
+	//				L'integrite de la figure manipulee par les commandes ne doit pas avoir ete compromise.
 
 	int Undo ( );
-	// Mode d'emploi :	Depile undoStack et empile la commande sur redoStack.
-	//					Execute la commande inverse de la commande depilee.
-	//					Retourne :	0 si tout c'est bien passe.
-	//								le code d'erreur retourne par l'execution de la commande inversee sinon.
-	// Contrat :		La pile undoStack ne doit pas etre vide.
+	// Mode d'emploi :	Depile undoStack autant de fois que l'entier contenu a la tete de numberToUndo,
+	//					et tente d'executer l'inverse de chaque commande depilee.
+	//					Empile les commandes non inverseees sur redoStack.
+	//					Retourne la somme des retours de l'execution des commandes inversees. Comme ces retours sont negatifs
+	//					ou nuls, cela correspond a :
+	//						0 si toutes les commandes inverses ont etes effectuees avec succes.
+	//						Un entier negatif sinon, somme des codes de retour de l'execution des commandes inversees.
+	// Contrat :	La pile undoStack ne doit pas etre vide.
+	//				L'integrite de la figure manipulee par les commandes ne doit pas avoir ete compromise.
 
 	int Redo ( );
-	// Mode d'emploi :	Depile redoStack et empile la commande sur undoStack.
-	//					Execute la commande depilee.
-	//					Retourne :	0 si tout c'est bien passe.
-	//								le code d'erreur retourne par l'execution de la commande sinon.
+	// Mode d'emploi :	Depile redoStack autant de fois que l'entier contenu a la tete de numberToRedo,
+	//					et tente d'executer la commande depilee.
+	//					Empile les commandes sur undoStack.
+	//					Retourne la somme des retours de l'execution des commandes. Comme ces retours sont negatifs
+	//					ou nuls, cela correspond a :
+	//						0 si toutes les commandes inverses ont etes effectuees avec succes.
+	//						Un entier negatif sinon, somme des codes de retour de l'execution des commandes inversees.
 	// Contrat :		La pile redoStack ne doit pas etre vide.
 
     bool Undoable ( ) const;
@@ -88,7 +95,7 @@ public:
     //											a aCommandManager. Tout les attributs seront copies.
 
     CommandManager ( );
-    // Mode d'emploi :	Instancie un nouvel objet dont les piles de commandes sont vides.
+    // Mode d'emploi :	Instancie un nouvel objet dont les piles de commandes et les listes d'entiers sont vides.
 
     virtual ~CommandManager ( );
     // Mode d'emploi :	Detruit l'objet courant et libere la memoire associee.

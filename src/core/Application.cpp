@@ -30,19 +30,22 @@ const string OK_STRING = "OK";
 const string YES_STRING = "YES";
 const string NO_STRING = "NO";
 
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
 
 int Application::Run ( )
-// Algorithme :
-// TODO : tronche des fins de ligne ?
-// TODO : il y a de la redondance, il faudrait la supprimer
+// Algorithme :	Prise du premier mot (=suite de caracteres avant un espace ou un retour a la ligne).
+//				Il est range dans la variable qui contiendra toujours le premier mot d'une ligne,
+//				et qui correspond a un code de commande (connu ou nom, c'est ainsi qu'il sera interprete).
+//				Tant que l'utilisateur ne rentre pas la chaine "EXIT" :
+//					On lit le reste de la ligne rentree et on la convertie en StringList via takeParams.
+//					Suivant la valeur du code de la commande :
+//					S'il est connu, on cree la commande ou le groupement de commandes associe et on tente
+//					de l'executer. Si l'execution est positive, on affiche "OK".
+//					Sinon, on affiche "ERR" suivi d'une autre ligne commencant par un #. Cette ligne donne quelques
+//					informations sur la nature du probleme rencontre.
+//				On retourne 0.
 {
 	// Variables de traitement des commandes
 	string stringCode = "";
@@ -200,7 +203,6 @@ int Application::Run ( )
 		}
 		else if ( stringCode == "DELETE" )
 		{
-			// TODO : optimiser ca
 			if ( !paramsList.size( ) )
 			{
 				cout << ERR_STRING << endl << "#Must have at least 1 parameter" << endl;
@@ -220,7 +222,6 @@ int Application::Run ( )
 				// Si une seule des commandes de supression s'est mal passe, on annule la supression
 				if ( returnCode )
 				{
-					commandManager.Undo( );
 					cout << ERR_STRING << endl << "#Object(s) not part of the figure" << endl;
 				}
 				for ( ReversableCommand* cmd : vec )
@@ -474,19 +475,20 @@ void Application::takeParams( StringList & params ) const
 		params.push_back( stringParams.substr( 0, lim ) );
 		stringParams = stringParams.substr( lim + 1, stringParams.size( ) - lim - 1 );
 	}
-}
+}	//----- Fin de takeParams
 
 void Application::list ( ) const
 // Algorithme :	Affiche chaque element de la figure sur la sortie standard,
-//				en utilisant la methode print pour chaque objet.
-//				TODO : se servir de print pour SAVE ? Passer en parametre un ostream qui par defaut vaut 0 ?
+//				en utilisant la methode print pour chaque objet. On insere
+//				avant cela le nom sous lequel est connu l'objet entre son code
+//				et le reste de sa description.
 {
 	for ( ConstFigureIterator fi = figure.begin( ); fi != figure.end( ); fi++ )
 	{
 		string strTamp = fi->second->ToString( );
 		size_t spacePlace = strTamp.find( " " );
 		string strToShow = strTamp.substr( 0, spacePlace+1 ) + fi->first + " " + strTamp.substr( spacePlace + 1 );
-		//replace( strToShow.begin( ), strToShow.end( ), '\n', ' ');
+		//replace( strToShow.begin( ), strToShow.end( ), '\n', ' ');	// Pour afficher sur une seule ligne
 		cout << strToShow << endl;
 	}
-}
+}	//----- Fin de list
