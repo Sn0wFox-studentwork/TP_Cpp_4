@@ -67,113 +67,135 @@ bool Polygone::IsConvex ( ) const
     bool negative = false;
     bool positive = false;
 
-	// Extremums des points
-	int xmin = points[0].GetX() < points[1].GetX() ? points[0].GetX() : points[1].GetX();
-	int xmax = points[0].GetX() > points[1].GetX() ? points[0].GetX() : points[1].GetX();
-	int ymin = points[0].GetY() < points[1].GetY() ? points[0].GetY() : points[1].GetY();
-	int ymax = points[0].GetY() > points[1].GetY() ? points[0].GetY() : points[1].GetY();
-
 	// Extremum atteint
 	bool xminHit = false;
 	bool xmaxHit = false;
 	bool yminHit = false;
 	bool ymaxHit = false;
 
+	// Croissance des coordonnees
+	bool xIncreasing = false;
+	bool yIncreasing = false;
+
+	// Extremums des points
+	int xmin = points[0].GetX() < points[1].GetX() ? points[0].GetX() : points[1].GetX();
+	int xmax = points[0].GetX() > points[1].GetX() ? points[0].GetX() : points[1].GetX();
+	int ymin = points[0].GetY() < points[1].GetY() ? points[0].GetY() : points[1].GetY();
+	int ymax = points[0].GetY() > points[1].GetY() ? points[0].GetY() : points[1].GetY();
+
 	// Indices des points a manipuler
-    int indB, indC, BAx, BAy, BCx, BCy;
-    int nbPoints = points.size( );
+    int indA, indB, indC, BAx, BAy, BCx, BCy;
+    
 
 	// Valeur de la norme du produit vectoriel
 	int crossProduct;
 
-    for ( int indA = 0 ; indA < nbPoints - 2; indA++ )
+	// Supression des points consecutifs doubles
+	vector<Point> pts;
+	for (indA = 0; indA < points.size(); indA++)
+	{
+		indB = (indA + 1) % points.size();				// Point suivant
+		if (!(points[indA] == points[indB]))
+		{
+			pts.push_back(points[indA]);
+		}
+	}
+	indB = 0;
+	int nbPoints = pts.size();
+	
+	if (nbPoints == 0 || nbPoints == 1 || nbPoints == 2)
+	{
+		return true;	// TODO : a voir
+	}
+
+    for ( indA = 0 ; indA < nbPoints - 2; indA++ )
     {
-		// Prise des index des points a manipuler
+		// Prise des index des pts a manipuler
         indB = ( indA + 1 ) % nbPoints;				// Point suivant
         indC = ( indB + 1 ) % nbPoints;				// Point suivant le suivant
 
-		if (points[indA] == points[indB] || points[indB] == points[indC])
+		if (pts[indA] == pts[indB] || pts[indB] == pts[indC])
 		{
 			continue;
 		}
 
 		if (!xminHit)
 		{
-			if (points[indC].GetX() <= xmin)
+			if (pts[indC].GetX() <= xmin)
 			{
-				xmin = points[indC].GetX();
+				xmin = pts[indC].GetX();
 			}
-			else
+			else if (pts[indA].GetX() >= pts[indB].GetX())
 			{
 				xminHit = true;
 			}
 		}
 		else
 		{
-			if ( points[indC].GetX() <= xmin )
+			if ( pts[indC].GetX() <= xmin )
 			{
 				return false;
 			}
 		}
 		if (!xmaxHit)
 		{
-			if (points[indC].GetX() >= xmax)
+			if (pts[indC].GetX() >= xmax)
 			{
-				xmax = points[indC].GetX();
+				xmax = pts[indC].GetX();
 			}
-			else
+			else if (pts[indA].GetX() <= pts[indB].GetX())
 			{
 				xmaxHit = true;
 			}
 		}
 		else
 		{
-			if (points[indC].GetX() >= xmax)
+			if (pts[indC].GetX() >= xmax)
 			{
 				return false;
 			}
 		}
 		if (!yminHit)
 		{
-			if (points[indC].GetY() <= ymin)
+			if (pts[indC].GetY() <= ymin)
 			{
-				ymin = points[indC].GetY();
+				ymin = pts[indC].GetY();
 			}
-			else
+			else if (pts[indA].GetY() >= pts[indB].GetY())
 			{
 				yminHit = true;
 			}
 		}
 		else
 		{
-			if (points[indC].GetY() <= ymin)
+			if (pts[indC].GetY() <= ymin)
 			{
 				return false;
 			}
 		}
 		if (!ymaxHit)
 		{
-			if (points[indC].GetY() >= ymax)
+			if (pts[indC].GetY() >= ymax)
 			{
-				ymax = points[indC].GetY();
+				ymax = pts[indC].GetY();
 			}
-			else
+			else if (pts[indA].GetY() <= pts[indB].GetY())
 			{
 				ymaxHit = true;
 			}
 		}
 		else
 		{
-			if (points[indC].GetY() >= ymax)
+			if (pts[indC].GetY() >= ymax)
 			{
 				return false;
 			}
 		}
 
-        BAx = points.at( indA ).GetX( ) - points.at( indB ).GetX( );
-        BAy = points.at( indA ).GetY( ) - points.at( indB ).GetY( );
-        BCx = points.at( indC ).GetX( ) - points.at( indB ).GetX( );
-        BCy = points.at( indC ).GetY( ) - points.at( indB ).GetY( );
+        BAx = pts.at( indA ).GetX( ) - pts.at( indB ).GetX( );
+        BAy = pts.at( indA ).GetY( ) - pts.at( indB ).GetY( );
+        BCx = pts.at( indC ).GetX( ) - pts.at( indB ).GetX( );
+        BCy = pts.at( indC ).GetY( ) - pts.at( indB ).GetY( );
 
         crossProduct = ( BAx * BCy - BAy * BCx );
 
@@ -191,6 +213,31 @@ bool Polygone::IsConvex ( ) const
         }
     }
 
+	for (indA; indA < nbPoints; indA++)
+	{
+		indB = (indA + 1) % nbPoints;				// Point suivant
+		indC = (indB + 1) % nbPoints;				// Point suivant le suivant
+
+		BAx = pts.at(indA).GetX() - pts.at(indB).GetX();
+		BAy = pts.at(indA).GetY() - pts.at(indB).GetY();
+		BCx = pts.at(indC).GetX() - pts.at(indB).GetX();
+		BCy = pts.at(indC).GetY() - pts.at(indB).GetY();
+
+		crossProduct = (BAx * BCy - BAy * BCx);
+
+		if (crossProduct < 0)
+		{
+			negative = true;
+		}
+		else if (crossProduct > 0)
+		{
+			positive = true;
+		}
+		if (negative && positive)
+		{
+			return false;
+		}
+	}
     return true;
 }    //----- Fin de IsConvex
 
