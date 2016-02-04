@@ -219,7 +219,6 @@ int Application::Run ( )
 					vec.push_back( cmd );
 				}
 				returnCode = commandManager.Do( vec );
-				// Si une seule des commandes de supression s'est mal passe, on annule la supression
 				if ( returnCode )
 				{
 					cout << ERR_STRING << endl << "#Object(s) not part of the figure" << endl;

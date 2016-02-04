@@ -50,6 +50,11 @@ Point & Point::operator = ( const Point & unPoint )
 	return *this;
 }
 
+bool Point::operator==( const Point & unPoint ) const
+{
+	return x == unPoint.x && y == unPoint.y;
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 

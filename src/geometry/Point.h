@@ -37,12 +37,12 @@ public:
 	// Contrat :
 	//
 
-	int GetX( )
+	int GetX( ) const
 	{
 		return x;
 	}
 
-	int GetY( )
+	int GetY( ) const
 	{
 		return y;
 	}
@@ -55,16 +55,11 @@ public:
     // Contrat :
     //
 
-    int GetX ( ) const
-    {
-        return x;
-    }
-
-    int GetY ( ) const
-    {
-        return y;
-    }
-
+	bool operator== ( const Point& unPoint ) const;
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
 
 //------------------------------------------------- Surcharge d'opérateurs
 
