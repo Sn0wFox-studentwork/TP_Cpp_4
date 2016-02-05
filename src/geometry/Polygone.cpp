@@ -28,34 +28,96 @@ const std::string Polygone::LABEL = "PC";
 
 //----------------------------------------------------- Méthodes publiques
 bool Polygone::Contains ( const Point & point )
-// Algorithme : On vérifie que le point se situe à droite de chaque segment
+// Algorithme : On vérifie que le point se situe toujours du meme cote de chaque segment
 // partant d'un point A à un point B consécutif du polygone.
 {
     int x0, y0, x1, y1, x, y, res;
-    int indB;
-    int nbPoints = points.size( );
+    int indB, indA;
+	int xmin, xmax, ymin, ymax;
+	bool positiv = false;
+	bool negativ = false;
+	bool oneCrossProductNotZero = false;	// Vrai si et seulement si un des produits vectoriel avait une norme non nulle
 
-    for ( int indA = 0 ; indA < nbPoints ; indA++ )
+	// Supression des points consecutifs doubles et verification que point ne soit pas confondu avec un des points du polygone
+	vector<Point> pts;
+	for ( indA = 0; indA < points.size(); indA++ )
+	{
+		indB = (indA + 1) % points.size();				// Point suivant
+		if (!(points[indA] == points[indB]))
+		{
+			pts.push_back(points[indA]);
+		}
+		if (point == points[indA])
+		{
+			return true;
+		}
+	}
+	indB = 0;
+	int nbPoints = pts.size();
+
+	if (!nbPoints)
+	{
+		return false;			// Si le point avait ete confondu on s'en serait apercu au dessus
+	}
+
+	x = point.GetX();
+	y = point.GetY();
+
+	xmin = pts[0].GetX();
+	xmax = pts[0].GetX();
+	ymin = pts[0].GetY();
+	ymax = pts[0].GetY();
+
+    for ( indA = 0 ; indA < nbPoints ; indA++ )
     {
         indB = ( indA + 1 ) % nbPoints;
 
         // (y - y0) (x1 - x0) - (x - x0) (y1 - y0)
-        x0 = points.at( indA ).GetX( );
-        y0 = points.at( indA ).GetY( );
-        x1 = points.at( indB ).GetX( );
-        y1 = points.at( indB ).GetY( );
-        x = point.GetX( );
-        y = point.GetY( );
+        x0 = pts.at( indA ).GetX( );
+        y0 = pts.at( indA ).GetY( );
+        x1 = pts.at( indB ).GetX( );
+        y1 = pts.at( indB ).GetY( );
 
-        res = ( y - y0 ) * ( x1 - x0 ) - ( x - x0 ) * ( y1 - y0 );
+		xmin = x1 < xmin ? x1 : xmin;
+		xmax = x1 > xmax ? x1 : xmax;
+		ymin = y1 < ymin ? y1 : ymin;
+		ymax = y1 > ymax ? y1 : ymax;
+
+        res = ( y0 - y ) * ( x1 - x0 ) - ( x0 - x ) * ( y1 - y0 );
 
         if ( res > 0 )
         {
-            return false;
+            positiv = true;
+			oneCrossProductNotZero = true;
         }
+		else if ( res < 0 )
+		{
+			negativ = true;
+			oneCrossProductNotZero = true;
+		}
+		// Si res == 0, on ne peut rien dire
+
+		if ( positiv && negativ )
+		{
+			return false;
+		}
     }
 
-    return true;
+	if ( oneCrossProductNotZero )
+	{
+		return true;
+	}
+	else		// On est dans le cas d'un polygone ligne
+	{
+		if (x >= xmin && x <= xmax && y >= ymin && y <= ymax)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }    //----- Fin de Contains
 
 bool Polygone::IsConvex ( ) const
@@ -248,6 +310,7 @@ Polygone & Polygone::operator= ( const Polygone & unPolygone )
 {
     if ( this != &unPolygone )
     {
+		points = unPolygone.points;
     }
     return *this;
 } //----- Fin de operator =

@@ -31,7 +31,7 @@ public:
     virtual bool Contains ( const Point & point );
     // Mode d'emploi :
     //
-    // Contrat :
+    // Contrat :	Le polygone doit être convexe
     //
 
 	Polygone* Clone() const
