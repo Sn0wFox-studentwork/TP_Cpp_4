@@ -41,7 +41,7 @@ public:
 	int Do ( const ReversableCommand& cmd );
 	// Mode d'emploi :	Empile la commande cmd sur undoStack.
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
-	//					Execute la commande cmd.
+	//					Execute la commande cmd, et insere 1 en tete de NumberToUndo si cette execution reussie.
 	//					Retourne :	0 si tout c'est bien passe.
 	//								le code d'erreur retourne par l'execution de la commande sinon, qui sera negatif.
 
@@ -50,7 +50,8 @@ public:
 	//					Vide la pile des commandes annulees redoStack si elle n'est pas vide.
 	//					Si cmds est vide, ne fait rien.
 	//					Si cmds ne contient qu'une commande, est equivalent a l'appel de Do(ReversableCommand*).
-	//					Empile les commandes de cmds sur redoStack uniquement si toutes ont pu s'executer correctement.
+	//					Empile les commandes de cmds sur redoStack et insere en tete de numberToUndo le nombre de commandes
+	//					uniquement si toutes ont pu s'executer correctement.
 	//					Sinon, aucun des changements ne sera pris en compte.
 	//					Retourne :	0 si toutes les commandes ont etes effectuees avec succes.
 	//								-1 sinon.
@@ -60,7 +61,8 @@ public:
 	int Undo ( );
 	// Mode d'emploi :	Depile undoStack autant de fois que l'entier contenu a la tete de numberToUndo,
 	//					et tente d'executer l'inverse de chaque commande depilee.
-	//					Empile les commandes non inverseees sur redoStack.
+	//					Empile les commandes non inversees sur redoStack et insere en tete de numberToRedo le nombre de commandes
+	//					qu'on vient d'essayer d'annuler uniquement si toutes ont pu s'executer correctement.
 	//					Retourne la somme des retours de l'execution des commandes inversees. Comme ces retours sont negatifs
 	//					ou nuls, cela correspond a :
 	//						0 si toutes les commandes inverses ont etes effectuees avec succes.
@@ -71,12 +73,14 @@ public:
 	int Redo ( );
 	// Mode d'emploi :	Depile redoStack autant de fois que l'entier contenu a la tete de numberToRedo,
 	//					et tente d'executer la commande depilee.
-	//					Empile les commandes sur undoStack.
+	//					Empile les commandes sur undoStack et insere en tete de numberToUndo le nombre de commandes
+	//					qu'on vient d'essayer de repeter uniquement si toutes ont pu s'executer correctement.
 	//					Retourne la somme des retours de l'execution des commandes. Comme ces retours sont negatifs
 	//					ou nuls, cela correspond a :
 	//						0 si toutes les commandes inverses ont etes effectuees avec succes.
 	//						Un entier negatif sinon, somme des codes de retour de l'execution des commandes inversees.
-	// Contrat :		La pile redoStack ne doit pas etre vide.
+	// Contrat :	La pile redoStack ne doit pas etre vide.
+	//				L'integrite de la figure manipulee par les commandes ne doit pas avoir ete compromise.
 
     bool Undoable ( ) const;
     // Mode d'emploi :	Renvoie false si et seulement si la pile undoStack est vide, true sinon.
