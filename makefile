@@ -51,6 +51,7 @@ W = -W
 WA = -Wall
 STDLIB = -std=c++11
 GGDB = -ggdb
+OPT = -O3
 
 CFLAGS =
 #---------------------------------------------------------------
@@ -72,7 +73,7 @@ endif
 ifeq ($(DEBUG),yes)
 	CFLAGS += $(W) $(WA) $(STDLIB) $(GGDB)
 else
-	CFLAGS = $(STDLIB)
+	CFLAGS = $(STDLIB) $(OPT)
 endif
 
 #---------------------------------------------------------------
