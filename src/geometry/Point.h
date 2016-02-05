@@ -54,7 +54,7 @@ public:
 	//											a unPoint.
 
     Point ( int ax, int ay );
-	// Mode d'emploi :	Instancie un nouvel objet dont les coordonnees x et y seront repectivement ax et ay.
+	// Mode d'emploi :	Instancie un nouvel objet dont les coordonnees x et y seront respectivement ax et ay.
 
     Point ( );
 	// Mode d'emploi :	Instancie un nouvel objet dont les coordonnees x et y seront 0 et 0.

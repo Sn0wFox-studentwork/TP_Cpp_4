@@ -1,14 +1,14 @@
 **************************************************
-       Bienvenue dans l'application shapes !
+     Bienvenue dans l'application shapes B3134 !
    C'est un manipulateur de formes en lignes de
                     commandes.
 Ceci n'est pas un format de README standard, mais
    vous y trouverez de precieuses informations.
 **************************************************
 **************************************************
-			BUILD
+						BUILD
 **************************************************
-Pour construire l'application shapes :
+Pour construire l'application B3134 :
 
 Lancez simplement "make" dans le dossier de ce
 README.
@@ -25,25 +25,25 @@ make DEBUG=yes		Compile en mode debug
 make DEBUG=no		Compile en mode release
 
 A NOTER :
-	L'executable se trouvera de bin/.
+	L'executable se trouvera dans le dossier racine
 	Les .o dans bin/ et dans le dossier du meme
 	nom que les .cpp.
 
 **************************************************
-		LANCEMENT DE SHAPES
+				LANCEMENT DE B3134
 **************************************************
 Pour lancer l'application via ce dossier :
-./bin/shapes
+./B3134
 
 Vous n'avez plus qu'a l'utiliser en vous reportant
 a la documentation.
 
 **************************************************
-			TESTS
+						TESTS
 **************************************************
 Pour lancer les tests : (sous linux uniquement)
 
-cd ./Tests
+cd ./tests
 bash mktest.sh
 
 Vous n'avez plus qu'a consulter les resultats des
@@ -62,5 +62,5 @@ A NOTER :
 	fins de ligne au format unix (LF).
 **************************************************
 **************************************************
-		Bonne utilisation !
+			Bonne utilisation !
 **************************************************

@@ -40,8 +40,8 @@ OBJPATH = bin/
 TEMPOBJ = $(SRC:.$(SRCFILE)=.$(OFILE))
 OBJ = $(TEMPOBJ:$(SRCPATH)%=$(OBJPATH)%)
 
-EXEPATH = $(OBJPATH)
-EXE1 = $(EXEPATH)shapes$(EXEFILE)
+EXEPATH =
+EXE1 = $(EXEPATH)B3134$(EXEFILE)
 EXE2 =
 EXECS = $(EXE1) $(EXE2)
 #---------------------------------------------------------------
