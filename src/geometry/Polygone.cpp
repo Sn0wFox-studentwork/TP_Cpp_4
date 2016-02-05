@@ -12,24 +12,34 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 
+using namespace std;
+
 //------------------------------------------------------ Include personnel
 #include "Polygone.h"
 
 //------------------------------------------------------------- Constantes
-const std::string Polygone::LABEL = "PC";
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
+const string Polygone::LABEL = "PC";
 
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 bool Polygone::Contains ( const Point & point )
-// Algorithme : On vérifie que le point se situe toujours du meme cote de chaque segment
-// partant d'un point A à un point B consécutif du polygone.
+// Algorithme : On cree un nouveau tableau de points qui supprime les points consecutifs doubles.
+//				Si un des sommets est au meme endroit que le Point point, on retourne vrai.
+//				S'il ne reste qu'un seul point, c'est qu'il est a l'exetrieur, on retroune donc faux.
+//				Pour chaque point du polygone,
+//					On determine si une de composante est un extremum du polygone.
+//					si le signe de la composante selon z du produit vectoriel entre les vecteurs formes
+//					par :	le point courant et le point a etudier
+//							le point courant et le point suivant (le premier pour le dernier)
+//					est invariant on continue.
+//					Sinon, on retourne faux.
+//				Si au moins un des produits vectoriels n'était pas nul, c'est que le point etait a l'interieur
+//				du polygone. On retourne donc vrai.
+//				Sinon, c'est qu'on est dans le cas d'un polygone sous forme de ligne.
+//				Si le point a etudier possede des composantes comprises entre les extremums,
+//				C'est qu'il est sur la ligne et on retourne vrai.
+//				Sinon, on retourne faux.
 {
     int x0, y0, x1, y1, x, y, res;
     int indB, indA;
@@ -40,33 +50,33 @@ bool Polygone::Contains ( const Point & point )
 
 	// Supression des points consecutifs doubles et verification que point ne soit pas confondu avec un des points du polygone
 	vector<Point> pts;
-	for ( indA = 0; indA < points.size(); indA++ )
+	for ( indA = 0; indA < points.size( ); indA++ )
 	{
-		indB = (indA + 1) % points.size();				// Point suivant
-		if (!(points[indA] == points[indB]))
+		indB = ( indA + 1 ) % points.size( );				// Point suivant
+		if ( !( points[indA] == points[indB] ) )
 		{
-			pts.push_back(points[indA]);
+			pts.push_back( points[indA] );
 		}
-		if (point == points[indA])
+		if ( point == points[indA] )
 		{
 			return true;
 		}
 	}
 	indB = 0;
-	int nbPoints = pts.size();
+	int nbPoints = pts.size( );
 
-	if (!nbPoints)
+	if ( !nbPoints )
 	{
 		return false;			// Si le point avait ete confondu on s'en serait apercu au dessus
 	}
 
-	x = point.GetX();
-	y = point.GetY();
+	x = point.GetX( );
+	y = point.GetY( );
 
-	xmin = pts[0].GetX();
-	xmax = pts[0].GetX();
-	ymin = pts[0].GetY();
-	ymax = pts[0].GetY();
+	xmin = pts[0].GetX( );
+	xmax = pts[0].GetX( );
+	ymin = pts[0].GetY( );
+	ymax = pts[0].GetY( );
 
     for ( indA = 0 ; indA < nbPoints ; indA++ )
     {
@@ -121,9 +131,15 @@ bool Polygone::Contains ( const Point & point )
 }    //----- Fin de Contains
 
 bool Polygone::IsConvex ( ) const
-// Algorithme : On itère pour chaque trois points consécutifs de notre polygone
-// (A->B->C), puis calcule le produit vectoriel ABxBC.
-// Si tous les produits sont positifs ou négatifs, le polygone est convexe.
+// Algorithme : On cree un nouveau tableau de points qui supprime les points consecutifs doubles.
+//				S'il reste trois points ou moins, le pylogone est forcement convexe : on retourne vrai.
+//				On itere pour chaque trois points consecutifs du tableau precedent (A->B->C) :
+//					On determine si une des coordonnees des points est un extremum (il faut croitre dans un sens puis
+//					decroitre pour determiner une extremum).
+//					Si une des coordonnees des points depassent un des extremum, on retourne faux.
+//					On calcule le produit vectoriel ABxBC (sa composante selon z).
+//					S'il change de signe, le polygone n'est pas convexe, et on retourne faux.
+//				Si tous les produits sont positifs ou négatifs, le polygone est convexe, et on retourne vrai.
 {
 	// Signe du produit scalaire = sens de l'angle
     bool negative = false;
@@ -140,10 +156,10 @@ bool Polygone::IsConvex ( ) const
 	bool yIncreasing = false;
 
 	// Extremums des points
-	int xmin = points[0].GetX() < points[1].GetX() ? points[0].GetX() : points[1].GetX();
-	int xmax = points[0].GetX() > points[1].GetX() ? points[0].GetX() : points[1].GetX();
-	int ymin = points[0].GetY() < points[1].GetY() ? points[0].GetY() : points[1].GetY();
-	int ymax = points[0].GetY() > points[1].GetY() ? points[0].GetY() : points[1].GetY();
+	int xmin = points[0].GetX( ) < points[1].GetX( ) ? points[0].GetX( ) : points[1].GetX( );
+	int xmax = points[0].GetX( ) > points[1].GetX( ) ? points[0].GetX( ) : points[1].GetX( );
+	int ymin = points[0].GetY( ) < points[1].GetY( ) ? points[0].GetY( ) : points[1].GetY( );
+	int ymax = points[0].GetY( ) > points[1].GetY( ) ? points[0].GetY( ) : points[1].GetY( );
 
 	// Indices des points a manipuler
     int indA, indB, indC, BAx, BAy, BCx, BCy;
@@ -153,21 +169,21 @@ bool Polygone::IsConvex ( ) const
 	int crossProduct;
 
 	// Supression des points consecutifs doubles
-	vector<Point> pts;
-	for (indA = 0; indA < points.size(); indA++)
+	Sommets pts;
+	for ( indA = 0; indA < points.size( ); indA++ )
 	{
-		indB = (indA + 1) % points.size();				// Point suivant
-		if (!(points[indA] == points[indB]))
+		indB = ( indA + 1 ) % points.size( );				// Point suivant
+		if ( !( points[indA] == points[indB] ) )
 		{
-			pts.push_back(points[indA]);
+			pts.push_back( points[indA] );
 		}
 	}
 	indB = 0;
-	int nbPoints = pts.size();
+	int nbPoints = pts.size( );
 	
-	if (nbPoints == 0 || nbPoints == 1 || nbPoints == 2)
+	if ( nbPoints <= 2 )
 	{
-		return true;	// TODO : a voir
+		return true;
 	}
 
     for ( indA = 0 ; indA < nbPoints - 2; indA++ )
@@ -176,18 +192,14 @@ bool Polygone::IsConvex ( ) const
         indB = ( indA + 1 ) % nbPoints;				// Point suivant
         indC = ( indB + 1 ) % nbPoints;				// Point suivant le suivant
 
-		if (pts[indA] == pts[indB] || pts[indB] == pts[indC])
-		{
-			continue;
-		}
-
+		// Prise des extremums et verifications
 		if (!xminHit)
 		{
-			if (pts[indC].GetX() <= xmin)
+			if ( pts[indC].GetX( ) <= xmin )
 			{
-				xmin = pts[indC].GetX();
+				xmin = pts[indC].GetX( );
 			}
-			else if (pts[indA].GetX() >= pts[indB].GetX())
+			else if ( pts[indA].GetX( ) >= pts[indB].GetX( ) )
 			{
 				xminHit = true;
 			}
@@ -199,56 +211,56 @@ bool Polygone::IsConvex ( ) const
 				return false;
 			}
 		}
-		if (!xmaxHit)
+		if ( !xmaxHit )
 		{
-			if (pts[indC].GetX() >= xmax)
+			if ( pts[indC].GetX( ) >= xmax )
 			{
-				xmax = pts[indC].GetX();
+				xmax = pts[indC].GetX( );
 			}
-			else if (pts[indA].GetX() <= pts[indB].GetX())
+			else if ( pts[indA].GetX( ) <= pts[indB].GetX( ) )
 			{
 				xmaxHit = true;
 			}
 		}
 		else
 		{
-			if (pts[indC].GetX() >= xmax)
+			if ( pts[indC].GetX( ) >= xmax )
 			{
 				return false;
 			}
 		}
 		if (!yminHit)
 		{
-			if (pts[indC].GetY() <= ymin)
+			if ( pts[indC].GetY() <= ymin )
 			{
-				ymin = pts[indC].GetY();
+				ymin = pts[indC].GetY( );
 			}
-			else if (pts[indA].GetY() >= pts[indB].GetY())
+			else if ( pts[indA].GetY( ) >= pts[indB].GetY( ) )
 			{
 				yminHit = true;
 			}
 		}
 		else
 		{
-			if (pts[indC].GetY() <= ymin)
+			if ( pts[indC].GetY() <= ymin )
 			{
 				return false;
 			}
 		}
-		if (!ymaxHit)
+		if ( !ymaxHit )
 		{
-			if (pts[indC].GetY() >= ymax)
+			if ( pts[indC].GetY() >= ymax )
 			{
-				ymax = pts[indC].GetY();
+				ymax = pts[indC].GetY( );
 			}
-			else if (pts[indA].GetY() <= pts[indB].GetY())
+			else if ( pts[indA].GetY( ) <= pts[indB].GetY( ) )
 			{
 				ymaxHit = true;
 			}
 		}
 		else
 		{
-			if (pts[indC].GetY() >= ymax)
+			if ( pts[indC].GetY( ) >= ymax )
 			{
 				return false;
 			}
@@ -275,27 +287,28 @@ bool Polygone::IsConvex ( ) const
         }
     }
 
-	for (indA; indA < nbPoints; indA++)
+	// Tout les extremums ont deja ete verifies
+	for ( indA; indA < nbPoints; indA++ )
 	{
-		indB = (indA + 1) % nbPoints;				// Point suivant
-		indC = (indB + 1) % nbPoints;				// Point suivant le suivant
+		indB = ( indA + 1 ) % nbPoints;				// Point suivant
+		indC = ( indB + 1 ) % nbPoints;				// Point suivant le suivant
 
-		BAx = pts.at(indA).GetX() - pts.at(indB).GetX();
-		BAy = pts.at(indA).GetY() - pts.at(indB).GetY();
-		BCx = pts.at(indC).GetX() - pts.at(indB).GetX();
-		BCy = pts.at(indC).GetY() - pts.at(indB).GetY();
+		BAx = pts.at( indA ).GetX( ) - pts.at(indB).GetX( );
+		BAy = pts.at( indA ).GetY( ) - pts.at(indB).GetY( );
+		BCx = pts.at( indC ).GetX( ) - pts.at(indB).GetX( );
+		BCy = pts.at( indC ).GetY( ) - pts.at(indB).GetY( );
 
-		crossProduct = (BAx * BCy - BAy * BCx);
+		crossProduct = ( BAx * BCy - BAy * BCx );
 
-		if (crossProduct < 0)
+		if ( crossProduct < 0 )
 		{
 			negative = true;
 		}
-		else if (crossProduct > 0)
+		else if ( crossProduct > 0 )
 		{
 			positive = true;
 		}
-		if (negative && positive)
+		if ( negative && positive )
 		{
 			return false;
 		}
@@ -313,50 +326,40 @@ Polygone & Polygone::operator= ( const Polygone & unPolygone )
 		points = unPolygone.points;
     }
     return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Polygone::Polygone ( const Polygone & unPolygone )
-// Algorithme :
-//
+Polygone::Polygone ( const Polygone & unPolygone ) : SingleObject( )
+// Algorithme :	Utilisation du constructeur de copie de SingleObject.
 {
-    points = unPolygone.points;
+	points = unPolygone.points;
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Polygone>" << endl;
 #endif
-} //----- Fin de Polygone (constructeur de copie)
+}	//----- Fin de Polygone (constructeur de copie)
 
-Polygone::Polygone ( const std::vector<Point> & _points ) : SingleObject( _points )
-// Algorithme :
-//
+Polygone::Polygone ( const Sommets& pts ) : SingleObject( pts )
+// Algorithme :	Utilisation du constructeur de SingleObject.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Polygone>" << endl;
 #endif
-} //----- Fin de Polygone
+}	//----- Fin de Polygone
 
 Polygone::Polygone ( )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur par defaut de SingleObject.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Polygone>" << endl;
 #endif
-} //----- Fin de Polygone
+}	//----- Fin de Polygone
 
 Polygone::~Polygone ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Polygone>" << endl;
 #endif
-} //----- Fin de ~Polygone
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique
+}	//----- Fin de ~Polygone

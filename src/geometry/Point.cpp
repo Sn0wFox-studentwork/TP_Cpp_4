@@ -8,34 +8,20 @@
 //---------- Réalisation de la classe <Point> (fichier Point.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
-
-//-------------------------------------------------------- Include système
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Point.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type Point::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 void Point::Move( int dx, int dy )
+// Algorithme :	Ajout de dx et dy a x et y.
 {
 	x += dx;
 	y += dy;
-}
+}	//----- Fin de Move
 
 //------------------------------------------------- Surcharge d'opérateurs
 Point & Point::operator = ( const Point & unPoint )
@@ -50,55 +36,44 @@ Point & Point::operator = ( const Point & unPoint )
 	return *this;
 }
 
-bool Point::operator==( const Point & unPoint ) const
+bool Point::operator== ( const Point & unPoint ) const
+// Algorithme : Retourne vrai si les points ont les meme corrdonnees.
 {
 	return x == unPoint.x && y == unPoint.y;
-}
+}	//----- Fin de Contains
 
-
-//------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-Point::Point ( const Point & unPoint ) : x(unPoint.x), y(unPoint.y)
-// Algorithme :
-//
+Point::Point ( const Point & unPoint ) : x( unPoint.x ), y( unPoint.y )
+// Algorithme :	Utilisation des constructeurs de copie des entiers.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Point>" << endl;
 #endif
-} //----- Fin de Point (constructeur de copie)
+}	//----- Fin de Point (constructeur de copie)
 
 
 Point::Point ( int ax, int ay ) : x(ax), y(ay)
-// Algorithme :
-//
+// Algorithme :	Utilisation des constructeurs des entiers.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Point>" << endl;
 #endif
-} //----- Fin de Point
+}	//----- Fin de Point
 
 Point::Point ( ) : x( 0 ), y( 0 )
-// Algorithme :
-//
+// Algorithme :	Utilisation des constructeurs de copie des entiers en initialisant a 0 les coordonnees.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Point>" << endl;
 #endif
-} //----- Fin de Point
+}	//----- Fin de Point
 
 Point::~Point ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Point>" << endl;
 #endif
-} //----- Fin de ~Point
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique
+}	//----- Fin de ~Point

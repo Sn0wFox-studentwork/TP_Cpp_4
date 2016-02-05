@@ -10,18 +10,10 @@
 #define POINT_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <iostream>
-
-using namespace std;
-
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Point>
-//
-//
+// Modelise un point en 2D de coordonnees x et y.
 //------------------------------------------------------------------------ 
 
 class Point
@@ -32,86 +24,52 @@ public:
 //----------------------------------------------------- Méthodes publiques
 
 	void Move( int dx, int dy );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	// Mode d'emploi :	Deplace x et y selon dx et dy respectivement.
+	//					La seule limite est l'overflow.
 
-	int GetX( ) const
+	inline int GetX( ) const
+	// Mode d'emploi :	Retourne une copie de la coordonnee selon x du point courant.
 	{
 		return x;
 	}
 
-	int GetY( ) const
+	inline int GetY( ) const
+	// Mode d'emploi :	Retourne une copie de la coordonnee selon x du point courant.
 	{
 		return y;
 	}
 
-
 //------------------------------------------------- Surcharge d'opérateurs
     Point & operator = ( const Point & unPoint );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout
+	//					points similaire a unPoint.
 
 	bool operator== ( const Point& unPoint ) const;
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-
-//------------------------------------------------- Surcharge d'opérateurs
+	// Mode d'emploi :	Retourne vrai si et seulement si le point courant et unPoint ont les meme coordonnees.
+	//					Retourne faux sinon.
 
 //-------------------------------------------- Constructeurs - destructeur
     Point ( const Point & unPoint );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi (constructeur de copie) :	Instancie un nouvel objet pour le rendre en tout point similaire
+	//											a unPoint.
 
-    Point ( int ax, int ay );	// Notes Mehdi : les noms commencant par "_" sont generalement reserves system ;)
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    Point ( int ax, int ay );
+	// Mode d'emploi :	Instancie un nouvel objet dont les coordonnees x et y seront repectivement ax et ay.
 
     Point ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Instancie un nouvel objet dont les coordonnees x et y seront 0 et 0.
 
     virtual ~Point ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Detruit l'objet courant et libere la memoire associee.
+	//					Appele automatiquement.
 
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-private:
-//------------------------------------------------------- Méthodes privées
-
-protected:
 //----------------------------------------------------- Attributs protégés
-    int x;
-    int y;
-
-private:
-//------------------------------------------------------- Attributs privés
-
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privées
-
-//----------------------------------------------------------- Types privés
+    int x;		// Cordonees selon x
+    int y;		// Cordonees selon y
 
 };
-
-//----------------------------------------- Types dépendants de <Point>
 
 #endif // POINT_H

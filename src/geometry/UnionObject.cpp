@@ -10,63 +10,67 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
+using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "UnionObject.h"
 
 //------------------------------------------------------------- Constantes
-const std::string UnionObject::LABEL = "OR";
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
+const string UnionObject::LABEL = "OR";
 
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 bool UnionObject::Contains ( const Point & point )
-// Algorithme :
-//
+// Algorithme :	Retourne vrai des que Point appartient a un des composants.
+//				Retourne faux sinon.
 {
-    for (Object* o : components)
+    for ( Object* o : components )
     {
-        if (o->Contains(point))
+        if ( o->Contains( point ) )
         {
             return true;
         }
     }
     return false;
-} //----- Fin de Méthode
+}	//----- Fin de Contains
 
 
 //------------------------------------------------- Surcharge d'opérateurs
 UnionObject & UnionObject::operator= ( const UnionObject & unUnionObject )
 // Algorithme :	Si on n'est pas en train de faire unUnionObject = unUnionObject, on "copie" tout les champs :
-//				on les modifie pour qu'ils soient comme ceux de unUnionObject
+//				on les modifie pour qu'ils soient comme ceux de unUnionObject.
+//				On libere la memoire des anciens composants de l'objet courant,
+//				puis on copie en profondeur ceux de unUnionObject.
 {
     if ( this != &unUnionObject )
     {
+		for ( Object * o : components )
+		{
+			delete o;
+		}
+		components.resize( 0 );
+		for ( Object * o : unUnionObject.components )
+		{
+			components.push_back( o->Clone( ) );
+		}
     }
     return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-UnionObject::UnionObject ( const UnionObject & unUnionObject ) : CompositeObject::CompositeObject( unUnionObject )
-// Algorithme :
-//
+UnionObject::UnionObject ( const UnionObject & unUnionObject ) : CompositeObject( unUnionObject )
+// Algorithme :	Utilisation du constructeur de copie de CompositeObject.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <UnionObject>" << endl;
 #endif
 } //----- Fin de UnionObject (constructeur de copie)
 
-UnionObject::UnionObject ( const std::vector<Object *> & _components ) : CompositeObject( _components )
-// Algorithme :
-//
+UnionObject::UnionObject ( const Components& c ) : CompositeObject( c )
+// Algorithme :	Utilisation du constructeur de CompositeObject.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <UnionObject>" << endl;
@@ -74,27 +78,19 @@ UnionObject::UnionObject ( const std::vector<Object *> & _components ) : Composi
 }
 
 UnionObject::UnionObject ( )
-// Algorithme :
-//
+// Algorithme :	Utilisation du constructeur par defaut de CompositeObject.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <UnionObject>" << endl;
 #endif
-} //----- Fin de UnionObject
+}	//----- Fin de UnionObject
 
 
 UnionObject::~UnionObject ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire associee (celle de chaque composant),
+//				via le destructeur de CompositeObject appele automatiquement.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <UnionObject>" << endl;
 #endif
-} //----- Fin de ~UnionObject
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+}	//----- Fin de ~UnionObject

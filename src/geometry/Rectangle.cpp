@@ -12,24 +12,20 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 
+using namespace std;
+
 //------------------------------------------------------ Include personnel
 #include "Rectangle.h"
 
 //------------------------------------------------------------- Constantes
-const std::string Rectangle::LABEL = "R";
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
+const string Rectangle::LABEL = "R";
 
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 bool Rectangle::Contains ( const Point & point )
 // Algorithme : On vérifie que le point se trouve entre les deux coins du rectangle
-// NOTE : Cet algo marche uniquement avec les rectangles parallèles à l'axe x, y
+//				NOTE : Cet algo marche uniquement avec les rectangles parallèles à l'axe x, y
 {
     int xmax = points.at( 0 ).GetX( ); // Coin GAUCHE-HAUT
     int ymax = points.at( 0 ).GetY( );
@@ -48,54 +44,45 @@ Rectangle & Rectangle::operator= ( const Rectangle & unRectangle )
 {
     if ( this != &unRectangle )
     {
+		points = unRectangle.points;
     }
     return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Rectangle::Rectangle ( const Rectangle & unRectangle )
-// Algorithme :
-//
+Rectangle::Rectangle ( const Rectangle & unRectangle ) : Polygone( )
+// Algorithme :	Utilisation du constructeur de copie de Polygone.
 {
     points = unRectangle.points;
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Rectangle>" << endl;
 #endif
-} //----- Fin de Rectangle (constructeur de copie)
+}	//----- Fin de Rectangle (constructeur de copie)
 
 
-Rectangle::Rectangle ( const std::vector<Point> & _points ) : Polygone( _points )
-// Algorithme :
-//
+Rectangle::Rectangle ( const Sommets& pts ) : Polygone( pts )
+// Algorithme :	Utilisation du constructeur de Polygone.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif
-} //----- Fin de Rectangle
+}	//----- Fin de Rectangle
 
-Rectangle::Rectangle ( )
-// Algorithme :
-//
+Rectangle::Rectangle ( ) : Polygone( )
+// Algorithme :	Utilisation du constructeur par defaut de Polygone.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif
-} //----- Fin de Rectangle
+}	//----- Fin de Rectangle
 
 
 Rectangle::~Rectangle ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Rectangle>" << endl;
 #endif
-} //----- Fin de ~Rectangle
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
+	// Pas d'allocation dynamique
+}	//----- Fin de ~Rectangle

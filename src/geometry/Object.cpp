@@ -9,22 +9,10 @@
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
-
 //------------------------------------------------------ Include personnel
 #include "Object.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
-
-//----------------------------------------------------- Méthodes publiques
 
 //------------------------------------------------- Surcharge d'opérateurs
 Object & Object::operator= ( const Object & unObject )
@@ -33,40 +21,39 @@ Object & Object::operator= ( const Object & unObject )
 {
     if ( this != &unObject )
     {
+		// Rien a faire ici
     }
     return *this;
-} //----- Fin de operator =
+}	//----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
 Object::Object ( const Object & unObject )
-// Algorithme :
-//
+// Algorithme :	Rien a faire ici.
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Object>" << endl;
 #endif
-} //----- Fin de Object (constructeur de copie)
+}	//----- Fin de Object (constructeur de copie)
 
 
 Object::Object ( )
-// Algorithme :
-//
+// Algorithme :	Rien a faire ici.
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Object>" << endl;
 #endif
-} //----- Fin de Object
+}	//----- Fin de Object
 
 
 Object::~Object ( )
-// Algorithme :
-//
+// Algorithme :	Liberation de la memoire associee a l'objet courant.
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Object>" << endl;
 #endif
-} //----- Fin de ~Object
+	// Pas d'allocation dynamique
+}	//----- Fin de ~Object
 
 
 //------------------------------------------------------------------ PRIVE

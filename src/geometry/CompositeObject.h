@@ -11,20 +11,20 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <vector>
-#include <iostream>
 #include <string>
-#include <sstream>
 
 #include "Object.h"
 
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
+//------------------------------------------------------------------ Types
+typedef std::vector<Object*> Components;
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <CompositeObject>
-//
-//
+// Modelise une forme geometrique constituee d'un ensemble d'Objets.
+// Permet la mise en place du composite pattern.
+// L'ensemble d'objets servant a la construction d'un CompositeObject
+// sera copie et le CompositeObject n'aura plus acces aux composants
+// originaux.
 //------------------------------------------------------------------------ 
 
 class CompositeObject : public Object
@@ -34,88 +34,63 @@ class CompositeObject : public Object
 public:
 //----------------------------------------------------- Méthodes publiques
     virtual bool Contains ( const Point & point ) = 0;
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Retourne vrai si et seulement si le Point point est a l'interieur
+	//					de l'objet courant.
+	//					Plus de precisions dans les definitions presentes dans les classes heritant de CompositeObject.
 
-	void Move( int dx, int dy );
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
+	virtual Object* Clone ( ) const = 0;
+	// Mode d'emploi :	Retourne un pointeur vers une copie de l'objet courant allouee dynamiquement.
+	// Contrat :	La destruction du pointeur retourne est a la charge de l'utilisateur.
 
-	virtual string ToString ( ) const
-	{
-		ostringstream os;
-		os << getLabel( ) << " {" << "\n";
-		for ( Object* o : components )
-		{
-			os << o->ToString( ) << "\n";
-		}
-		os << "}";
+	virtual std::string GetLabel ( ) const = 0;
+    // Mode d'emploi :	Retourne une string permettant d'identifier la nature de l'objet courant.
 
-		return os.str( );
-	}
+	void Move ( int dx, int dy );
+	// Mode d'emploi :	Deplace l'objet courant selon le vecteur (dx, dy) : deplace tout ses composants
+	//					selon le vecteur (dx, dy).
+	//					La seule limite reste celle de l'overflow.
 
+	virtual std::string ToString ( ) const;
+	// Mode d'emploi :	Retourne une representation de l'objet courant sous forme de string.
+	//					Il s'agit du label de l'objet suivit d'un espace et d'une accolade ouvrante,
+	//					puis sur chaque nouvelle ligne la description d'un des composants donnee par
+	//					leur methode ToString( ). Enfin une accolade fermante sur une derniere ligne.
+	//					Les sauts de ligne se font par \n.
+	//					Pas de saut de ligne final.
 
 //------------------------------------------------- Surcharge d'opérateurs
     CompositeObject & operator= ( const CompositeObject & unCompositeObject );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
+	// Mode d'emploi :	Reaffecte l'objet courant pour le rendre en tout
+	//					points similaire a unCompositeObject.
+	//					Libere la memoire des composants de l'objet courant,
+	//					redimensionne components a une taille correcte et
+	//					copie en profondeur les composants de unCompositeObject.
 
 //-------------------------------------------- Constructeurs - destructeur
     CompositeObject ( const CompositeObject & unCompositeObject );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi (constructeur de copie) :	Instancie un nouvel objet pour le rendre en tout point similaire
+	//											a unCompositeObject.
+	//											Les composants de unCompositeObject seront copies en profondeur.
 
-    CompositeObject ( const std::vector<Object *> & components );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    CompositeObject ( const Components& components );
+	// Mode d'emploi :	Instancie un nouvel objet dont les composants seront des copies en profondeur de components.
+	//					Les composants ne seront pas modifiables par la suite.
 
     CompositeObject ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Instancie un nouvel objet compose d'aucun composants.
+	//					Les composants ne seront pas modifiables par la suite.
 
     virtual ~CompositeObject ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+	// Mode d'emploi :	Detruit l'objet courant et libere la memoire associee.
+	//					Appele automatiquement.
 
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-//----------------------------------------------------- Méthodes protégées
-
-private:
-//------------------------------------------------------- Méthodes privées
-
-protected:
 //----------------------------------------------------- Attributs protégés
-    std::vector<Object *> components;       // Object etant une classe virtuelle,
-											// nous somme obliges de passer par une liste de pointeurs
-
-private:
-//------------------------------------------------------- Attributs privés
-
-//---------------------------------------------------------- Classes amies
-
-//-------------------------------------------------------- Classes privées
-
-//----------------------------------------------------------- Types privés
-
+	Components components;      // Liste des composants de l'objet
+								// Object etant une classe virtuelle,
+								// nous somme obliges de passer par une liste de pointeurs
 };
-
-//----------------------------------------- Types dépendants de <CompositeObject>
 
 #endif // COMPOSITE_OBJECT_H
