@@ -22,14 +22,17 @@
 OSUNIX = unix
 OSWIN = win
 OS = $(OSUNIX)
+CD =
+DEL =
+DELOPT =
 CC = g++
 MAINFILE = main
 OFILE = o
 SRCFILE = cpp
 HEADFILE = h
-EXEFILE = exe
+EXEFILE =
 
-DEBUG = yes
+DEBUG = no
 
 SRCPATH = src/
 SRC = $(wildcard $(SRCPATH)*/*.$(SRCFILE))
@@ -37,25 +40,15 @@ OBJPATH = bin/
 TEMPOBJ = $(SRC:.$(SRCFILE)=.$(OFILE))
 OBJ = $(TEMPOBJ:$(SRCPATH)%=$(OBJPATH)%)
 
-EXEPATH =
-
-#Ajout de l'extension .exe selon l'OS----------------------------
-ifeq ($(OS),$(OSWIN))
-	EXE1 = $(EXEPATH)shapes.$(EXEFILE)
-else ifeq ($(OS),$(OSUNIX))
-    EXE1 = $(EXEPATH)shapes
-else
-	echo Unknown OS
-	exit 1
-endif
-
+EXEPATH = $(OBJPATH)
+EXE1 = $(EXEPATH)shapes$(EXEFILE)
 EXE2 =
 EXECS = $(EXE1) $(EXE2)
 #---------------------------------------------------------------
 
 #Variables pour les options de compilation----------------------
 W = -W
-WA = -Wall -Wextra
+WA = -Wall
 STDLIB = -std=c++11
 GGDB = -ggdb
 
@@ -64,12 +57,12 @@ CFLAGS =
 
 #Compilation conditionnelle-------------------------------------
 ifeq ($(OS),$(OSWIN))
-	DEL = del
-	DELOPT = /s
+	DEL += del
+	DELOPT += /s
 	CD = cd
 else ifeq ($(OS),$(OSUNIX))
-	DEL = rm
-	DELOPT = -rf
+	DEL += rm
+	DELOPT += -f
 	CD = cd
 else
 	echo Unknown OS
@@ -137,10 +130,19 @@ $(OBJPATH)managers/%.$(OFILE) : $(SRCPATH)managers/%.$(SRCFILE) $(SRCPATH)manage
 
 #Regles de nettoyage
 clean:
-	$(CD) $(OBJPATH) && $(DEL) $(DELOPT) */*.$(OFILE)
+ifeq ($(OS),$(OSUNIX))
+	find . -name '*.$(OFILE)' -exec $(DEL) $(DELOPT) {} +
+else
+	$(CD) $(OBJPATH) && $(DEL) $(DELOPT) *.$(OFILE)
+endif
 	
-propre: clean
+mrproper: clean
+ifeq ($(OS),$(OSUNIX))
+	find . -name $(notdir $(EXECS)) -exec $(DEL) $(DELOPT) {} +
+else
 	$(DEL) $(DELOPT) $(notdir $(EXECS))
+endif
+	
 
 
 #Regles de debuggage
